@@ -1,0 +1,83 @@
+:root {
+    --navy: #003049;
+    --red: #d62828;
+    --orange: #f77f00;
+    --yellow: #fcbf49;
+    --grey: #8d99ae;
+    --white: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0; 
+}
+a {
+  text-decoration: none; 
+}
+input {
+  font: 16px/26px "Raleway", sans-serif; 
+}
+body {
+  color: var(--navy);
+  background-color: var(--navy);
+  font: 16px/26px "Raleway", sans-serif; }
+
+.form-wrap {
+    background-color: var(--white);
+    width: 320px;
+    margin: 3em auto;
+}
+.form-wrap .tabs {
+    overflow: hidden; 
+}
+.form-wrap .tabs h3 {
+    float: left;
+    width: 50%; 
+}
+.form-wrap .tabs h3 a {
+    padding: 0.5em 0;
+    text-align: center;
+    font-weight: 400;
+    background-color: var(--grey);
+    display: block;
+    color: var(--navy); 
+}
+.form-wrap .tabs h3 a.active {
+    background-color: var(--white); 
+}
+.form-wrap .tabs-content {
+    padding: 1.5em; 
+}
+.form-wrap .tabs-content div[id$="tab-content"] {
+    display: none; 
+}
+.form-wrap .tabs-content .active {
+    display: block !important; 
+}
+.form-wrap form .input {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    color: inherit;
+    font-family: inherit;
+    padding: .8em 0 10px .8em;
+    border: 1px solid var(--orange);
+    outline: 0;
+    display: inline-block;
+    margin: 0 0 .8em 0;
+    padding-right: 2em;
+    width: 100%; 
+}
+.form-wrap form .button {
+    width: 100%;
+    padding: .8em 0 10px .8em;
+    background-color: var(--orange);
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    text-transform: uppercase; 
+}
+.form-wrap form .button:hover {
+    background-color: var(--yellow); 
+}
+
+
