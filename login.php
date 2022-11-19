@@ -1,26 +1,39 @@
 <?php 
-    include("connect.php");
     session_start();
+
+    include("connect.php");
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $user_or_email = $_POST['user_or_email'];
+        $password = $_POST['password'];
     
-    if(isset($_POST['submit'])) {
-        $username = mysqli_real_escape_string($db, $_POST['username']);
-        $password = mysqli_real_escape_string($db, $_POST['password']); 
-      
-        $_SESSION['username'] = $username;
-        $_SESSION['password'] = $password;
-        $sql = "SELECT * FROM USER WHERE username = '$username' AND password = '$password'";
-        $result = mysqli_query($conn, $sql);
-        $count = mysqli_num_rows($result);
-      
-      // If result matched $myusername and $mypassword, table row must be 1 row
-	if($count == 1) {	
-        header('Location: test.php');
-        die;
-    } 
-    else {
-        echo  "Your Login Name or Password is invalid";
-    }
-}   
+        if(!empty($user_or_email) && !empty($password)){
+            
+            $query = "
+                SELECT * 
+                FROM USER 
+                WHERE (
+                    username = '$user_or_email'
+                    OR email_address = '$user_or_email'
+                );";
+            
+            $result = mysqli_query($conn, $query);
+            
+            if($result && mysqli_num_rows($result) > 0){
+                $user_data = mysqli_fetch_assoc($result);
+                
+                if($user_data['password'] == $password){
+                    
+                    $_SESSION['username'] = $user_data['username'];
+                    header("Location: index.php");
+                    die;
+                }
+            }
+        }
+        else {
+            echo "Please give valid input.";
+        }
+    }    
 ?> 
 
 <!DOCTYPE html>
@@ -40,10 +53,10 @@
         <div class="tabs-content">
           <div id="login-tab-content" class="active">
             <form class="login-form" action="" method="post">
-              <input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email or Username">
-              <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
+              <input name="user_or_email" type="text" class="input" id="user_login" autocomplete="off" placeholder="Email or Username">
+              <input name="password" type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
     
-              <input type="submit" class="button" value="Login">
+              <input name="submit" type="submit" class="button" value="Login">
             </form><!--.login-form-->
           </div><!--.login-tab-content-->
         </div><!--.tabs-content-->
