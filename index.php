@@ -7,7 +7,11 @@
     </head>
     <body>
         <?php
-        echo file_get_contents("login.html");
+        header("Location: signup.php");
+        die;
         ?>
     </body>
 </html>
+
+
+
