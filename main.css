@@ -60,7 +60,7 @@ body {
     color: inherit;
     font-family: inherit;
     padding: .8em 0 10px .8em;
-    border: 1px solid var(--orange);
+    border: 1px solid var(--navy);
     outline: 0;
     display: inline-block;
     margin: 0 0 .8em 0;
@@ -70,14 +70,72 @@ body {
 .form-wrap form .button {
     width: 100%;
     padding: .8em 0 10px .8em;
-    background-color: var(--orange);
+    background-color: var(--red);
     border: none;
     color: var(--white);
     cursor: pointer;
     text-transform: uppercase; 
 }
 .form-wrap form .button:hover {
-    background-color: var(--yellow); 
+    background-color: var(--orange); 
 }
 
+.button {
+    padding: 10px;
+    background-color: var(--red);
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    text-transform: uppercase; 
+}
+
+.account-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 30px;
+}
+
+.welcome-label-div {
+  width: 100%;
+  margin-top: 5%;
+  position: absolute;
+}
+
+.welcome-label {
+  color: var(--white);
+  font: 70px/26px "Raleway", sans-serif; 
+  text-align: left;
+  padding: 5%;
+  text-transform: uppercase;
+}
+
+.main-page-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+  align-items: center;
+}
+
+.mpc-el, .mpc-buttons {
+  text-align: center;
+}
+
+.search-form {
+  padding: 10px;
+}
+
+.ll-box {
+  padding: 10px;
+}
+
+.scroll {
+  height: 130px; 
+  width: 100%;
+  overflow-y: scroll;  
+  border: 1px solid var(--white);
+}
+
+.log-scr {
+  color: var(--white);
+}
 

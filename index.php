@@ -1,26 +1,15 @@
 <?php
     session_start();
+
+    include("functions.php");
     include("connect.php");
 
-    $user_data = NULL;
+    $user_data = getUserData($conn);
 
-    if(isset($_SESSION['username'])) {
-		$user = $_SESSION['username'];
-		$query = "
-            SELECT *
-            FROM USER
-            WHERE username = '$user'";
-
-		$result = mysqli_query($conn,$query);
-		if($result && mysqli_num_rows($result) > 0) {
-			$user_data = mysqli_fetch_assoc($result);
-		}
-	}
-    if($user_data == NULL){
-        header("Location: login.php");
+    if($user_data['user_type'] == 'MEMBER'){
+        header('Location: member/memberView.php');
         die;
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +20,7 @@
 <body>
 
 	<a href="logout.php">Logout</a>
-	<h1>This is the index page</h1>
+	<h1>You shouldn't be seeing this page</h1>
 
 	<br>
 	Hello, <?php echo $user_data['username']; ?>
