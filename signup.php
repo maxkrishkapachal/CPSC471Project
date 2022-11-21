@@ -9,6 +9,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = $_POST['email_address'];
 
     if(!empty($username) && !empty($password) && !empty($email)){
+        checkTable($conn, 'USER');
         $query = "INSERT INTO USER (username, email_address, password) VALUES 
             ('$username', '$email', '$password')";
 
