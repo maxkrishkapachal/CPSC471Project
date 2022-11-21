@@ -9,7 +9,7 @@
         $remarks = $_POST['remarks'];
         $rating = $_POST['rating'];
         $date = new DateTime();
-        $id = createID('LOG');
+        //$id = createID('LOG');
     
         
     }    
@@ -18,7 +18,7 @@
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <link rel="stylesheet" href="main.css" media="screen">
+  <link rel="stylesheet" href="../main.css" media="screen">
   <head>
         <meta charset="utf-8">
         <title></title>
@@ -29,7 +29,7 @@
         <div class="tabs-content">
           <div class="active">
             <form class="add-log-form" action="" method="post">
-                <input name="media_name" type="text" class="input" id="media_name" autocomplete="off" placeholder="Title">
+              <input name="media_name" type="text" class="input" id="media_name" autocomplete="off" placeholder="Title">
               <input name="remarks" type="text" class="input" id="log_remarks" autocomplete="off" placeholder="What did you think?">
               <input name="rating" type="number" class="input" id="log_rating" autocomplete="off" placeholder="?/10">
     

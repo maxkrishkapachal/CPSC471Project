@@ -38,9 +38,9 @@ body {
     padding: 0.5em 0;
     text-align: center;
     font-weight: 400;
+    color: var(--navy);
     background-color: var(--grey);
     display: block;
-    color: var(--navy); 
 }
 .form-wrap .tabs h3 a.active {
     background-color: var(--white); 
@@ -80,13 +80,16 @@ body {
     background-color: var(--orange); 
 }
 
-.button {
+.btn {
     padding: 10px;
     background-color: var(--red);
     border: none;
-    color: var(--white);
     cursor: pointer;
     text-transform: uppercase; 
+}
+
+.btn a {
+    color: var(--white);
 }
 
 .account-buttons {
@@ -97,8 +100,9 @@ body {
 
 .welcome-label-div {
   width: 100%;
-  margin-top: 5%;
+  margin-top: 4%;
   position: absolute;
+  z-index: -1;
 }
 
 .welcome-label {
@@ -107,6 +111,7 @@ body {
   text-align: left;
   padding: 5%;
   text-transform: uppercase;
+  z-index: -1;
 }
 
 .main-page-container {

@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <link rel="stylesheet" href="login-signup.css" media="screen">
+  <link rel="stylesheet" href="main.css" media="screen">
   <head>
         <meta charset="utf-8">
         <title></title>

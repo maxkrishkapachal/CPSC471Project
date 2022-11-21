@@ -6,11 +6,6 @@
 
     $user_data = getUserData($conn);
 
-    if(isset($_POST['logout-button'])){
-        header('Location: logout.php');
-        die;
-    }
-
     if(isset($_POST['add-log-button'])){
         header('Location: addLog.php');
         die;
@@ -51,8 +46,8 @@
         -->
         <div class='account'>
             <div class='account-buttons'>
-                <input name="edit-account-button" type="submit" class="button" value="Edit Account">
-                <input name="logout-button" type="submit" class="button" value="Logout">
+                <button class='btn'>Edit Account</button>
+                <button class='btn'><a href='../logout.php'>Logout</a></button>
             </div>
             <div class='welcome-label-div'>
                 <label class='welcome-label'>
@@ -62,15 +57,14 @@
         </div>
         <div class='main-page-container'>   
             <div class='log ll-box'> 
-                <form class='mpc-buttons' method='post'>
-                    <input name="add-log-button" type="submit" class="button" value="Add Log">
-                    <input name="edit-log-button" type="submit" class="button" value="Edit Log">
-                    <input name="delete-log-button" type="submit" class="button" value="Delete Log">
-                </form>
+                <div class='mpc-buttons'>
+                    <button class='btn'><a href='addLog.php'>Add Log</a></button>
+                    <button class='btn'><a href=''>Edit Log</a></button>
+                    <button class='btn'><a href=''>Delete Log</a></button>
+                </div>
                 <form class='log mpc-el search-form' id="form" role="search">
-                    <input class='log mpc-el' type="search" id="query" name="log-search" placeholder="Search Logs...">
-                    <input name="log-search-button" type="submit" class="button" value="Search">
-                    
+                    <input class='log mpc-el' type="search" id="query" name="log-search"  placeholder="Search Logs...">
+                    <button class='log mpc-el btn'>Search</button>
                 </form> 
                 <div class='scroll'>
                     <div class='log-scr'>
@@ -81,14 +75,14 @@
             </div>
             <div class='list ll-box'>
                 <div class='mpc-buttons'>
-                    <input name="add-list-button" type="submit" class="button" value="Add List">
-                    <input name="edit-list-button" type="submit" class="button" value="Edit List">
-                    <input name="add-to-list-button" type="submit" class="button" value="Add To List">
-                    <input name="delete-list-button" type="submit" class="button" value="Delete Lists">
+                    <button class='list mpc-el btn'><a href=''>Add List</a></button>
+                    <button class='list mpc-el btn'><a href=''>Edit List</a></button>
+                    <button class='list mpc-el btn'><a href=''>Add To List</a></button>
+                    <button class='list mpc-el btn'><a href=''>Delete Lists</a></button>
                 </div>
                 <form class='list mpc-el search-form' id="form" role="search">
-                    <input class='list mpc-el' type="search" id="query" name="list-search" placeholder="Search Lists...">
-                    <input name="list-search-button" type="submit" class="button" value="Search">
+                    <input class='list mpc-el' type="search" id="query" name="list-search"  placeholder="Search Lists...">
+                    <button class='list mpc-el btn'>Search</button>
                 </form>
                 <div class='scroll'>
                     <div class='log-scr'>
