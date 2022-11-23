@@ -54,13 +54,13 @@
         <div class="tabs-content">
           <div id="login-tab-content" class="active">
             <form class="login-form" action="" method="post">
-              <input name="user_or_email" type="text" class="input" id="user_login" autocomplete="off" placeholder="Email or Username">
-              <input name="password" type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
+              <input name="user_or_email" type="text" class="input" id="user_login" autocomplete="off" placeholder="Email or Username*">
+              <input name="password" type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password*">
     
               <input name="submit" type="submit" class="button" value="Login">
-            </form><!--.login-form-->
-          </div><!--.login-tab-content-->
-        </div><!--.tabs-content-->
-      </div><!--.form-wrap-->
+            </form>
+          </div>
+        </div>
+      </div>
     </body>
 </html>

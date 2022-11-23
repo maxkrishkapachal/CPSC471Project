@@ -6,10 +6,8 @@
 
     $user_data = getUserData($conn);
 
-    if($user_data['user_type'] == 'MEMBER'){
-        header('Location: ../acc/home.php');
-        die;
-    }
+    header('Location: ../acc/home.php');
+    die;
 ?>
 
 <!DOCTYPE html>
