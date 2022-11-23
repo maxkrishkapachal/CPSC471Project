@@ -14,7 +14,7 @@
             }
         }
         else {
-            header("Location: login.php");
+            header("Location: ../acc/login.php");
             die;
         }
     }
