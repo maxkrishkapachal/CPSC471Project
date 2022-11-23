@@ -1,8 +1,8 @@
 <?php 
     session_start();
 
-    include("../connect.php");
-    include('../functions.php');
+    include("../gen/connect.php");
+    include('../gen/functions.php');
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $media = $_POST['media_name'];
@@ -18,7 +18,7 @@
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <link rel="stylesheet" href="../main.css" media="screen">
+  <link rel="stylesheet" href="../gen/main.css" media="screen">
   <head>
         <meta charset="utf-8">
         <title></title>

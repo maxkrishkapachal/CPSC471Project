@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include("connect.php");
+include("../gen/connect.php");
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $username = $_POST['username'];
@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <link rel="stylesheet" href="main.css" media="screen">
+  <link rel="stylesheet" href="../gen/main.css" media="screen">
   <head>
         <meta charset="utf-8">
         <title></title>

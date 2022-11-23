@@ -1,21 +1,16 @@
 <?php
     session_start();
 
-    include("../functions.php");
-    include("../connect.php");
+    include("../gen/functions.php");
+    include("../gen/connect.php");
 
     $user_data = getUserData($conn);
-
-    if(isset($_POST['add-log-button'])){
-        header('Location: addLog.php');
-        die;
-    }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <link rel="stylesheet" href="../main.css" media="screen">
+    <link rel="stylesheet" href="../gen/main.css" media="screen">
     <head>
         <meta charset="utf-8">
     </head>
@@ -47,7 +42,7 @@
         <div class='account'>
             <div class='account-buttons'>
                 <button class='btn'>Edit Account</button>
-                <button class='btn'><a href='../logout.php'>Logout</a></button>
+                <button class='btn'><a href='logout.php'>Logout</a></button>
             </div>
             <div class='welcome-label-div'>
                 <label class='welcome-label'>
@@ -58,7 +53,7 @@
         <div class='main-page-container'>   
             <div class='log ll-box'> 
                 <div class='mpc-buttons'>
-                    <button class='btn'><a href='addLog.php'>Add Log</a></button>
+                    <button class='btn'><a href='../log/addLog.php'>Add Log</a></button>
                     <button class='btn'><a href=''>Edit Log</a></button>
                     <button class='btn'><a href=''>Delete Log</a></button>
                 </div>

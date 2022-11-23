@@ -1,14 +1,14 @@
 <?php 
     session_start();
 
-    include("connect.php");
+    include("../gen/connect.php");
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $user_or_email = $_POST['user_or_email'];
         $password = $_POST['password'];
     
         if(!empty($user_or_email) && !empty($password)){
-            
+            checkTable($conn, "USER");
             $query = "
                 SELECT * 
                 FROM USER 
@@ -25,7 +25,7 @@
                 if($user_data['password'] == $password){
                     
                     $_SESSION['username'] = $user_data['username'];
-                    header("Location: member/memberView.php");
+                    header("Location: home.php");
                     die;
                 }
             }
@@ -38,7 +38,7 @@
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <link rel="stylesheet" href="main.css" media="screen">
+  <link rel="stylesheet" href="../gen/main.css" media="screen">
   <head>
         <meta charset="utf-8">
         <title></title>

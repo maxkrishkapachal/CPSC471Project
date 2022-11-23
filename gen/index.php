@@ -7,7 +7,7 @@
     $user_data = getUserData($conn);
 
     if($user_data['user_type'] == 'MEMBER'){
-        header('Location: member/memberView.php');
+        header('Location: ../acc/home.php');
         die;
     }
 ?>
@@ -19,7 +19,7 @@
 </head>
 <body>
 
-	<a href="logout.php">Logout</a>
+	<a href="../acc/logout.php">Logout</a>
 	<h1>You shouldn't be seeing this page</h1>
 
 	<br>
