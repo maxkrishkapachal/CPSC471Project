@@ -13,16 +13,31 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(!empty($username) && !empty($password) && !empty($email)){
         checkTable($conn, 'USER');
 
-        if(!empty($code) && checkAdminCode($code))
-          $query = "INSERT INTO USER (username, email_address, password, user_type) VALUES 
-            ('$username', '$email', '$password', 'ADMIN')";
-        else 
-          $query = "INSERT INTO USER (username, email_address, password) VALUES 
-            ('$username', '$email', '$password')";
+        $query = "
+            SELECT * 
+            FROM USER 
+            WHERE (
+                username = '$user_or_email'
+                OR email_address = '$user_or_email'
+            );";
+            
+        $result = mysqli_query($conn, $query);
+        
+        if($result && mysqli_num_rows($result) > 0)
+            echo "Username or email already in use";
 
-        mysqli_query($conn, $query);
-        header("Location: login.php");
-        die;
+        else {
+            if(!empty($code) && checkAdminCode($code))
+              $query = "INSERT INTO USER (username, email_address, password, user_type) VALUES 
+                ('$username', '$email', '$password', 'ADMIN')";
+            else 
+              $query = "INSERT INTO USER (username, email_address, password) VALUES 
+                ('$username', '$email', '$password')";
+
+            mysqli_query($conn, $query);
+            header("Location: login.php");
+            die;
+        }
     }
     else {
         echo "Please give valid input.";
@@ -46,21 +61,22 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
       <div class="tabs">
         <h3 class="signup-tab"><a class="active">Sign Up</a></h3>
         <h3 class="login-tab"><a href="login.php">Login</a></h3>
-      </div><!--.tabs-->
+      </div>
   
       <div class="tabs-content">
         <div id="signup-tab-content" class="active">
           <form class="signup-form" action="" method="post">
-            <input name="email_address" type="email" class="input" id="user_email" autocomplete="off" placeholder="Email">
-            <input name="username" type="text" class="input" id="user_name" autocomplete="off" placeholder="Username">
-            <input name="password" type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password">
+            <input name="email_address" type="email" class="input" id="user_email" autocomplete="off" placeholder="Email*">
+            <input name="username" type="text" class="input" id="user_name" autocomplete="off" placeholder="Username*">
+            <input name="password" type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password*">
             <input name="admin_code" type="text" class="input" id="user_code" autocomplete="off" placeholder="Admin Code">
+            
             <input name="submit" type="submit" class="button" value="Sign Up">
-          </form><!--.login-form-->
+          </form>
           
-        </div><!--.signup-tab-content-->
-      </div><!--.tabs-content-->
-    </div><!--.form-wrap-->
+        </div>
+      </div>
+    </div>
   </body>
 </html>
 
