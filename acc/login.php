@@ -2,6 +2,7 @@
     session_start();
 
     include("../gen/connect.php");
+    include("../gen/functions.php");
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $user_or_email = $_POST['user_or_email'];
