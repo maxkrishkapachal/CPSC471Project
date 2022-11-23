@@ -19,135 +19,139 @@
         }
     }
 
-    function createID($type){
-
+    function createID($type, $username){
+        return "$username-$type-" .date("Ymd") . "-" . date("His");
     }
 
     function checkTable($conn, $table){
-        $check = mysqli_query($conn, "SELECT * FROM INFORMATION_SCHEMA.TABLES 
-            WHERE TABLE_NAME = '$table'");
-        if($check == FALSE){
+        $check = mysqli_query($conn, "
+            SELECT *
+            FROM information_schema.TABLES
+            WHERE TABLE_SCHEMA = 'CPSC471'
+            AND TABLE_NAME = '$table';");
+        if($check && mysqli_num_rows($check) == 0){
             $query = NULL;
             switch($table){
                 case "USER":
-                    $query = "CREATE TABLE USER (
-                        'username' TEXT NOT NULL,
-                        'email_address' TEXT NOT NULL,
-                        'password' TEXT NOT NULL,
-                        'name' TEXT NULL DEFAULT NULL,
-                        'bio' TEXT NULL DEFAULT NULL,
-                        'user_type' TEXT NULL DEFAULT 'MEMBER',
-                        PRIMARY KEY ('username', 'email_address')
+                    $query = "CREATE TABLE CPSC471.USER (
+                        `username` VARCHAR(50) NOT NULL,
+                        `email_address` VARCHAR(50) NOT NULL,
+                        `password` TEXT NOT NULL,
+                        `name` TEXT NULL DEFAULT NULL,
+                        `bio` TEXT NULL DEFAULT NULL,
+                        `user_type` TEXT NULL DEFAULT `MEMBER`,
+                        PRIMARY KEY (`username`(50), `email_address`(50))
                     )";
                     break;
                 case "MEDIA":
-                    $query = "CREATE TABLE MEDIA (
-                        'ID' INT NOT NULL,
-                        'release_date' DATE NULL,
-                        'title' TEXT NOT NULL,
-                        'ranking' INT NULL,
-                        PRIMARY KEY ('ID')
-                    )";
+                    $query = "CREATE TABLE CPSC471.MEDIA (
+                        `ID` VARCHAR(50) NOT NULL,
+                        `release_date` DATE NULL,
+                        `title` TEXT NOT NULL,
+                        `ranking` INT NULL,
+                        PRIMARY KEY (`ID`(50))
+                    ) Engine = InnoDB;";
                     break;
                 case "MEDIA_GENRE":
-                    $query = "CREATE TABLE MEDIA_GENRE (
-                        'ID' INT NOT NULL,
-                        'genre' TEXT NOT NULL,
-                        PRIMARY KEY ('ID')
+                    $query = "CREATE TABLE CPSC471.MEDIA_GENRE (
+                        `ID` VARCHAR(50) NOT NULL,
+                        `genre` TEXT NOT NULL,
+                        PRIMARY KEY (`ID`(50))
                     )";
                     break;
                 case "BOOK":
-                    $query = "CREATE TABLE BOOK (
-                        'ID' INT NOT NULL,
-                        'chapters' TEXT NOT NULL,
-                        PRIMARY KEY ('ID')
+                    $query = "CREATE TABLE CPSC471.BOOK (
+                        `ID` VARCHAR(50) NOT NULL,
+                        `chapters` TEXT NOT NULL,
+                        PRIMARY KEY (`ID`(50))
                     )";
                     break;
                 case "MOVIE":
-                    $query = "CREATE TABLE MOVIE (
-                        'ID' INT NOT NULL,
-                        'duration' TEXT NOT NULL,
-                        PRIMARY KEY ('ID')
+                    $query = "CREATE TABLE CPSC471.MOVIE (
+                        `ID` VARCHAR(50) NOT NULL,
+                        `duration` TEXT NOT NULL,
+                        PRIMARY KEY (`ID`(50))
                     )";
                     break;
                 case "VIDEO_GAME":
-                    $query = "CREATE TABLE VIDEO_GAME (
-                        'ID' INT NOT NULL,
-                        'platform' TEXT NOT NULL,
-                        PRIMARY KEY ('ID')
+                    $query = "CREATE TABLE CPSC471.VIDEO_GAME (
+                        `ID` VARCHAR(50) NOT NULL,
+                        `platform` TEXT NOT NULL,
+                        PRIMARY KEY (`ID`(50))
                     )";
                     break;
                 case "PERSONAL_LIST":
-                    $query = "CREATE TABLE PERSONAL_LIST (
-                        'ID' INT NOT NULL,
-                        'name' TEXT NOT NULL,
-                        PRIMARY KEY ('ID')
+                    $query = "CREATE TABLE CPSC471.PERSONAL_LIST (
+                        `ID` VARCHAR(50) NOT NULL,
+                        `name` TEXT NOT NULL,
+                        PRIMARY KEY (`ID`(50))
                     )";
                     break;
                 case "LIST_ENTRIES":
-                    $query = "CREATE TABLE LIST_ENTRIES (
-                        'listID' INT NOT NULL,
-                        'mediaID' INT NOT NULL
+                    $query = "CREATE TABLE CPSC471.LIST_ENTRIES (
+                        `listID` VARCHAR(50) NOT NULL,
+                        `mediaID` VARCHAR(50) NOT NULL
                     )";
                     break;
                 case "LOGS":
-                    $query = "CREATE TABLE LOGS (
-                        'logID' INT NOT NULL,
-                        'date' TEXT NOT NULL,
-                        'remarks' TEXT NULL,
-                        'rating' INT NULL, 
-                        'mediaID' INT NOT NULL,
-                        'username' TEXT NOT NULL,
-                        PRIMARY KEY ('logID')
+                    $query = "CREATE TABLE CPSC471.LOGS (
+                        `logID` VARCHAR(50) NOT NULL,
+                        `date` DATE NOT NULL,
+                        `remarks` TEXT NULL,
+                        `rating` INT NULL, 
+                        `mediaID` VARCHAR(50) NOT NULL,
+                        `username` VARCHAR(50) NOT NULL,
+                        PRIMARY KEY (`logID`(50))
                     )";
                     break;
                 case "COMMENT":
-                    $query = "CREATE TABLE COMMENT (
-                        'commentID' TEXT NOT NULL,
-                        'userID' TEXT NOT NULL,
-                        'date' DATE NOT NULL,
-                        PRIMARY KEY ('commentID')
+                    $query = "CREATE TABLE CPSC471.COMMENT (
+                        `commentID` VARCHAR(50) NOT NULL,
+                        `userID` VARCHAR(50) NOT NULL,
+                        `date` DATE NOT NULL,
+                        PRIMARY KEY (`commentID`(50))
                     )";
                     break;
                 case "PUBLISHER":
-                    $query = "CREATE TABLE PUBLISHER (
-                        'name' TEXT NOT NULL,
-                        PRIMARY KEY ('name')
+                    $query = "CREATE TABLE CPSC471.PUBLISHER (
+                        `name` VARCHAR(50) NOT NULL,
+                        PRIMARY KEY (`name`(50))
                     )";
                     break;
                 case "CREW":
-                    $query = "CREATE TABLE CREW (
-                        'crewID' TEXT NOT NULL,
-                        'nams' TEXT NOT NULL,
-                        'role' TEXT NOT NULL,
-                        PRIMARY KEY ('crewID')
+                    $query = "CREATE TABLE CPSC471.CREW (
+                        `crewID` VARCHAR(50) NOT NULL,
+                        `name` TEXT NOT NULL,
+                        `role` TEXT NOT NULL,
+                        PRIMARY KEY (`crewID`(50))
                     )";
                     break;
                 case "CAN_INTERACT":
-                    $query = "CREATE TABLE CAN_INTERACT (
-                        'memberID_1' TEXT NOT NULL,
-                        'memberID_2' TEXT NOT NULL
+                    $query = "CREATE TABLE CPSC471.CAN_INTERACT (
+                        `memberID_1` VARCHAR(50) NOT NULL,
+                        `memberID_2` VARCHAR(50) NOT NULL
                     )";
                     break;
                 case "PUBLISHED":
-                    $query = "CREATE TABLE PUBLISHED (
-                        'mediaID' TEXT NOT NULL,
-                        'publisher' TEXT NOT NULL
+                    $query = "CREATE TABLE CPSC471.PUBLISHED (
+                        `mediaID` VARCHAR(50) NOT NULL,
+                        `publisher` VARCHAR(50) NOT NULL
                     )";
                     break;
                 case "WORKS_ON":
-                    $query = "CREATE TABLE WORKS_ON (
-                        'mediaID' TEXT NOT NULL,
-                        'crewID' TEXT NOT NULL
+                    $query = "CREATE TABLE CPSC471.WORKS_ON (
+                        `mediaID` VARCHAR(50) NOT NULL,
+                        `crewID` VARCHAR(50) NOT NULL
                     )";
                     break;
                 case "EMPLOYS":
-                    $query = "CREATE TABLE EMPLOYS (
-                        'publisher' TEXT NOT NULL,
-                        'crewID' TEXT NOT NULL
+                    $query = "CREATE TABLE CPSC471.EMPLOYS (
+                        `publisher` VARCHAR(50) NOT NULL,
+                        `crewID` VARCHAR(50) NOT NULL
                     )";
                     break;
                 default:
+                    echo "Something is wrong";
                     $query = "";
             }
             mysqli_query($conn, $query);
