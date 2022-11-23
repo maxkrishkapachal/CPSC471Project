@@ -24,7 +24,8 @@
     }
 
     function checkTable($conn, $table){
-        $check = mysqli_query($conn, "SELECT 1 FROM '$table'");
+        $check = mysqli_query($conn, "SELECT * FROM INFORMATION_SCHEMA.TABLES 
+            WHERE TABLE_NAME = '$table'");
         if($check == FALSE){
             $query = NULL;
             switch($table){
@@ -151,5 +152,11 @@
             }
             mysqli_query($conn, $query);
         }
+        else return;
+    }
+
+    function checkAdminCode($code) {
+        if($code == "GhostlyBluePenguin") return true;
+        else return false;
     }
 ?>
