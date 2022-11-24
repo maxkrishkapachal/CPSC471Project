@@ -4,14 +4,56 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
+    $user_data = getUserData($conn);
+
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $media = $_POST['media_name'];
-        $remarks = $_POST['remarks'];
+        $remarks = convertQuotes($_POST['remarks'], "SYMBOLS");
         $rating = $_POST['rating'];
-        $date = new DateTime();
-        //$id = createID('LOG');
-    
-        
+        $date = getDateTime();
+        $id = createID('LOG', $user_data['username']);
+        $username = $user_data['username'];
+        $media = convertQuotes($_POST['media_name'], "SYMBOLS");
+
+        if(!empty($media) && !empty($rating)){
+            checkTable($conn, 'MEDIA');
+            $media = "
+              SELECT ID
+              FROM MEDIA
+              WHERE title = '$media'; 
+            ";
+
+            $media_result = mysqli_query($conn, $media);
+
+            if($media_result && mysqli_num_rows($media_result) == 1){
+                $media_struct = mysqli_fetch_assoc($media_result);
+                $media = $media_struct['ID'];
+            }
+            else
+                $media = "UNKNOWN";
+
+            checkTable($conn, 'LOGS');
+
+            $log_check = "
+              SELECT * 
+              FROM LOGS 
+              WHERE username = '$username'
+              AND mediaID = '$media'
+              AND mediaID <> 'UNKNOWN'";
+                
+            $log_check_result = mysqli_query($conn, $log_check);
+            
+            if($log_check_result && mysqli_num_rows($log_check_result) > 0)
+                echo "Already logged this media";
+
+            else {
+                $query = "INSERT INTO LOGS VALUES
+                  ('$id', '$date', '$remarks', '$rating', '$media', '$username')";
+                
+                mysqli_query($conn, $query);
+                header("Location: ../acc/home.php");
+                die;
+            }
+        }
     }    
 ?> 
 
@@ -29,11 +71,12 @@
         <div class="tabs-content">
           <div class="active">
             <form class="add-log-form" action="" method="post">
-              <input name="media_name" type="text" class="input" id="media_name" autocomplete="off" placeholder="Title">
+              <input name="media_name" type="text" class="input" id="media_name" autocomplete="off" placeholder="Title*">
               <input name="remarks" type="text" class="input" id="log_remarks" autocomplete="off" placeholder="What did you think?">
-              <input name="rating" type="number" class="input" id="log_rating" autocomplete="off" placeholder="?/10">
+              <input name="rating" type="number" class="input" id="log_rating" autocomplete="off" placeholder="?/10*">
     
-              <input name="add" type="submit" class="button" value="Save Log">
+              <input name="add" type="submit" class="button" value="Add Log">
+              <input name="cancel" type="button" onclick="header('Location: \'../acc/home.php\''); die;" class="button" value="Cancel">
             </form>
           </div>
         </div>
