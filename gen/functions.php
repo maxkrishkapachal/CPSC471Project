@@ -23,6 +23,23 @@
         return "$username-$type-" .date("Ymd") . "-" . date("His");
     }
 
+    function getDateTime(){
+        return date("Y") . "-" . date("m") . "-" . date("d") . " " . date("H") . ":" . date("i") . ":" . date("s");
+    }
+
+    function convertQuotes($text, $convertTo){
+        # <@ is a single quote now and @> is a double
+        if($convertTo == "QUOTES"){
+            $text = str_replace("<@", "'", $text);
+            $text = str_replace("@>", '"', $text);
+        }
+        else if($convertTo == "SYMBOLS"){
+            $text = str_replace("'", "<@", $text);
+            $text = str_replace('"', '@>', $text);
+        }
+        return $text;
+    }
+
     function checkTable($conn, $table){
         $check = mysqli_query($conn, "
             SELECT *
@@ -46,7 +63,7 @@
                 case "MEDIA":
                     $query = "CREATE TABLE CPSC471.MEDIA (
                         `ID` VARCHAR(50) NOT NULL,
-                        `release_date` DATE NULL,
+                        `release_date` VARCHAR(20) NULL,
                         `title` TEXT NOT NULL,
                         `ranking` INT NULL,
                         PRIMARY KEY (`ID`(50))
@@ -80,23 +97,27 @@
                         PRIMARY KEY (`ID`(50))
                     )";
                     break;
-                case "PERSONAL_LIST":
-                    $query = "CREATE TABLE CPSC471.PERSONAL_LIST (
+                case "LIST":
+                    $query = "CREATE TABLE CPSC471.LIST (
                         `ID` VARCHAR(50) NOT NULL,
                         `name` TEXT NOT NULL,
+                        `description` TEXT NULL,
+                        `username` VARCHAR(50) NOT NULL,
                         PRIMARY KEY (`ID`(50))
                     )";
                     break;
-                case "LIST_ENTRIES":
-                    $query = "CREATE TABLE CPSC471.LIST_ENTRIES (
+                case "ELEMENT":
+                    $query = "CREATE TABLE CPSC471.ELEMENT (
                         `listID` VARCHAR(50) NOT NULL,
-                        `mediaID` VARCHAR(50) NOT NULL
+                        `mediaID` VARCHAR(50) NOT NULL,
+                        `media_name` TEXT NOT NULL,
+                        `username` VARCHAR(50) NOT NULL,
                     )";
                     break;
                 case "LOGS":
                     $query = "CREATE TABLE CPSC471.LOGS (
                         `logID` VARCHAR(50) NOT NULL,
-                        `date` DATE NOT NULL,
+                        `date` VARCHAR(20) NOT NULL,
                         `remarks` TEXT NULL,
                         `rating` INT NULL, 
                         `mediaID` VARCHAR(50) NOT NULL,
@@ -108,7 +129,7 @@
                     $query = "CREATE TABLE CPSC471.COMMENT (
                         `commentID` VARCHAR(50) NOT NULL,
                         `userID` VARCHAR(50) NOT NULL,
-                        `date` DATE NOT NULL,
+                        `date` VARCHAR(20) NOT NULL,
                         PRIMARY KEY (`commentID`(50))
                     )";
                     break;
