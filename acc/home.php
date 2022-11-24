@@ -70,7 +70,7 @@
             </div>
             <div class='list ll-box'>
                 <div class='mpc-buttons'>
-                    <button class='list mpc-el btn'><a href=''>Add List</a></button>
+                    <button class='list mpc-el btn'><a href='../list/addList.php'>Add List</a></button>
                     <button class='list mpc-el btn'><a href=''>Edit List</a></button>
                     <button class='list mpc-el btn'><a href=''>Add To List</a></button>
                     <button class='list mpc-el btn'><a href=''>Delete Lists</a></button>
