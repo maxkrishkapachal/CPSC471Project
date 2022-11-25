@@ -1,160 +1,193 @@
 :root {
-    --navy: #003049;
-    --red: #d62828;
-    --orange: #f77f00;
-    --yellow: #fcbf49;
-    --grey: #8d99ae;
-    --white: #ffffff;
+  --navy: #003049;
+  --red: #d62828;
+  --orange: #f77f00;
+  --yellow: #fcbf49;
+  --grey: #8d99ae;
+  --white: #ffffff;
 }
 
 * {
-  margin: 0;
-  padding: 0; 
+margin: 0;
+padding: 0; 
 }
 
 a {
-  text-decoration: none; 
+text-decoration: none; 
 }
 
 input {
-  font: 16px/26px "Raleway", sans-serif; 
+font: 16px/26px "Raleway", sans-serif; 
 }
 
 body {
-  color: var(--navy);
-  background-color: var(--navy);
-  font: 16px/26px "Raleway", sans-serif; 
+color: var(--navy);
+background-color: var(--navy);
+font: 16px/26px "Raleway", sans-serif; 
 }
 
 .form-wrap {
-    background-color: var(--white);
-    width: 320px;
-    margin: 3em auto;
+  background-color: var(--white);
+  width: 320px;
+  margin: 3em auto;
 }
 
 .form-wrap .tabs {
-    overflow: hidden; 
+  overflow: hidden; 
 }
 
 .form-wrap .tabs h3 {
-    float: left;
-    width: 50%; 
+  float: left;
+  width: 50%; 
 }
 
 .form-wrap .tabs h3 a {
-    padding: 0.5em 0;
-    text-align: center;
-    font-weight: 400;
-    color: var(--navy);
-    background-color: var(--grey);
-    display: block;
+  padding: 0.5em 0;
+  text-align: center;
+  font-weight: 400;
+  color: var(--navy);
+  background-color: var(--grey);
+  display: block;
 }
 
 .form-wrap .tabs h3 a.active {
-    background-color: var(--white); 
+  background-color: var(--white); 
 }
 
 .form-wrap .tabs-content {
-    padding: 1.5em; 
+  padding: 1.5em; 
 }
 
 .form-wrap .tabs-content div[id$="tab-content"] {
-    display: none; 
+  display: none; 
 }
 
 .form-wrap .tabs-content .active {
-    display: block !important; 
+  display: block !important; 
 }
 
 .form-wrap form .input {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    color: inherit;
-    font-family: inherit;
-    padding: .8em 0 10px .8em;
-    border: 1px solid var(--navy);
-    outline: 0;
-    display: inline-block;
-    margin: 0 0 .8em 0;
-    padding-right: 2em;
-    width: 100%; 
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  color: inherit;
+  font-family: inherit;
+  padding: .8em 0 10px .8em;
+  border: 1px solid var(--navy);
+  outline: 0;
+  display: inline-block;
+  margin: 0 0 .8em 0;
+  padding-right: 2em;
+  width: 100%; 
 }
 
 .form-wrap form .button {
-    width: 100%;
-    padding: .8em 0 10px .8em;
-    background-color: var(--red);
-    border: none;
-    color: var(--white);
-    cursor: pointer;
-    text-transform: uppercase; 
+  width: 100%;
+  padding: .8em 0 10px .8em;
+  background-color: var(--red);
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+  text-transform: uppercase; 
 }
 
 .form-wrap form .button:hover {
-    background-color: var(--orange); 
+  background-color: var(--orange); 
 }
 
 .btn {
-    padding: 10px;
-    background-color: var(--red);
-    border: none;
-    cursor: pointer;
-    text-transform: uppercase; 
+  padding: 10px;
+  background-color: var(--red);
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase; 
 }
 
 .btn a {
-    color: var(--white);
+  color: var(--white);
 }
 
 .account-buttons {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 30px;
+display: flex;
+justify-content: space-between;
+padding: 10px 30px;
 }
 
 .welcome-label-div {
-  width: 100%;
-  margin-top: 4%;
-  position: absolute;
-  z-index: -1;
+width: 100%;
+margin-top: 4%;
+position: absolute;
+z-index: -1;
 }
 
 .welcome-label {
-  color: var(--white);
-  font: 70px/26px "Raleway", sans-serif; 
-  text-align: left;
-  padding: 5%;
-  text-transform: uppercase;
-  z-index: -1;
+color: var(--white);
+font: 70px/26px "Raleway", sans-serif; 
+text-align: left;
+padding: 5%;
+text-transform: uppercase;
+z-index: -1;
 }
 
 .main-page-container {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10%;
-  align-items: center;
+display: flex;
+flex-direction: column;
+margin-top: 10%;
+align-items: center;
 }
 
 .mpc-el, .mpc-buttons {
-  text-align: center;
+text-align: center;
 }
 
 .search-form {
-  padding: 10px;
+padding: 10px;
 }
 
 .ll-box {
-  padding: 10px;
+padding: 10px;
 }
 
 .scroll {
-  height: 130px; 
-  width: 100%;
-  overflow-y: scroll;  
-  border: 1px solid var(--white);
+height: 160px; 
+width: 100%;
+overflow-y: scroll;  
+border: 1px solid var(--white);
 }
 
-.log-scr {
-  color: var(--white);
+.scr {
+color: var(--white);
+}
+
+.instance {
+display: flex;
+}
+
+.instance-block {
+border: 1.5px solid var(--white);
+padding: 10px;
+margin: 1px;
+text-align: center;
+white-space: nowrap;
+overflow: hidden;
+}
+
+.in-name {
+width: 250px;  
+}
+
+.in-rating {
+width: 20px;
+}
+
+.in-remarks {
+width: 500px;
+}
+
+.in-date {
+width: 150px;
+}
+
+.in-desc {
+  width: 720px;
 }
 
