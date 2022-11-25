@@ -62,9 +62,46 @@
                     <button class='log mpc-el btn'>Search</button>
                 </form> 
                 <div class='scroll'>
-                    <div class='log-scr'>
-                        this is where the logs will go.
-                        According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible. Yellow, black. Yellow, black. Yellow, black. Yellow, black. Ooh, black and yellow! Let's shake it up a little. Barry! Breakfast is ready! Ooming! Hang on a second. Hello? - Barry? - Adam? - Oan you believe this is happening? - I can't. I'll pick you up. Looking sharp. Use the stairs. Your father paid good money for those. Sorry. I'm excited. Here's the graduate. We're very proud of you, son. A perfect report card, all B's. Very proud. Ma! I got a thing going here. - You got lint on your fuzz. - Ow! That's me! - Wave to us! We'll be in row 118,000. - Bye! Barry, I told you, stop flying in the 
+                    <div class='scr'>
+                        <?php  
+                            checkTable($conn, 'LOGS');
+
+                            $username = $user_data['username'];
+                            
+                            $logs = "
+                                SELECT *
+                                FROM LOGS
+                                WHERE username = '$username'
+                            ";
+
+                            $logs_result = mysqli_query($conn, $logs);
+
+                            while($row = mysqli_fetch_assoc($logs_result)){
+                                # need to print out media name, rating, remarks, date
+                                $medianame = convertQuotes($row['medianame'], "QUOTES");
+                                $rating = $row['rating'];
+                                $remarks = convertQuotes($row['remarks'], "QUOTES");
+                                $date = $row['date'];
+                                
+                                ?>
+                                    <div class='instance'>
+                                        <input class='instance-block' name='log-instance' type='radio'>
+                                        <div class='instance-block in-name' name='name'>
+                                            <?php echo $medianame ?>
+                                        </div>
+                                        <div class='instance-block in-rating' name='rating'>
+                                            <?php echo $rating ?>
+                                        </div>
+                                        <div class='instance-block in-remarks' name='remarks'>
+                                            <?php echo $remarks ?>
+                                        </div>
+                                        <div class='instance-block in-date' name='date'>
+                                            <?php echo $date ?>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -80,9 +117,38 @@
                     <button class='list mpc-el btn'>Search</button>
                 </form>
                 <div class='scroll'>
-                    <div class='log-scr'>
-                        this is where the lists will go.
-                        According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible. Yellow, black. Yellow, black. Yellow, black. Yellow, black. Ooh, black and yellow! Let's shake it up a little. Barry! Breakfast is ready! Ooming! Hang on a second. Hello? - Barry? - Adam? - Oan you believe this is happening? - I can't. I'll pick you up. Looking sharp. Use the stairs. Your father paid good money for those. Sorry. I'm excited. Here's the graduate. We're very proud of you, son. A perfect report card, all B's. Very proud. Ma! I got a thing going here. - You got lint on your fuzz. - Ow! That's me! - Wave to us! We'll be in row 118,000. - Bye! Barry, I told you, stop flying in the 
+                    <div class='scr'>
+                    <?php  
+                            checkTable($conn, 'LIST');
+
+                            $username = $user_data['username'];
+                            
+                            $lists = "
+                                SELECT *
+                                FROM LIST
+                                WHERE username = '$username'
+                            ";
+
+                            $lists_result = mysqli_query($conn, $lists);
+
+                            while($row = mysqli_fetch_assoc($lists_result)){
+                                # need to print out media name, rating, remarks, date
+                                $name = convertQuotes($row['name'], "QUOTES");
+                                $desc = convertQuotes($row['description'], "QUOTES");
+
+                                ?>
+                                    <div class='instance'>
+                                        <input class='instance-block' name='list-instance' type='radio'>
+                                        <div class='instance-block in-name' name='name'>
+                                            <?php echo $name?>
+                                        </div>
+                                        <div class='instance-block in-desc' name='desc'>
+                                            <?php echo $desc ?>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
