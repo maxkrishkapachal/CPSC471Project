@@ -6,7 +6,7 @@
 
     $user_data = getUserData($conn);
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if($_REQUEST['add']){
         # id, name, desc, username
         $id = createID('LIS', $user_data['username']);
         $name = convertQuotes($_POST['list_name'], "SYMBOLS");
@@ -36,10 +36,12 @@
                 header("Location: ../acc/home.php");
                 die;
             }
-
-            
         }
     }    
+    if($_REQUEST['cancel']){
+      header('Location: ../acc/home.php'); 
+      die;
+  }
 ?> 
 
 
@@ -60,7 +62,7 @@
               <input name="desc" type="text" class="input" id="desc" autocomplete="off" placeholder="Description">
               
               <input name="add" type="submit" class="button" value="Add List">
-              <input name="cancel" type="button" onclick="header('Location: \'../acc/home.php\''); die;" class="button" value="Cancel">
+              <input name="cancel" type="submit" class="button" value="Cancel">
             </form>
           </div>
         </div>

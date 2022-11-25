@@ -6,7 +6,7 @@
 
     $user_data = getUserData($conn);
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if($_REQUEST['add']){
         $remarks = convertQuotes($_POST['remarks'], "SYMBOLS");
         $rating = $_POST['rating'];
         $date = getDateTime();
@@ -16,20 +16,20 @@
 
         if(!empty($media) && !empty($rating)){
             checkTable($conn, 'MEDIA');
-            $media = "
+            $mediaID = "
               SELECT ID
               FROM MEDIA
               WHERE title = '$media'; 
             ";
 
-            $media_result = mysqli_query($conn, $media);
+            $media_result = mysqli_query($conn, $mediaID);
 
             if($media_result && mysqli_num_rows($media_result) == 1){
                 $media_struct = mysqli_fetch_assoc($media_result);
-                $media = $media_struct['ID'];
+                $mediaID = $media_struct['ID'];
             }
             else
-                $media = "UNKNOWN";
+                $mediaID = "UNKNOWN";
 
             checkTable($conn, 'LOGS');
 
@@ -37,7 +37,7 @@
               SELECT * 
               FROM LOGS 
               WHERE username = '$username'
-              AND mediaID = '$media'
+              AND mediaID = '$mediaID'
               AND mediaID <> 'UNKNOWN'";
                 
             $log_check_result = mysqli_query($conn, $log_check);
@@ -47,13 +47,17 @@
 
             else {
                 $query = "INSERT INTO LOGS VALUES
-                  ('$id', '$date', '$remarks', '$rating', '$media', '$username')";
+                  ('$id', '$date', '$remarks', '$rating', '$mediaID', '$username', '$media')";
                 
                 mysqli_query($conn, $query);
                 header("Location: ../acc/home.php");
                 die;
             }
         }
+    }
+    if($_REQUEST['cancel']){
+        header('Location: ../acc/home.php'); 
+        die;
     }    
 ?> 
 
@@ -76,7 +80,7 @@
               <input name="rating" type="number" class="input" id="log_rating" autocomplete="off" placeholder="?/10*">
     
               <input name="add" type="submit" class="button" value="Add Log">
-              <input name="cancel" type="button" onclick="header('Location: \'../acc/home.php\''); die;" class="button" value="Cancel">
+              <input name="cancel" type="submit" class="button" value="Cancel">
             </form>
           </div>
         </div>

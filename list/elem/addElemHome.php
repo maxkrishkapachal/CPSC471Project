@@ -6,7 +6,7 @@
 
     $user_data = getUserData($conn);
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if($_REQUEST['add']){
         # listID, mediaID (from media title), username
         # here, the list ID would be passed along with the $_SESSION value
         # we would do that in the list page, so it can't do anything yet.
@@ -58,6 +58,10 @@
             }
         }
     }    
+    if($_REQUEST['cancel']){
+      header('Location: ../acc/home.php'); 
+      die;
+  }
 ?> 
 
 
@@ -77,7 +81,7 @@
               <input name="title" type="text" class="input" id="title" autocomplete="off" placeholder="Title">
               
               <input name="add" type="submit" class="button" value="Add To List">
-              <input name="cancel" type="button" onclick="header('Location: `../acc/home.php`'); die;" class="button" value="Cancel">
+              <input name="cancel" type="submit" class="button" value="Cancel">
             </form>
           </div>
         </div>

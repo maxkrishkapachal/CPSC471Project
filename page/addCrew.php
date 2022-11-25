@@ -6,7 +6,7 @@
 
     $user_data = getUserData($conn);
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if($_REQUEST['add']){
         $name = convertQuotes($_POST['name'], "SYMBOLS");
         $role = convertQuotes($_POST['role'], "SYMBOLS");
         $id = createID('CRE', $user_data['username']);
@@ -22,6 +22,10 @@
             die;
         }
     }    
+    if($_REQUEST['cancel']){
+      header('Location: ../acc/home.php'); 
+      die;
+  }
 ?> 
 
 
@@ -42,7 +46,7 @@
               <input name="role" type="text" class="input" id="role" autocomplete="off" placeholder="Role*">
               
               <input name="add" type="submit" class="button" value="Add Crew">
-              <input name="cancel" type="button" onclick="header('Location: \'../acc/home.php\''); die;" class="button" value="Cancel">
+              <input name="cancel" type="submit" class="button" value="Cancel">
             </form>
           </div>
         </div>

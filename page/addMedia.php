@@ -6,7 +6,7 @@
 
     $user_data = getUserData($conn);
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if($_REQUEST['add']){
         $id = createID('MED', $user_data['username']);
         $title = convertQuotes($_POST['title'], "SYMBOLS");
         $rd = convertQuotes($_POST['release_date'], "SYMBOLS");
@@ -31,6 +31,10 @@
             }
         }
     }    
+    if($_REQUEST['cancel']){
+        header('Location: ../acc/home.php'); 
+        die;
+    }
 ?> 
 
 
@@ -51,7 +55,7 @@
                 <input name="release_date" type="text" class="input" id="release_date" autocomplete="off" placeholder="Release Date">
                 
                 <input name="add" type="submit" class="button" value="Add Media">
-                <input name="cancel" type="button" onclick="header('Location: \'../acc/home.php\''); die;" class="button" value="Cancel">
+                <input name="cancel" type="submit" class="button" value="Cancel">
                 </form>
             </div>
             </div>

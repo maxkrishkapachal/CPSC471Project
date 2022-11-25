@@ -6,7 +6,7 @@
 
     $user_data = getUserData($conn);
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if($_REQUEST['add']){
         $name = convertQuotes($_POST['name'], "SYMBOLS");
 
         if(!empty($name)){
@@ -29,7 +29,11 @@
                 die;
             }
         }
-    }    
+    } 
+    if($_REQUEST['cancel']){
+        header('Location: ../acc/home.php'); 
+        die;
+    }   
 ?> 
 
 
@@ -49,7 +53,7 @@
                 <input name="name" type="text" class="input" id="name" autocomplete="off" placeholder="Name*">
                 
                 <input name="add" type="submit" class="button" value="Add Publisher">
-                <input name="cancel" type="button" onclick="header('Location: \'../acc/home.php\''); die;" class="button" value="Cancel">
+                <input name="cancel" type="submit" class="button" value="Cancel">
                 </form>
             </div>
             </div>
