@@ -58,13 +58,14 @@
                         `bio` TEXT NULL DEFAULT NULL,
                         `user_type` TEXT NULL DEFAULT `MEMBER`,
                         PRIMARY KEY (`username`(50), `email_address`(50))
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "MEDIA":
                     $query = "CREATE TABLE CPSC471.MEDIA (
                         `ID` VARCHAR(50) NOT NULL,
                         `release_date` VARCHAR(20) NULL,
                         `title` TEXT NOT NULL,
+                        `description` TEXT NULL,
                         `ranking` INT NULL,
                         PRIMARY KEY (`ID`(50))
                     ) Engine = InnoDB;";
@@ -74,45 +75,46 @@
                         `ID` VARCHAR(50) NOT NULL,
                         `genre` TEXT NOT NULL,
                         PRIMARY KEY (`ID`(50))
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "BOOK":
                     $query = "CREATE TABLE CPSC471.BOOK (
                         `ID` VARCHAR(50) NOT NULL,
                         `chapters` TEXT NOT NULL,
                         PRIMARY KEY (`ID`(50))
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "MOVIE":
                     $query = "CREATE TABLE CPSC471.MOVIE (
                         `ID` VARCHAR(50) NOT NULL,
                         `duration` TEXT NOT NULL,
                         PRIMARY KEY (`ID`(50))
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "VIDEO_GAME":
                     $query = "CREATE TABLE CPSC471.VIDEO_GAME (
                         `ID` VARCHAR(50) NOT NULL,
                         `platform` TEXT NOT NULL,
                         PRIMARY KEY (`ID`(50))
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "LIST":
                     $query = "CREATE TABLE CPSC471.LIST (
-                        `ID` VARCHAR(50) NOT NULL,
+                        `listID` VARCHAR(50) NOT NULL,
                         `name` TEXT NOT NULL,
                         `description` TEXT NULL,
                         `username` VARCHAR(50) NOT NULL,
                         PRIMARY KEY (`ID`(50))
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "ELEMENT":
                     $query = "CREATE TABLE CPSC471.ELEMENT (
+                        `elementID` VARCHAR(50) NOT NULL,
                         `listID` VARCHAR(50) NOT NULL,
                         `mediaID` VARCHAR(50) NOT NULL,
                         `media_name` TEXT NOT NULL,
                         `username` VARCHAR(50) NOT NULL,
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "LOGS":
                     $query = "CREATE TABLE CPSC471.LOGS (
@@ -124,7 +126,7 @@
                         `username` VARCHAR(50) NOT NULL,
                         `medianame` VARCHAR(70) NOT NULL,
                         PRIMARY KEY (`logID`(50))
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "COMMENT":
                     $query = "CREATE TABLE CPSC471.COMMENT (
@@ -134,13 +136,13 @@
                         `userID` VARCHAR(50) NOT NULL,
                         `date` VARCHAR(20) NOT NULL,
                         PRIMARY KEY (`commentID`(50))
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "PUBLISHER":
                     $query = "CREATE TABLE CPSC471.PUBLISHER (
                         `name` VARCHAR(50) NOT NULL,
                         PRIMARY KEY (`name`(50))
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "CREW":
                     $query = "CREATE TABLE CPSC471.CREW (
@@ -148,31 +150,31 @@
                         `name` TEXT NOT NULL,
                         `role` TEXT NOT NULL,
                         PRIMARY KEY (`crewID`(50))
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "CAN_INTERACT":
                     $query = "CREATE TABLE CPSC471.CAN_INTERACT (
                         `memberID_1` VARCHAR(50) NOT NULL,
                         `memberID_2` VARCHAR(50) NOT NULL
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "PUBLISHED":
                     $query = "CREATE TABLE CPSC471.PUBLISHED (
                         `mediaID` VARCHAR(50) NOT NULL,
                         `publisher` VARCHAR(50) NOT NULL
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "WORKS_ON":
                     $query = "CREATE TABLE CPSC471.WORKS_ON (
                         `mediaID` VARCHAR(50) NOT NULL,
                         `crewID` VARCHAR(50) NOT NULL
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 case "EMPLOYS":
                     $query = "CREATE TABLE CPSC471.EMPLOYS (
                         `publisher` VARCHAR(50) NOT NULL,
                         `crewID` VARCHAR(50) NOT NULL
-                    )";
+                    ) Engine = InnoDB;";
                     break;
                 default:
                     echo "Something is wrong";

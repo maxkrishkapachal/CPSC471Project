@@ -6,11 +6,11 @@
 
     $user_data = getUserData($conn);
 
-    if($_REQUEST['add']){
+    if(isset($_REQUEST['add'])){
+        $id = createID('LOG', $user_data['username']);
+        $date = getDateTime();
         $remarks = convertQuotes($_POST['remarks'], "SYMBOLS");
         $rating = $_POST['rating'];
-        $date = getDateTime();
-        $id = createID('LOG', $user_data['username']);
         $username = $user_data['username'];
         $media = convertQuotes($_POST['media_name'], "SYMBOLS");
 
@@ -38,7 +38,8 @@
               FROM LOGS 
               WHERE username = '$username'
               AND mediaID = '$mediaID'
-              AND mediaID <> 'UNKNOWN'";
+              AND mediaID <> 'UNKNOWN'
+            ";
                 
             $log_check_result = mysqli_query($conn, $log_check);
             
@@ -55,7 +56,7 @@
             }
         }
     }
-    if($_REQUEST['cancel']){
+    if(isset($_REQUEST['cancel'])){
         header('Location: ../acc/home.php'); 
         die;
     }    
