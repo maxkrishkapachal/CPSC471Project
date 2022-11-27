@@ -2,7 +2,7 @@
 <head>
     <title><?php echo $title; ?></title> 
     <style>
-/* Add a black background color to the top navigation */
+        
 .header {
     background-color: grey;
     width: 100%;
@@ -10,7 +10,7 @@
     overflow: hidden;
 }
 
-/* Style the links inside the navigation bar */
+        
 .header a {
   float: right;
   color: white;
