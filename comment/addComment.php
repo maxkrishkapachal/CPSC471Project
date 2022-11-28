@@ -17,8 +17,9 @@
         if(!empty($content)){
             checkTable($conn, 'COMMENT');
 
-            $query = "INSERT INTO LOGS VALUES
-                ('$id', '$date', '$remarks', '$rating', '$media', '$username', '$medianame')";
+            $query = "INSERT INTO COMMENT VALUES
+                ('$content', '$commentID', '$mediaID', '$username', '$date')
+            ";
             
             mysqli_query($conn, $query);
             
