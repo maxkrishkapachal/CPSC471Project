@@ -110,10 +110,16 @@ body {
   color: var(--white);
 }
 
-.column {
+.rcolumn{
+  float:right;
+  width:50%;
+}
+
+.lcolumn {
   float: left;
   width: 50%;
 }
+
 .center {
   text-align: center;
 }
