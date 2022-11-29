@@ -97,14 +97,32 @@ body {
 .media-title {
   font-size: 50px;
   line-height: 80%;
+  color:var(--white);
 }
 
 .media-title-div {
   text-align: center;
   padding: 10px;
   margin-top: -5%;
+
+}
+.media-body {
+  color: var(--white);
 }
 
+.column {
+  float: left;
+  width: 50%;
+}
+.center {
+  text-align: center;
+}
+
+.comment-body {
+  background-color: var(--grey);
+  color : var(--navy);
+  border-style: outset;
+}
 .btn {
   padding: 10px;
   background-color: var(--red);
