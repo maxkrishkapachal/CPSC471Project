@@ -22,20 +22,22 @@
     $row = mysqli_fetch_assoc($result);
 
       // get publisher
-    $p_query = "SELECT * FROM publisher WHERE media_id = '$id'";
+    $p_query = "SELECT * FROM published WHERE mediaID = '$id'";
     $p_result = mysqli_query($conn,$p_query);
     if(!$p_result){
         echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
         exit;
       }
 
+
     // get crew
-    $cr_query = "SELECT * FROM crew WHERE media_id = '$id'";
+    $cr_query = "SELECT * FROM works_on WHERE mediaID = '$id'";
     $cr_result = mysqli_query($conn,$cr_query);
     if(!$cr_result){
         echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
         exit;
       }
+    
 
       //get statistics
     $s_query = "SELECT * FROM statistic WHERE media_id = '$id'";
@@ -92,6 +94,7 @@ require "header.php";
 <body>
 <div class= "media-body">
     <div class = "center">  
+    <br><br>
     <?php 
       if ($user_data['user_type']=='ADMIN'){
       echo "<button class='btn'><a href='../page/deleteMedia.php'>Delete media</a></button>";
@@ -102,7 +105,7 @@ require "header.php";
     
     </div>
     <h3 style="margin: 20px 60px 20px 100px">
-      <div class= "column">
+      <div class= "lcolumn">
       <?php
       echo"<br>"."Release date: ".$row['release_date']."<br>"."<br>";
       echo"<br>"."Description: ".$row['description']."<br>"."<br>";
@@ -120,16 +123,18 @@ require "header.php";
         echo"<br>"."Duration: ".$row['duration']."<br>"."<br>"; 
       }
 
-      ?>
+      ?>  
   </div>
+
+  <div class = 'rcolumn'>
   <?php
   if (mysqli_num_rows($p_result) == 0){
         echo "Publisher of this media: Haven't have any crew stored in media shelf";
     }else{
   while ( $p_row = mysqli_fetch_assoc($p_result))
     {
-      echo "<br>"."Publisher Name: ".''.$p_row['name'].''."<br>";
-      echo "<button class='btn'>.<a href='publisher.php?name=".$p_row['name']."'>GO TO SEE→</a></button>";
+      echo "<br>"."Publisher Name: ".''.$p_row['publisher'].''."<br>";
+      echo "<button class='btn'>.<a href='publisher.php?name=".$p_row['publisher']."'>GO TO SEE→</a></button>";
       echo "<br>"."<br>";
     }}
 
@@ -137,9 +142,17 @@ require "header.php";
     echo "Crew of this media: Haven't have any crew stored in media shelf";
   }else{
   while ( $cr_row = mysqli_fetch_assoc($cr_result))
-    {
-      echo "<br>"."Crew name: ".''.$cr_row['name'].'';
-      echo "<br>"."Role: ".''.$cr_row['role'].''."<br>";
+    { 
+      $cre_query = "SELECT * FROM crew WHERE crewID = '".$cr_row['crewID']."'";
+      $cre_result = mysqli_query($conn,$cre_query);
+      if(!$cr_result){
+            echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
+            exit;
+      }
+      $cre_row = mysqli_fetch_assoc($cre_result);
+
+      echo "<br>"."Crew name: ".''.$cre_row['name'].'';
+      echo "<br>"."Role: ".''.$cre_row['role'].''."<br>";
       echo "<button class='btn'><a href='crew.php?crewID=".$cr_row['crewID']."'>GO TO SEE→</a></button>";
       echo "<br>"."<br>";
     }}
@@ -155,7 +168,7 @@ require "header.php";
       }
       echo "<br>"."<br>";
   }}?>
-
+  </div>
 
   <div class='mpc-buttons'>
     <button class='btn'><a href='../list/addList.php'>Add List</a></button>
@@ -165,9 +178,11 @@ require "header.php";
 
 <br><br>
 
-  <div class = 'comment-body'>
+
+
   <button class='btn'><a href='../comment/addComment.php'>Create comment</a></button>
-  <?php
+  <div class = 'comment-body'>
+  <?php 
   while ( $co_row = mysqli_fetch_assoc($co_result))
       {
       echo "<br>";
