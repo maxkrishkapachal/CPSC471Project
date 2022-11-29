@@ -86,7 +86,7 @@ require "header.php";
         
     	<div class="media-title">
         <?php echo '<br>'."&nbsp;&nbsp;".$row['title']; ?>
-    </div>
+      </div>
 </head>
 
 <body>
@@ -95,8 +95,11 @@ require "header.php";
     <?php 
       if ($user_data['user_type']=='ADMIN'){
       echo "<button class='btn'><a href='../page/deleteMedia.php'>Delete media</a></button>";
-      }    
+      echo "&nbsp;&nbsp;&nbsp;";
+      echo "<button class='btn'><a href='../page/editMedia.php'>Edit Media</a></button>";
+    }    
     ?>
+    
     </div>
     <h3 style="margin: 20px 60px 20px 100px">
       <div class= "column">
@@ -120,19 +123,30 @@ require "header.php";
       ?>
   </div>
   <?php
+  if (mysqli_num_rows($p_result) == 0){
+        echo "Publisher of this media: Haven't have any crew stored in media shelf";
+    }else{
   while ( $p_row = mysqli_fetch_assoc($p_result))
     {
       echo "<br>"."Publisher Name: ".''.$p_row['name'].''."<br>";
-      echo "<button class='btn'><a href='publisher.php'>GO TO SEE→</a></button>";
+      echo "<button class='btn'>.<a href='publisher.php?name=".$p_row['name']."'>GO TO SEE→</a></button>";
       echo "<br>"."<br>";
-    }
+    }}
+
+  if (mysqli_num_rows($cr_result) == 0){
+    echo "Crew of this media: Haven't have any crew stored in media shelf";
+  }else{
   while ( $cr_row = mysqli_fetch_assoc($cr_result))
     {
       echo "<br>"."Crew name: ".''.$cr_row['name'].'';
       echo "<br>"."Role: ".''.$cr_row['role'].''."<br>";
-      echo "<button class='btn'><a href='crew.php'>GO TO SEE→</a></button>";
+      echo "<button class='btn'><a href='crew.php?crewID=".$cr_row['crewID']."'>GO TO SEE→</a></button>";
       echo "<br>"."<br>";
-    }
+    }}
+
+  if (mysqli_num_rows($s_result) == 0){
+      echo "There are no statistics for this media.";
+  }else{  
   while ( $s_row = mysqli_fetch_assoc($s_result))
     { 
       echo "Overall rating:";
@@ -140,7 +154,7 @@ require "header.php";
         echo "★";
       }
       echo "<br>"."<br>";
-  }?>
+  }}?>
 
 
   <div class='mpc-buttons'>
