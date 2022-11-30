@@ -183,6 +183,9 @@ require "header.php";
   <button class='btn'><a href='../comment/addComment.php'>Create comment</a></button>
   <div class = 'comment-body'>
   <?php 
+  if (mysqli_num_rows($co_result) == 0){
+      echo "No comment yet.";
+  }else{
   while ( $co_row = mysqli_fetch_assoc($co_result))
       {
       echo "<br>";
@@ -197,7 +200,7 @@ require "header.php";
       }
       if ($co_row['username'] == $user_data['username'] || $user_data['user_type'] == 'ADMIN'){
       echo "<a href='../comment/deleteComment.php'>DELETE</a>";
-    }}
+    }}}
 
 
   ?>
