@@ -29,8 +29,8 @@
         <div class="form-wrap">
             <div class="tabs-content">
                 <div class="active">
-                    <form class="add-friend" action="" method="">
-                        <input name="add friend" type="submit" class="button" value="">
+                    <form class="ban-member" action="" method="">
+                        <input name="ban member" type="submit" class="button" value="">
                     </form>
                 </div>
             </div>
