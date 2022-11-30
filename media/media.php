@@ -31,9 +31,9 @@
 
 
     // get crew
-    $cr_query = "SELECT * FROM works_on WHERE mediaID = '$id'";
-    $cr_result = mysqli_query($conn,$cr_query);
-    if(!$cr_result){
+    $w_query = "SELECT * FROM works_on WHERE mediaID = '$id'";
+    $w_result = mysqli_query($conn,$w_query);
+    if(!$w_result){
         echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
         exit;
       }
@@ -138,22 +138,22 @@ require "header.php";
       echo "<br>"."<br>";
     }}
 
-  if (mysqli_num_rows($cr_result) == 0){
+  if (mysqli_num_rows($w_result) == 0){
     echo "Crew of this media: Haven't have any crew stored in media shelf";
   }else{
-  while ( $cr_row = mysqli_fetch_assoc($cr_result))
+  while ( $w_row = mysqli_fetch_assoc($w_result))
     { 
-      $cre_query = "SELECT * FROM crew WHERE crewID = '".$cr_row['crewID']."'";
+      $cre_query = "SELECT * FROM crew WHERE crewID = '".$w_row['crewID']."'";
       $cre_result = mysqli_query($conn,$cre_query);
-      if(!$cr_result){
+      if(!$w_result){
             echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
             exit;
       }
       $cre_row = mysqli_fetch_assoc($cre_result);
 
       echo "<br>"."Crew name: ".''.$cre_row['name'].'';
-      echo "<br>"."Role: ".''.$cre_row['role'].''."<br>";
-      echo "<button class='btn'><a href='crew.php?crewID=".$cr_row['crewID']."'>GO TO SEE→</a></button>";
+      echo "<br>"."Role: ".''.$w_row['role'].''."<br>";
+      echo "<button class='btn'><a href='crew.php?crewID=".$w_row['crewID']."'>GO TO SEE→</a></button>";
       echo "<br>"."<br>";
     }}
 
