@@ -162,7 +162,7 @@ require "header.php";
   }else{  
   while ( $s_row = mysqli_fetch_assoc($s_result))
     { 
-      echo "Overall rating:";
+      echo "<br>"."Overall rating:";
       for ($i = 0; $i<$s_row['rate']; $i++){
         echo "★";
       }
