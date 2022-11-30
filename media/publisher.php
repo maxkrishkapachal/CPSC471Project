@@ -26,17 +26,17 @@
     $row = mysqli_fetch_assoc($result);
 
     //get media
-    $m_query = "SELECT * FROM published WHERE publisher = '$name'";
-    $m_result = mysqli_query($conn,$m_query);
-    if(!$m_result){
+    $p_query = "SELECT * FROM published WHERE publisher = '$name'";
+    $p_result = mysqli_query($conn,$p_query);
+    if(!$p_result){
         echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
         exit;
       }
 
     // get crew
-    $cr_query = "SELECT * FROM employs WHERE publisher = '$name'";
-    $cr_result = mysqli_query($conn,$cr_query);
-    if(!$cr_result){
+    $e_query = "SELECT * FROM employs WHERE publisher = '$name'";
+    $e_result = mysqli_query($conn,$e_query);
+    if(!$e_result){
         echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
         exit;
     }
@@ -81,14 +81,14 @@
     <h3 style="margin: 20px 60px 20px 100px">
     <?php
       echo"<br>"."Description: ".$row['description']."<br>"."<br>"; 
-    if (mysqli_num_rows($m_result) == 0)
+    if (mysqli_num_rows($p_result) == 0)
     {
         echo "Published Media: Haven't published any media stored in media shelf";
     }else{
 
-        while ( $m_row = mysqli_fetch_assoc($m_result))
+        while ( $p_row = mysqli_fetch_assoc($p_result))
         {
-        $med_query = "SELECT * FROM media WHERE ID = '".$m_row['mediaID']."'";
+        $med_query = "SELECT * FROM media WHERE ID = '".$p_row['mediaID']."'";
         $med_result = mysqli_query($conn,$med_query);
         if(!$med_result){
               echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
@@ -96,28 +96,28 @@
         }
         $med_row = mysqli_fetch_assoc($med_result);
         echo "<br>"."Published Media: ".''.$med_row['title'].''."<br>";
-        echo "<button class='btn'>.<a href=media.php?id=".$med_row['id'].">GO TO SEE→</a></button>";
+        echo "<button class='btn'>.<a href='media.php?id=".$med_row['id']."'>GO TO SEE→</a></button>";
         echo "<br>"."<br>";
 
         }
     }
 
-    if (mysqli_num_rows($cr_result) == 0){
-        echo "Crew of this publisher: Haven't have any crew stored in media shelf";
+    if (mysqli_num_rows($e_result) == 0){
+        echo "Employee: Haven't have any crew stored in media shelf";
     }else{
 
-        while ( $cr_row = mysqli_fetch_assoc($cr_result))
+        while ( $e_row = mysqli_fetch_assoc($e_result))
         {
-        $cre_query = "SELECT * FROM crew WHERE crewID = '".$cr_row['crewID']."'";
+        $cre_query = "SELECT * FROM crew WHERE crewID = '".$e_row['crewID']."'";
         $cre_result = mysqli_query($conn,$cre_query);
-        if(!$cr_result){
+        if(!$e_result){
               echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
               exit;
         }
 
         $cre_row = mysqli_fetch_assoc($cre_result);
-        echo "<br>"."Crew of this publisher: ".''.$cre_row['name'].'';
-        echo "<button class='btn'><a href='crew.php'?crewID=".$cre_row['crewID'].">GO TO SEE→</a></button>";
+        echo "<br>"."Employee: ".''.$cre_row['name'].''."<br>";
+        echo "<button class='btn'><a href='crew.php?crewID=".$cre_row['crewID']."'>GO TO SEE→</a></button>";
         echo "<br>"."<br>";
 
         }}
