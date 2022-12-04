@@ -12,6 +12,12 @@
         die;
     }
 
+    # search
+    if(isset($_REQUEST['search-button'])){
+        header("Location: search.php");
+        die;
+    }
+
     # logout
     if(isset($_REQUEST['logout-button'])){
         header("Location: logout.php");
@@ -105,8 +111,9 @@
         -->
         <form method='post'>
             <div class='account'>
-                <div class='account-buttons'>
+                <div class='row-of-buttons'>
                     <input class='btn' type='submit' name='edit-account-button' value='Edit Account'>
+                    <input class='btn' type='submit' name='search-button' value='Search'>
                     <input class='btn' type='submit' name='logout-button' value='Logout'>
                 </div>
                 <div class='welcome-label-div'>
@@ -126,11 +133,11 @@
                         <input class='btn' type='submit' name='edit-log-button' value='Edit Log'>
                         <input class='btn' type='submit' name='delete-log-button' value='Delete Log'>
                     </div>
-                    <form class='log mpc-el search-form' id="form" role="search">
-                        <input class='log mpc-el' type="search" id="query" name="log-search"  placeholder="Search Logs...">
-                        <button class='log mpc-el btn'>Search</button>
-                    </form> 
-                    <div class='scroll'>
+                    <div class='mpc-buttons'>
+                        <input class='log mpc-el search-bar' type="text" id="query" name="log-search"  placeholder="Search Logs...">
+                        <input class='log mpc-el btn' type='submit' name='log-search-button' value='Search'>
+                    </div>
+                    <div class='scroll scroll-home'>
                         <div class='scr'>
                             <?php  
                                 checkTable($conn, 'LOGS');
@@ -182,11 +189,11 @@
                         <input class='btn' type='submit' name='delete-list-button' value='Delete List'>
                         <input class='btn' type='submit' name='view-list-button' value='View List'>
                     </div>
-                    <form class='list mpc-el search-form' id="form" role="search">
-                        <input class='list mpc-el' type="search" id="query" name="list-search"  placeholder="Search Lists...">
-                        <button class='list mpc-el btn'>Search</button>
-                    </form>
-                    <div class='scroll'>
+                    <div class='mpc-buttons'>
+                        <input class='list mpc-el search-bar' type="text" id="query" name="list-search"  placeholder="Search Lists...">
+                        <input class='list mpc-el btn' type='submit' name='list-search-button' value='Search'>
+                    </div>
+                    <div class='scroll scroll-home'>
                         <div class='scr'>
                         <?php  
                                 checkTable($conn, 'LIST');
