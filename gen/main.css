@@ -1,3 +1,5 @@
+/* colours */
+
 :root {
   --navy: #003049;
   --red: #d62828;
@@ -5,19 +7,18 @@
   --yellow: #fcbf49;
   --grey: #8d99ae;
   --white: #ffffff;
+
+  --book: #9b5de5;
+  --movie: #ee4266;
+  --game: #ffd23f;
+  --tag: #3bceac;
 }
+
+/* general page set up */
 
 * {
   margin: 0;
   padding: 0; 
-}
-
-a {
-  text-decoration: none; 
-}
-
-input {
-  font: 16px/26px "Raleway", sans-serif; 
 }
 
 body {
@@ -26,10 +27,64 @@ body {
   font: 16px/26px "Raleway", sans-serif; 
 }
 
+/* general form styling for every page */
 .form-wrap {
   background-color: var(--white);
   width: 500px;
   margin: 3em auto;
+}
+
+.btn {
+  padding: 10px;
+  background-color: var(--red);
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase; 
+  color: var(--white);
+}
+
+/* login and signup styling */
+
+a {
+  text-decoration: none; 
+}
+
+.header {
+  background-color: grey;
+  width: 100%;
+  HEIGHT:5%;
+  overflow: hidden;
+}
+      
+.header a {
+  float: right;
+  color: white;
+  text-align: center;
+  background-color: grey;
+  height:100%;
+  width: 10%;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.header a:hover {
+  background-color: lightgrey;
+  color: black;
+}
+
+.header-title{
+  float: left;
+  color: #ffffff;
+  text-align: center;
+  background-color: grey;
+  height:100%;
+  width: 10%;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+input {
+  font: 16px/26px "Raleway", sans-serif; 
 }
 
 .form-wrap .tabs {
@@ -94,6 +149,8 @@ body {
   background-color: var(--orange); 
 }
 
+/* delete lists and logs page styling */
+
 .media-title {
   font-size: 50px;
   line-height: 80%;
@@ -105,20 +162,88 @@ body {
   margin-top: -5%;
 }
 
-.btn {
-  padding: 10px;
-  background-color: var(--red);
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase; 
-  color: var(--white);
+/* search page and home page search styling */
+
+.search-bar {
+  width: 70%;
 }
 
-.account-buttons {
+.row-of-buttons {
   display: flex;
   justify-content: space-between;
   padding: 10px 30px;
 }
+
+/* search page styling */
+
+.rev-search-buttons {
+  flex-direction: row-reverse;
+}
+
+
+.search-box {
+  color: var(--white);
+  font: 15px "Raleway", sans-serif; 
+  text-align: left;
+  z-index: -1;
+}
+
+.search-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px 450px;
+}
+
+.search-header {
+  text-align: center;
+  color: var(--red);
+  margin-top: 10px;
+}
+
+.search-header-label {
+  font: 30px "Raleway", sans-serif;
+}
+
+.search-header-cats {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.search-header-in {
+  padding-left: 18px;
+}
+
+/* tag system styling for the search and media pages */
+
+.search-tag {
+  border: none;
+  color: var(--navy);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 3px 1px;
+  border-radius: 50%;
+}
+
+.book-tag {
+  background-color: var(--book);
+}
+
+.movie-tag {
+  background-color: var(--movie);
+}
+
+.game-tag {
+  background-color: var(--game);
+}
+
+.other-tag {
+  background-color: var(--tag);
+}
+
+/* home page and list view styling */
 
 .welcome-label-div {
   width: 100%;
@@ -147,7 +272,7 @@ body {
   text-align: left;
   padding: 2%;
   z-index: -1;
- }
+}
 
 .main-page-container {
   display: flex;
@@ -160,28 +285,11 @@ body {
   text-align: center;
 }
 
-.search-form {
-  padding: 10px;
-}
-
 .ll-box {
   padding: 10px;
 }
 
-.scroll {
-  height: 160px; 
-  width: 100%;
-  overflow-y: scroll;  
-  border: 1px solid var(--white);
-}
-
-.scroll .elem {
-  height: 400px;
-}
-
-.scr {
-  color: var(--white);
-}
+/* styling for the generation of list, log, and search elements */
 
 .instance {
   display: flex;
@@ -200,6 +308,10 @@ body {
   width: 250px;  
 }
 
+.in-elem-name {
+  width: 800px;
+}
+
 .in-rating {
   width: 20px;
 }
@@ -216,3 +328,75 @@ body {
   width: 720px;
 }
 
+.in-username {
+  width: 15%;
+}
+
+.in-user-name {
+  width: 15%;
+}
+
+.in-user-bio {
+  width: 50%;
+}
+
+.in-user-type {
+  width: 10%;
+}
+
+.in-media-title {
+  width: 25%;
+}
+
+.in-media-rating {
+  width: 3%;
+}
+
+.in-media-desc {
+  width: 50%;
+}
+
+.in-media-date {
+  width: 10%;
+}
+
+.in-publisher {
+  width: 100%;
+}
+
+.in-crew-name {
+  width: 30%;
+}
+
+.in-crew-role {
+  width: 70%;
+}
+
+.in-button-hidden {
+  width: 5%;
+}
+
+/* scroll styling */
+
+.scroll { 
+  width: 100%;
+  overflow-y: scroll;  
+  border: 1px solid var(--white);
+}
+
+.scroll-home {
+  height: 160px;
+}
+
+.scroll-elem {
+  height: 400px;
+}
+
+.scroll-search {
+  height: 625px;
+  width: 99%;
+}
+
+.scr {
+  color: var(--white);
+}
