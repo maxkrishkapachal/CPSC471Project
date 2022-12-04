@@ -29,6 +29,16 @@
         die;
     }
 
+    if(isset($_REQUEST['add-to-list-button'])){
+        header('Location: elem/addElem.php'); 
+        die;
+    }
+
+    if(isset($_REQUEST['delete-from-list-button'])){
+        header('Location: elem/deleteElem.php'); 
+        die;
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +50,7 @@
     <body>
         <form method='post'>
             <div class='account'>
-                <div class='account-buttons'>
+                <div class='row-of-buttons'>
                     <input class='btn' type='submit' name='back-button' value='Home'>
                 </div>
                 <div class='welcome-label-div'>
@@ -68,7 +78,7 @@
                         <input class='log mpc-el' type="search" id="query" name="elem-search"  placeholder="Search List Elements...">
                         <button class='log mpc-el btn'>Search</button>
                     </form> 
-                    <div class='scroll elem'>
+                    <div class='scroll scroll-elem'>
                         <div class='scr'>
                             <?php  
                                 checkTable($conn, 'ELEMENT');
@@ -86,13 +96,14 @@
                                 while($row = mysqli_fetch_assoc($elem_result)){
                                     # need to print out media name, rating, remarks, date
                                     $listID = $row['listID'];
-                                    $medianame = convertQuotes($row['medianame'], "QUOTES");
+                                    $medianame = convertQuotes($row['media_name'], "QUOTES");
                                     
                                     ?>
                                         <div class='instance'>
                                             <input class='instance-block' name='elem-instance' type='radio' value='<?php echo $listID . $medianame ?>'>
-                                            <div class='instance-block in-name' name='name'>
+                                            <div class='instance-block in-elem-name' name='name'>
                                                 <?php echo $medianame ?>
+                                            </div>  
                                         </div>
                                     <?php
                                 }
