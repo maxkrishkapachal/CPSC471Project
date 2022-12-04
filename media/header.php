@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <head>
-    <title><?php echo $title; ?></title> 
+    <title></title> 
     <style>
-        
+/* Add a black background color to the top navigation */
 .header {
     background-color: grey;
     width: 100%;
@@ -10,7 +10,7 @@
     overflow: hidden;
 }
 
-        
+/* Style the links inside the navigation bar */
 .header a {
   float: right;
   color: white;
@@ -45,8 +45,7 @@
   <div class="header">
     <div class="header-title">
      Media Shelf </div>
-    <a href="main page.php">Main page</a>
-    <a href="media.php">Media</a>
+    <a href="../acc/home.php">Main page</a>
     <a href="search.php"> Search</a>
-</div>
-</div>
+  </div>
+</body>

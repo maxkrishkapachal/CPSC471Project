@@ -162,6 +162,11 @@ input {
   margin-top: -5%;
 }
 
+.comment-body {
+  background-color: var(--grey);
+  color : var(--navy);
+  border-style: outset;
+}
 /* search page and home page search styling */
 
 .search-bar {
@@ -176,7 +181,7 @@ input {
 
 /* search page styling */
 
-.rev-search-buttons {
+.search-buttons {
   flex-direction: row-reverse;
 }
 
