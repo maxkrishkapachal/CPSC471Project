@@ -149,7 +149,7 @@ input {
   background-color: var(--orange); 
 }
 
-/* delete lists and logs page styling */
+/* delete lists and logs, and media page styling */
 
 .media-title {
   font-size: 50px;
@@ -162,11 +162,32 @@ input {
   margin-top: -5%;
 }
 
+/* media page styling only */
+
+.media-body {
+  color: var(--white);
+}
+
+.rcolumn{
+  float:right;
+  width:50%;
+}
+
+.lcolumn {
+  float: left;
+  width: 50%;
+}
+
+.center {
+  text-align: center;
+}
+
 .comment-body {
   background-color: var(--grey);
   color : var(--navy);
   border-style: outset;
 }
+
 /* search page and home page search styling */
 
 .search-bar {
@@ -181,7 +202,7 @@ input {
 
 /* search page styling */
 
-.search-buttons {
+.rev-search-buttons {
   flex-direction: row-reverse;
 }
 
