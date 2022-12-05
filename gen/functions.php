@@ -78,6 +78,7 @@
                         `title` TEXT NOT NULL,
                         `description` TEXT NULL,
                         `ranking` INT NULL,
+                        `media_type` VARCHAR(12) NOT NULL,
                         PRIMARY KEY (`ID`(50))
                     ) Engine = InnoDB;";
                     break;
@@ -187,8 +188,15 @@
                         `crewID` VARCHAR(50) NOT NULL
                     ) Engine = InnoDB;";
                     break;
+                case "STATISTIC":
+                    $query = "CREATE TABLE CPSC471.STATISTIC (
+                        `media_id` VARCHAR(50) NOT NULL,
+                        `rate` VARCHAR(10) NULL,
+                        PRIMARY KEY (`media_id`(50))
+                    ) Engine = InnoDB;";
+                    break;
                 default:
-                    echo "Something is wrong";
+                    echo "Something is wrong with the tables you checked";
                     $query = "";
             }
             mysqli_query($conn, $query);
