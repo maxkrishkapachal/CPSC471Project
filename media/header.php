@@ -46,6 +46,6 @@
     <div class="header-title">
      Media Shelf </div>
     <a href="../acc/home.php">Main page</a>
-    <a href="search.php"> Search</a>
+    <a href="../acc/search.php"> Search</a>
   </div>
 </body>

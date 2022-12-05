@@ -5,13 +5,13 @@
 
     $user_data = getUserData($conn);
 
-    if($_SERVER['REQUEST_METHOD'] == 'GET'){
-        $id = $_GET['id'];
-    }  
+    //if($_SERVER['REQUEST_METHOD'] == 'GET'){
+      //  $id = $_GET['id'];
+    //}  
     
-    $_SESSION['id'] = $id;
-
-
+    //$_SESSION['id'] = $id;
+    $id = $_SESSION['id'];
+    checkTable($conn, "MEDIA");
     //get media
     $query = "SELECT * FROM media WHERE id = '$id'";
     $result = mysqli_query($conn,$query);
@@ -21,6 +21,7 @@
       }
     $row = mysqli_fetch_assoc($result);
 
+    checkTable($conn, "PUBLISHED");
       // get publisher
     $p_query = "SELECT * FROM published WHERE mediaID = '$id'";
     $p_result = mysqli_query($conn,$p_query);
@@ -29,7 +30,7 @@
         exit;
       }
 
-
+    checkTable($conn, "WORKS_ON");
     // get crew
     $w_query = "SELECT * FROM works_on WHERE mediaID = '$id'";
     $w_result = mysqli_query($conn,$w_query);
@@ -38,7 +39,7 @@
         exit;
       }
     
-
+    checkTable($conn, "STATISTIC");
       //get statistics
     $s_query = "SELECT * FROM statistic WHERE media_id = '$id'";
     $s_result = mysqli_query($conn,$s_query);
@@ -47,6 +48,7 @@
         exit;
       }
 
+    checkTable($conn, "COMMENT");
     //get comment
     $co_query = "SELECT * FROM comment WHERE mediaid = '$id'";
     $co_result = mysqli_query($conn,$co_query);
@@ -86,8 +88,12 @@ require "header.php";
         <title>MEDIA</title>
         <br>&nbsp;&nbsp;<button class='btn'><a href="#" onclick="history.go(-1)">Go Back</a></button>
         
-    	<div class="media-title">
-        <?php echo '<br>'."&nbsp;&nbsp;".$row['title']; ?>
+      <div class='welcome-label-div'>
+          <label class='welcome-label'>
+              <?php 
+                  echo '<br>'."&nbsp;&nbsp;".convertQuotes($row['title'], "QUOTES");
+              ?>
+          </label>
       </div>
 </head>
 
@@ -114,13 +120,15 @@ require "header.php";
       $t = $row['media_type'];
 
       if ($t == 'Video Game') {
-         echo"<br>"."Platform: ".$row['platform']."<br>"."<br>"; 
+         //echo"<br>"."Platform: ".$row['platform']."<br>"."<br>"; 
+         checkTable($conn, "VIDEO_GAME");
+
       }
       else if ($t == 'Book') {
         echo"<br>"."Chapters: ".$row['chapters']."<br>"."<br>"; 
       }
       else if ($t == 'Movie') {
-        echo"<br>"."Duration: ".$row['duration']."<br>"."<br>"; 
+        echo"<br>"."Duration: 400 years"/*.$row['duration']*/."<br>"."<br>"; 
       }
 
       ?>  
@@ -129,7 +137,7 @@ require "header.php";
   <div class = 'rcolumn'>
   <?php
   if (mysqli_num_rows($p_result) == 0){
-        echo "Publisher of this media: Haven't have any crew stored in media shelf";
+        echo "Publisher: Unknown<br>";
     }else{
   while ( $p_row = mysqli_fetch_assoc($p_result))
     {
@@ -139,10 +147,11 @@ require "header.php";
     }}
 
   if (mysqli_num_rows($w_result) == 0){
-    echo "Crew of this media: Haven't have any crew stored in media shelf";
+    echo "Crew: Unknown<br>";
   }else{
   while ( $w_row = mysqli_fetch_assoc($w_result))
     { 
+      checkTable($conn, "CREW");
       $cre_query = "SELECT * FROM crew WHERE crewID = '".$w_row['crewID']."'";
       $cre_result = mysqli_query($conn,$cre_query);
       if(!$w_result){
