@@ -43,6 +43,15 @@ body {
   color: var(--white);
 }
 
+input[type='radio'] {
+  accent-color: var(--red);
+}
+
+input[type='radio']#searchPage {
+  transform: scale(2);
+  margin-left: 20px;
+}
+
 /* login and signup styling */
 
 a {
@@ -364,7 +373,7 @@ input {
 }
 
 .in-user-bio {
-  width: 50%;
+  width: 48%;
 }
 
 .in-user-type {
@@ -388,15 +397,15 @@ input {
 }
 
 .in-publisher {
-  width: 100%;
+  width: 93.5%;
 }
 
 .in-crew-name {
-  width: 30%;
+  width: 24.5%;
 }
 
 .in-crew-role {
-  width: 70%;
+  width: 67%;
 }
 
 .in-button-hidden {
@@ -420,7 +429,7 @@ input {
 }
 
 .scroll-search {
-  height: 625px;
+  height: 590px;
   width: 99%;
 }
 

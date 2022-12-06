@@ -13,6 +13,7 @@
     # bf:"search" or this fb:"search"
     # then each search result will have the name of the media, the type of file, the tags,
     # and when you click on it, it'll take you to their page
+    session_cache_limiter('private_no_expire');
     session_start();
     
     include("../gen/connect.php");
@@ -25,20 +26,27 @@
         die;
     }
 
-    $checkLimit = 0;
-
-    for($viewCheck = 0; $viewCheck < $checkLimit; $viewCheck++){
-        $mediapage = 'media-page-button-'.$viewCheck;
-        $mediapageID = 'media-page-ID-'.$viewCheck;
-        if(isset($_REQUEST[$mediapage])){
-            echo "<label>TESTING $mediapage $mediapageID</label>";
-            $_SESSION['id'] = $_REQUEST[$mediapageID];
-            header('Location: ../media/media.php');
-            die;
+    if(isset($_REQUEST['selected-search-result']) && isset($_REQUEST['view-button'])){
+        $selected_values = explode(" ", $_REQUEST['selected-search-result']);
+        $_SESSION['id'] = $selected_values[1];
+        switch($selected_values[0]){
+            case "M":
+                header("Location: ../media/media.php");
+                die;
+            case "P":
+                header("Location: ../media/publisher.php");
+                die;
+            case "C":
+                header("Location: ../media/crew.php");
+                die;
+            case "U":
+                header("Location: ../othermember/viewMember.php");
+                die;
         }
-    }
+    } 
 
-    
+
+
 
     // for($check = 0; $check < $i; $check++){
     //     if(isset($_REQUEST['media-page-button-'.$check])){
@@ -82,11 +90,15 @@
                     <label for="user" class='search-box'>User</label>
                 </div>
             </div>
+            <div class="search-buttons">
+                <input name='view-button' type='submit' value='View' class='btn'>
+            </div>
             <div class="scroll scroll-search">
                 <div class="scr">
                     <?php  
                         $search = NULL;
                         if(isset($_REQUEST['search-button'])){
+                            $search = convertQuotes($_POST['search-bar'], "QUOTES");
                             $current_user = $user_data['username'];
                             
                             if(isset($_POST['media'])){
@@ -127,8 +139,6 @@
                                     <?php
                                 }
 
-                                $mediaResultCount = 0;
-
                                 while($row = mysqli_fetch_assoc($media_results)){
                                     # need to print out media name, rating, remarks, date
                                     $title = convertQuotes($row['title'], "QUOTES");
@@ -139,7 +149,6 @@
                                                                         
                                     ?>
                                         <div class='instance'>
-                                            <input hidden name="media-page-ID-<?php echo $i ?>" value='<?php echo $mediaID ?>'>
                                             <div class='instance-block in-media-title'>
                                                 <?php echo $title ?>
                                             </div>
@@ -152,13 +161,10 @@
                                             <div class='instance-block in-media-date'>
                                                 <?php echo $date ?>
                                             </div>
-                                            <input class="btn" name="media-page-button-<?php echo $i ?>" type="submit" value="View">
+                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='M <?php echo $mediaID ?>'>
                                         </div>
                                     <?php
-                                    
-                                    $mediaResultCount++;
                                 }
-                                $checkLimit = $mediaResultCount;
                             }
 
                             if(isset($_POST['publisher'])){
@@ -198,7 +204,7 @@
                                             <div class='instance-block in-publisher'>
                                                 <?php echo $publisher ?>
                                             </div>
-                                            <input class="btn" name="publisher-page-button" type="submit" value="View">
+                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='P <?php echo $publisher ?>'>
                                         </div>
                                     <?php
                                 }                                
@@ -250,7 +256,7 @@
                                             <div class='instance-block in-crew-role'>
                                                 <?php echo $role ?>
                                             </div>
-                                            <input class="btn" name="crew-page-button" type="submit" value="View">
+                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='C <?php echo $crewID ?>'>
                                         </div>
                                     <?php
                                 }
@@ -318,7 +324,7 @@
                                             <div class='instance-block in-user-type'>
                                                 <?php echo $user_type ?>
                                             </div>
-                                            <input class="btn" name="user-page-button" type="submit" value="View">
+                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='U <?php echo $username ?>'>
                                         </div>
                                     <?php
                                 }
