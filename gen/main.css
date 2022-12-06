@@ -198,6 +198,10 @@ input {
   border-style: outset;
 }
 
+.media-box {
+  margin: 20px 60px 20px 100px;
+}
+
 /* search page and home page search styling */
 
 .search-bar {
@@ -215,7 +219,6 @@ input {
 .rev-search-buttons {
   flex-direction: row-reverse;
 }
-
 
 .search-box {
   color: var(--white);

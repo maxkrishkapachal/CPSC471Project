@@ -27,21 +27,21 @@
 
     if(isset($_REQUEST['selected-search-result']) && isset($_REQUEST['view-button'])){
         $selected_values = explode(" ", $_REQUEST['selected-search-result']);
-        $_SESSION['id'] = $selected_values[1];
         switch($selected_values[0]){
             case "M":
-                header("Location: ../media/media.php");
+                header("Location: ../media/media.php?id=".$selected_values[1]."");
                 die;
             case "P":
-                header("Location: ../media/publisher.php");
+                header("Location: ../media/publisher.php?id=".$selected_values[1]."");
                 die;
             case "C":
-                header("Location: ../media/crew.php");
+                header("Location: ../media/crew.php?id=".$selected_values[1]."");
                 die;
             case "U":
-                header("Location: ../othermember/viewMember.php");
+                header("Location: ../othermember/viewMember.php?id=".$selected_values[1]."");
                 die;
         }
+        //?id=
     } 
 
 

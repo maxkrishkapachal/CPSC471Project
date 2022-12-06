@@ -5,11 +5,9 @@
 
   $user_data = getUserData($conn);
 
-  //if($_SERVER['REQUEST_METHOD'] == 'GET'){
-    //  $id = $_GET['id'];
-  //}  
-  
-  $id = $_SESSION['id'];
+  if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    $id = $_GET['id'];
+  }  
   
   $_SESSION['id'] = $id;
 
@@ -100,137 +98,142 @@
     <link rel="stylesheet" href="../gen/main.css" media="screen">
 
     <title>MEDIA</title>
-    <br>&nbsp;&nbsp;<button class='btn'><a href="../acc/search.php">Go Back</a></button>
+    <div class='row-of-buttons'>
+      <button class='btn'><a href="../acc/search.php">Go Back</a></button>
+    </div>  
     
     <div class='welcome-label-div'>
       <label class='welcome-label'>
         <?php 
-          echo '<br>'."&nbsp;&nbsp;".convertQuotes($row['title'], "QUOTES");
+          echo convertQuotes($row['title'], "QUOTES");
         ?>
       </label>
     </div>
   </head>
   <body>
     <div class= "media-body">
-      <div class = "center">  
-        <br><br>
+      <div class = "center">
         <?php 
           if ($user_data['user_type']=='ADMIN'){
-            echo "<button class='btn'><a href='../page/deleteMedia.php'>Delete media</a></button>";
-            echo "&nbsp;&nbsp;&nbsp;";
-            echo "<button class='btn'><a href='../page/editMedia.php'>Edit Media</a></button>";
+            ?>
+              <div class='search-buttons'>
+                <button class='btn'><a href='../page/deleteMedia.php'>Delete media</a></button>
+                <button class='btn'><a href='../page/editMedia.php'>Edit Media</a></button>
+              </div>
+            <?php
           }    
         ?>
           
       </div>
-      <h3 style="margin: 20px 60px 20px 100px">
-      <div class= "lcolumn">
-        <?php
-          echo"<br>"."Release date: ".$row['release_date']."<br>"."<br>";
-          echo"<br>"."Description: ".$row['description']."<br>"."<br>";
-          echo"<br>"."Media type: ".$row['media_type']."<br>"."<br>";
+      <h3>
+        <div class="media-box">
+          <div class= "lcolumn">
+            <?php
+              echo"<br>"."Release date: ".$row['release_date']."<br>"."<br>";
+              echo"<br>"."Description: ".$row['description']."<br>"."<br>";
+              echo"<br>"."Media type: ".$row['media_type']."<br>"."<br>";
 
-          $t = $row['media_type'];
+              $t = $row['media_type'];
 
-          if ($t == 'Video Game') {
-            //echo"<br>"."Platform: ".$row['platform']."<br>"."<br>"; 
-            checkTable($conn, "VIDEO_GAME");
-          }
-          else if ($t == 'Book') {
-            echo"<br>"."Chapters: ".$row['chapters']."<br>"."<br>"; 
-          }
-          else if ($t == 'Movie') {
-            echo"<br>"."Duration: 400 years"/*.$row['duration']*/."<br>"."<br>"; 
-          }
-        ?>  
-      </div>
-
-      <div class = 'rcolumn'>
-        <?php
-          if (mysqli_num_rows($p_result) == 0){
-            echo "Publisher: Unknown<br>";
-          } else {
-            while ( $p_row = mysqli_fetch_assoc($p_result)) 
-            {
-              echo "<br>"."Publisher Name: ".''.$p_row['publisher'].''."<br>";
-              echo "<button class='btn'>.<a href='publisher.php?name=".$p_row['publisher']."'>GO TO SEE→</a></button>";
-              echo "<br>"."<br>";
-            }
-          }
-
-          if (mysqli_num_rows($w_result) == 0){
-            echo "Crew: Unknown<br>";
-          } else {
-            while ( $w_row = mysqli_fetch_assoc($w_result))
-            { 
-              checkTable($conn, "CREW");
-              $cre_query = "SELECT * FROM crew WHERE crewID = '".$w_row['crewID']."'";
-              $cre_result = mysqli_query($conn,$cre_query);
-              
-              if(!$w_result){
-                echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
-                exit;
+              if ($t == 'Video Game') {
+                //echo"<br>"."Platform: ".$row['platform']."<br>"."<br>"; 
+                checkTable($conn, "VIDEO_GAME");
               }
-              $cre_row = mysqli_fetch_assoc($cre_result);
-
-              echo "<br>"."Crew name: ".''.$cre_row['name'].'';
-              echo "<br>"."Role: ".''.$w_row['role'].''."<br>";
-              echo "<button class='btn'><a href='crew.php?crewID=".$w_row['crewID']."'>GO TO SEE→</a></button>";
-              echo "<br>"."<br>";
-            }
-          }
-
-          if (mysqli_num_rows($s_result) == 0){
-            echo "There are no statistics for this media.";
-          } else {  
-            while ( $s_row = mysqli_fetch_assoc($s_result))
-            { 
-              echo "<br>"."Overall rating:";
-              for ($i = 0; $i<$s_row['rating']; $i++){
-                echo "★";
+              else if ($t == 'Book') {
+                echo"<br>"."Chapters: ".$row['chapters']."<br>"."<br>"; 
               }
-              echo '('.$s_row['rating'].'/5)';
-              echo "<br>"."<br>";
-            }
-          }
-          echo "<button class='btn'><a href='related_media.php?id=".$id."'>Related media</a></button>";
-        ?>
-      </div>
-
-      <div class='mpc-buttons'>
-        <button class='btn'><a href='../list/addList.php'>Add List</a></button>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button class='btn'><a href='../log/addLog.php'>Add Log</a></button>
-      </div>
-
-      <br><br>
-
-      <button class='btn'><a href='../comment/addComment.php'>Create comment</a></button>
-      
-      <div class = 'comment-body'>
-        <?php 
-          if (mysqli_num_rows($co_result) == 0){
-            echo "No comment yet.";
-          } else {
-            while ( $co_row = mysqli_fetch_assoc($co_result))
-            {
-              echo "<br>";
-              echo '--------------------------------------------------------';
-              echo "<br>"."Date:".''.$co_row['date'].''."";
-              //USER PROFILE HAVEN'T CREATED, NEED TO CHANGE IF IT'S DONE
-              echo "<br>"."Post by ".'<a href="userprofile.php">'.''.$co_row['username'].''."<br>".'</a>';
-              echo "<br>"."Comment: ".'<br>'.$co_row['content'].''."<br>";
-              echo "<br>"."<br>";
-              if ($co_row['username'] == $user_data['username']){
-                echo "<a href='../comment/editComment.php'>EDIT</a>" . '     ';
+              else if ($t == 'Movie') {
+                echo"<br>"."Duration: 400 years"/*.$row['duration']*/."<br>"."<br>"; 
               }
-              if ($co_row['username'] == $user_data['username'] || $user_data['user_type'] == 'ADMIN'){
-                echo "<a href='../comment/deleteComment.php'>DELETE</a>";
+            ?>  
+          </div>
+
+          <div class = 'rcolumn'>
+            <?php
+              if (mysqli_num_rows($p_result) == 0){
+                echo "Publisher: Unknown<br>";
+              } else {
+                while ( $p_row = mysqli_fetch_assoc($p_result)) 
+                {
+                  echo "<br>"."Publisher Name: ".''.$p_row['publisher'].''."<br>";
+                  echo "<button class='btn'>.<a href='publisher.php?name=".$p_row['publisher']."'>GO TO SEE→</a></button>";
+                  echo "<br>"."<br>";
+                }
               }
-            }
-          }
-        ?>
-      </div>
+
+              if (mysqli_num_rows($w_result) == 0){
+                echo "Crew: Unknown<br>";
+              } else {
+                while ( $w_row = mysqli_fetch_assoc($w_result))
+                { 
+                  checkTable($conn, "CREW");
+                  $cre_query = "SELECT * FROM crew WHERE crewID = '".$w_row['crewID']."'";
+                  $cre_result = mysqli_query($conn,$cre_query);
+                  
+                  if(!$w_result){
+                    echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
+                    exit;
+                  }
+                  $cre_row = mysqli_fetch_assoc($cre_result);
+
+                  echo "<br>"."Crew name: ".''.$cre_row['name'].'';
+                  echo "<br>"."Role: ".''.$w_row['role'].''."<br>";
+                  echo "<button class='btn'><a href='crew.php?crewID=".$w_row['crewID']."'>GO TO SEE→</a></button>";
+                  echo "<br>"."<br>";
+                }
+              }
+
+              if (mysqli_num_rows($s_result) == 0){
+                echo "There are no statistics for this media.";
+              } else {  
+                while ( $s_row = mysqli_fetch_assoc($s_result))
+                { 
+                  echo "<br>"."Overall rating:";
+                  for ($i = 0; $i<$s_row['rating']; $i++){
+                    echo "★";
+                  }
+                  echo '('.$s_row['rating'].'/5)';
+                  echo "<br>"."<br>";
+                }
+              }
+              echo "<br><button class='btn'><a href='related_media.php?id=".$id."'>Related media</a></button>";
+            ?>
+          </div>
+          <div class='search-buttons'>
+            <button class='btn'><a href='../list/addList.php'>Add List</a></button>
+            <button class='btn'><a href='../log/addLog.php'>Add Log</a></button>
+          </div>
+
+          <br><br>
+
+          <button class='btn'><a href='../comment/addComment.php'>Create comment</a></button>
+          
+          <div class = 'comment-body'>
+            <?php 
+              if (mysqli_num_rows($co_result) == 0){
+                echo "No comment yet.";
+              } else {
+                while ( $co_row = mysqli_fetch_assoc($co_result))
+                {
+                  echo "<br>";
+                  echo '--------------------------------------------------------';
+                  echo "<br>"."Date:".''.$co_row['date'].''."";
+                  //USER PROFILE HAVEN'T CREATED, NEED TO CHANGE IF IT'S DONE
+                  echo "<br>"."Post by ".'<a href="userprofile.php">'.''.$co_row['username'].''."<br>".'</a>';
+                  echo "<br>"."Comment: ".'<br>'.$co_row['content'].''."<br>";
+                  echo "<br>"."<br>";
+                  if ($co_row['username'] == $user_data['username']){
+                    echo "<a href='../comment/editComment.php'>EDIT</a>" . '     ';
+                  }
+                  if ($co_row['username'] == $user_data['username'] || $user_data['user_type'] == 'ADMIN'){
+                    echo "<a href='../comment/deleteComment.php'>DELETE</a>";
+                  }
+                }
+              }
+            ?>
+          </div>
+        </div>
+      </h3>
     </div>
   </body>
 </html>
