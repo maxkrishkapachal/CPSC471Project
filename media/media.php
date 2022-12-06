@@ -196,6 +196,18 @@
                   echo "<br>"."<br>";
                 }
               }
+		  
+		if (mysqli_num_rows($t_result)==0){
+    		  echo "Tag: unknown";
+  		}else{
+    		  echo "<br>"."Tag: ";
+    		  echo '<div id="tcolor">';
+    		  while ($t_row = mysqli_fetch_assoc($t_result))
+    		  {  
+      			echo "<a href='tags.php?tag=".$t_row['tag']."' >".$t_row['tag']."</a><br>";
+    		  } 
+		  echo "</div>";
+  		}
               echo "<br><button class='btn'><a href='related_media.php?id=".$id."'>Related media</a></button>";
             ?>
           </div>
