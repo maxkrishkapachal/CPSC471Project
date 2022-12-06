@@ -27,18 +27,19 @@
 
     if(isset($_REQUEST['selected-search-result']) && isset($_REQUEST['view-button'])){
         $selected_values = explode(" ", $_REQUEST['selected-search-result']);
+        $_SESSION['id'] = $selected_values[1];
         switch($selected_values[0]){
             case "M":
-                header("Location: ../media/media.php?id=".$selected_values[1]."");
+                header("Location: ../media/media.php");
                 die;
             case "P":
-                header("Location: ../media/publisher.php?id=".$selected_values[1]."");
+                header("Location: ../media/publisher.php");
                 die;
             case "C":
-                header("Location: ../media/crew.php?id=".$selected_values[1]."");
+                header("Location: ../media/crew.php");
                 die;
             case "U":
-                header("Location: ../othermember/viewMember.php?id=".$selected_values[1]."");
+                header("Location: ../othermember/viewMember.php");
                 die;
         }
         //?id=
@@ -100,7 +101,7 @@
                             $search = convertQuotes($_POST['search-bar'], "QUOTES");
                             $current_user = $user_data['username'];
                             
-                            if(isset($_POST['media'])){
+                            if(isset($_POST['media']) && !empty($search)){
                                 checkTable($conn, 'MEDIA');
 
                                 $media_query = "
@@ -166,7 +167,7 @@
                                 }
                             }
 
-                            if(isset($_POST['publisher'])){
+                            if(isset($_POST['publisher'])  && !empty($search)){
                                 checkTable($conn, 'PUBLISHER');
 
                                 $pub_query = "
@@ -209,7 +210,7 @@
                                 }                                
                             }
 
-                            if(isset($_POST['crew'])){
+                            if(isset($_POST['crew'])  && !empty($search)){
                                 checkTable($conn, 'CREW'); 
                                 
                                 $crew_query = "
@@ -261,7 +262,7 @@
                                 }
                             }
 
-                            if(isset($_POST['user'])){
+                            if(isset($_POST['user'])  && !empty($search)){
                                 checkTable($conn, 'USER');
 
                                 $user_query = "
