@@ -172,11 +172,14 @@ require "header.php";
   while ( $s_row = mysqli_fetch_assoc($s_result))
     { 
       echo "<br>"."Overall rating:";
-      for ($i = 0; $i<$s_row['rate']; $i++){
+      for ($i = 0; $i<$s_row['rating']; $i++){
         echo "★";
       }
+      echo '('.$s_row['rating'].'/5)';
       echo "<br>"."<br>";
-  }}?>
+  }}
+  echo "<button class='btn'><a href='related_media.php?id=".$id."'>Related media</a></button>";
+  ?>
   </div>
 
   <div class='mpc-buttons'>
