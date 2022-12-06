@@ -13,7 +13,6 @@
     # bf:"search" or this fb:"search"
     # then each search result will have the name of the media, the type of file, the tags,
     # and when you click on it, it'll take you to their page
-    session_cache_limiter('private_no_expire');
     session_start();
     
     include("../gen/connect.php");
