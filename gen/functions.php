@@ -145,7 +145,7 @@
                         `content` VARCHAR(100) NOT NULL,
                         `commentID` VARCHAR(50) NOT NULL,
                         `mediaID` VARCHAR(50) NOT NULL,
-                        `userID` VARCHAR(50) NOT NULL,
+                        `username` VARCHAR(50) NOT NULL,
                         `date` VARCHAR(20) NOT NULL,
                         PRIMARY KEY (`commentID`(50))
                     ) Engine = InnoDB;";
