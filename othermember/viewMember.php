@@ -3,29 +3,20 @@
 
     include("../gen/functions.php");
     include("../gen/connect.php");
+     
+      //get users
+    checkTable($conn, "USER");
 
-    # view users in a list?
+    $query = "SELECT * FROM user WHERE id = '$id'";
+    $result = mysqli_query($conn,$query);
 
-    $user_name = $_SESSION['list-instance'];
-    $user_data = getUserData($conn);
-
-    checkTable($conn, 'USER');
-
-    $get_user = "
-        SELECT *
-        FROM USER
-        WHERE username = '$user_name'
-    ";
-
-    $result = mysqli_query($conn, $get_user;
-
-    if($result && mysqli_num_rows($result) == 1){
-        $user_name = mysqli_fetch_assoc($result);
-
-        $user_list = convertQuotes($user_name['username'], "QUOTES");
-        $name = convertQuotes($user_list['name'], "QUOTES");
+    if(!$result){
+      echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
+      exit;
     }
+    $row = mysqli_fetch_assoc($result);
 
+    # return/go back
     if(isset($_REQUEST['back-button'])){
         header('Location: ../acc/home.php'); 
         die;
