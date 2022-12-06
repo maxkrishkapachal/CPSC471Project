@@ -5,6 +5,10 @@
     include('../gen/functions.php');
 
     //$user_commentID = $_SESSION['comment-instance'];
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+      $user_commentID = $_GET['comment'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'COMMENT');
@@ -23,7 +27,7 @@
         $content = convertQuotes($user_comment['content'], "QUOTES");
     }
 
-    if(isset($_REQUEST['save'])){
+    if(isset($_POST['save'])){
         $content = convertQuotes($_POST['content'], "SYMBOLS");
 
         if(!empty($content)){
@@ -35,13 +39,13 @@
                 
             mysqli_query($conn, $comment_edit);
             
-            header("Location: ../acc/home.php");
+            header("Location: ../media/media.php?id=".$user_comment['mediaID']."");
             die;
         }
     }
 
-    if(isset($_REQUEST['cancel'])){
-        header('Location: ../acc/home.php'); 
+    if(isset($_POST['cancel'])){
+        header("Location: ../media/media.php?id=".$user_comment['mediaID']."");
         die;
     }
     
@@ -62,7 +66,7 @@
             <form class="edit-comment-form" action="" method="post">
               <input name="content" type="text" class="input" id="content" autocomplete="off" value="<?php echo $content ?>">
     
-              <input name="add" type="submit" class="button" value="Add Comment">
+              <input name="save" type="submit" class="button" value="Save Comment">
               <input name="cancel" type="submit" class="button" value="Cancel">
             </form>
           </div>
