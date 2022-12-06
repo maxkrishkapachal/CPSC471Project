@@ -202,6 +202,15 @@ input {
   margin: 20px 60px 20px 100px;
 }
 
+#tcolor a:link 
+  {
+    color :var(--white); 
+  }
+#tcolor a:visited 
+  { 
+    color: var(--tag); 
+  }
+
 /* search page and home page search styling */
 
 .search-bar {
