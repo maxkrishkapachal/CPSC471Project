@@ -4,32 +4,45 @@
     include("../gen/functions.php");
     include("../gen/connect.php");
 
+    # view users in a list?
+
+    $user_name = $_SESSION['list-instance'];
     $user_data = getUserData($conn);
-    
-    # view other user page
-    Select m.username, m.status, u.email_address, u.Name, u.bio
-    FROM member as m, user as u
-    WHERE m.username = @Username
-       and m.username = u.username
-    And m.status = @status
-       and u.email_address = @email_address
-       and u.Name = @Name
-       and u.bio = @bio;
+
+    checkTable($conn, 'USER');
+
+    $get_user = "
+        SELECT *
+        FROM USER
+        WHERE username = '$user_name'
+    ";
+
+    $result = mysqli_query($conn, $get_user;
+
+    if($result && mysqli_num_rows($result) == 1){
+        $user_name = mysqli_fetch_assoc($result);
+
+        $user_list = convertQuotes($user_name['username'], "QUOTES");
+        $name = convertQuotes($user_list['name'], "QUOTES");
+    }
+
+    if(isset($_REQUEST['back-button'])){
+        header('Location: ../acc/home.php'); 
+        die;
+    }
 
     # add user as friend
     if(isset($_REQUEST['add-friend-button'])){
-      header("Location: ../log/addFriend.php");
-      die;
+      SELECT FROM can_interact as i
+      WHERE i.member_username1 = 'username1'
+            AND i.member_username2 = 'username2'
     }
 
     # block user
     if(isset($_REQUEST['block-button'])){
-      DELETE 
-      FROM can_interact as i
+      DELETE FROM can_interact as i
       WHERE i.member_username1 = 'username1'
             AND i.member_username2 = 'username2'
-      ";
-      die;
     }
 
     # report user
@@ -37,19 +50,6 @@
       header("Location: ../log/reportUser.php");
       die;
     }
-
-//     # add log
-//     if(isset($_REQUEST['add-log-button'])){
-//         header("Location: ../log/addLog.php");
-//         die;
-//     }
-
-//     # edit list
-//     if(isset($_REQUEST['list-instance']) && isset($_REQUEST['edit-list-button'])){
-//         $_SESSION['list-instance'] = $_REQUEST['list-instance'];
-//         header("Location: ../list/editList.php");
-//         die;
-//     } 
 
 ?>
 /*
@@ -63,18 +63,10 @@
         <form method='post'>
             <div class='account'>
                 <div class='account-buttons'>
+                    <input class='btn' type='submit' name='back-button' value='Return Home'>
                     <input class='btn' type='submit' name='add-friend-button' value='Add Friend'>
-                    <input class='btn' type='submit' name='block-member-button' value='Bloxk'>
+                    <input class='btn' type='submit' name='block-member-button' value='Block'>
                     <input class='btn' type='submit' name='report-member-button' value='Report'>
-                </div>
-                <div class='welcome-label-div'>
-                    <label class='welcome-label'>
-                        Welcome, <?php 
-                            $name = $user_data['name'];
-                            if(!empty($name)) echo $name;
-                            else echo $user_data['username'];
-                        ?>
-                    </label>
                 </div>
             </div>
         </form>
