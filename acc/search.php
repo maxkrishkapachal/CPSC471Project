@@ -31,6 +31,7 @@
         $mediapage = 'media-page-button-'.$viewCheck;
         $mediapageID = 'media-page-ID-'.$viewCheck;
         if(isset($_REQUEST[$mediapage])){
+            echo "<label>TESTING $mediapage $mediapageID</label>";
             $_SESSION['id'] = $_REQUEST[$mediapageID];
             header('Location: ../media/media.php');
             die;
