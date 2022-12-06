@@ -5,9 +5,9 @@
     include('../gen/functions.php');
 
     $user_data = getUserData($conn);
-    $mediaID = $_SESSION['id'];
+    $mediaID = $_SESSION['mediaID'];
 
-    if($_REQUEST['add']){
+    if(isset($_REQUEST['add'])){
         # content, commentID, mediaID, username, date
         $content = convertQuotes($_POST['content'], "SYMBOLS");
         $commentID = createID('COM', $user_data['username']);
@@ -30,7 +30,7 @@
             die;
         }
     }
-    if($_REQUEST['cancel']){
+    if(isset($_REQUEST['cancel'])){
         $_SESSION['id'] = $mediaID;
         header("Location: ../media/media.php");
         die;

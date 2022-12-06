@@ -6,7 +6,7 @@
 
     $user_data = getUserData($conn);
 
-    if($_REQUEST['add']){
+    if(isset($_REQUEST['add'])){
         # id, name, desc, username
         $id = createID('LIS', $user_data['username']);
         $name = convertQuotes($_POST['list_name'], "SYMBOLS");
@@ -38,7 +38,7 @@
             }
         }
     }    
-    if($_REQUEST['cancel']){
+    if(isset($_REQUEST['cancel'])){
       header('Location: ../acc/home.php'); 
       die;
   }
