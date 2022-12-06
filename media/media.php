@@ -68,6 +68,15 @@
     exit;
   }
 
+
+  $t_query = "SELECT * FROM media_tag WHERE mediaid = '$id'";
+  $t_result = mysqli_query($conn, $t_query);
+  if(!$t_result){
+     echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
+     exit;
+  }
+
+
   require "header.php";
 ?>
 
