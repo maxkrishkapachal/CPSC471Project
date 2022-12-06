@@ -5,12 +5,12 @@
     include('../gen/functions.php');
 
     $user_data = getUserData($conn);
+    $mediaID = $_SESSION['id'];
 
     if($_REQUEST['add']){
         # content, commentID, mediaID, username, date
         $content = convertQuotes($_POST['content'], "SYMBOLS");
         $commentID = createID('COM', $user_data['username']);
-        $mediaID = "FIX LATER";
         $username = $user_data['username'];
         $date = getDateTime();
 
@@ -25,12 +25,14 @@
             
             # here, we would actually want to go back to the media page, haven't made those yet
             # for now, we'll just have it go back to the main page
-            header("Location: ../acc/home.php");
+            $_SESSION['id'] = $mediaID;
+            header("Location: ../media/media.php");
             die;
         }
     }
     if($_REQUEST['cancel']){
-        header('Location: ../acc/home.php'); 
+        $_SESSION['id'] = $mediaID;
+        header("Location: ../media/media.php");
         die;
     }    
 ?> 
