@@ -68,12 +68,13 @@
     exit;
   }
 
+  checkTable($conn, "MEDIA_TAG");
 
   $t_query = "SELECT * FROM media_tag WHERE mediaid = '$id'";
   $t_result = mysqli_query($conn, $t_query);
   if(!$t_result){
-     echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
-     exit;
+    echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
+    exit;
   }
 
 
@@ -206,17 +207,17 @@
                 }
               }
 		  
-		if (mysqli_num_rows($t_result)==0){
-    		  echo "Tag: unknown";
-  		}else{
-    		  echo "<br>"."Tag: ";
-    		  echo '<div id="tcolor">';
-    		  while ($t_row = mysqli_fetch_assoc($t_result))
-    		  {  
-      			echo "<a href='tags.php?tag=".$t_row['tag']."' >".$t_row['tag']."</a><br>";
-    		  } 
-		  echo "</div>";
-  		}
+              if (mysqli_num_rows($t_result)==0){
+                echo "<br>"."Tag: Unknown";
+              } else {
+                echo "<br>"."Tag: ";
+                echo '<div id="tcolor">';
+                while ($t_row = mysqli_fetch_assoc($t_result))
+                {  
+                  echo "<a href='tags.php?tag=".$t_row['tag']."' >".$t_row['tag']."</a><br>";
+                } 
+                echo "</div>";
+              }
               echo "<br><button class='btn'><a href='related_media.php?id=".$id."'>Related media</a></button>";
             ?>
           </div>
@@ -244,7 +245,11 @@
                   echo "<br>"."Comment: ".'<br>'.$co_row['content'].''."<br>";
                   echo "<br>"."<br>";
                   if ($co_row['username'] == $user_data['username']){
-                    echo "<a href='../comment/editComment.php'>EDIT</a>" . '     ';
+                    $commentID = $co_row['commentID'];
+                    //echo "<a href='../comment/editComment.php?comment-instance=".$commentID.'">EDIT</a>";
+                    ?>
+                      <a href="../comment/editComment.php?comment='<?php echo $commentID ?>'">EDIT</a>
+                    <?php
                   }
                   if ($co_row['username'] == $user_data['username'] || $user_data['user_type'] == 'ADMIN'){
                     echo "<a href='../comment/deleteComment.php'>DELETE</a>";

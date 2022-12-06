@@ -195,6 +195,12 @@
                         PRIMARY KEY (`media_id`(50))
                     ) Engine = InnoDB;";
                     break;
+                case "MEDIA_TAG":
+                    $query = "CREATE TABLE CPSC471.MEDIA_TAG (
+                        `mediaid` VARCHAR(50) NOT NULL,
+                        `tag` VARCHAR(50) NOT NULL   
+                    ) Engine = InnoDB;";
+                    break;
                 default:
                     echo "Something is wrong with the tables you checked";
                     $query = "";

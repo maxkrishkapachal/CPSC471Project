@@ -4,7 +4,7 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
-    $user_commentID = $_SESSION['comment-instance'];
+    //$user_commentID = $_SESSION['comment-instance'];
     $user_data = getUserData($conn);
 
     checkTable($conn, 'COMMENT');
