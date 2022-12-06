@@ -248,7 +248,7 @@
                     $commentID = $co_row['commentID'];
                     //echo "<a href='../comment/editComment.php?comment-instance=".$commentID.'">EDIT</a>";
                     ?>
-                      <a href="../comment/editComment.php?comment='<?php echo $commentID ?>'">EDIT</a>
+                      <a href="../comment/editComment.php?comment=<?php echo $commentID ?>">EDIT</a>
                     <?php
                   }
                   if ($co_row['username'] == $user_data['username'] || $user_data['user_type'] == 'ADMIN'){
