@@ -24,6 +24,28 @@
         header('Location: home.php'); 
         die;
     }
+
+    $checkLimit = 0;
+
+    for($viewCheck = 0; $viewCheck < $checkLimit; $viewCheck++){
+        $mediapage = 'media-page-button-'.$viewCheck;
+        $mediapageID = 'media-page-ID-'.$viewCheck;
+        if(isset($_REQUEST[$mediapage])){
+            $_SESSION['id'] = $_REQUEST[$mediapageID];
+            header('Location: ../media/media.php');
+            die;
+        }
+    }
+
+    
+
+    // for($check = 0; $check < $i; $check++){
+    //     if(isset($_REQUEST['media-page-button-'.$check])){
+    //         $_SESSION['id'] = $_REQUEST['media-page-button-'.$check];
+    //         header('Location: ../media/media.php');
+    //         die;
+    //     }
+    // }
 ?>
 
 <!DOCTYPE html>
@@ -62,8 +84,8 @@
             <div class="scroll scroll-search">
                 <div class="scr">
                     <?php  
+                        $search = NULL;
                         if(isset($_REQUEST['search-button'])){
-                            $search = $_POST['search-bar'];
                             $current_user = $user_data['username'];
                             
                             if(isset($_POST['media'])){
@@ -104,6 +126,8 @@
                                     <?php
                                 }
 
+                                $mediaResultCount = 0;
+
                                 while($row = mysqli_fetch_assoc($media_results)){
                                     # need to print out media name, rating, remarks, date
                                     $title = convertQuotes($row['title'], "QUOTES");
@@ -111,10 +135,10 @@
                                     $date = $row['release_date'];
                                     $description = convertQuotes($row['description'], "QUOTES");
                                     $mediaID = $row['ID'];
-                                    
+                                                                        
                                     ?>
                                         <div class='instance'>
-                                            <input hidden value='<?php echo $mediaID ?>'>
+                                            <input hidden name="media-page-ID-<?php echo $i ?>" value='<?php echo $mediaID ?>'>
                                             <div class='instance-block in-media-title'>
                                                 <?php echo $title ?>
                                             </div>
@@ -127,11 +151,13 @@
                                             <div class='instance-block in-media-date'>
                                                 <?php echo $date ?>
                                             </div>
-                                            <input class="btn" name="media-page-button" type="submit" value="View">
+                                            <input class="btn" name="media-page-button-<?php echo $i ?>" type="submit" value="View">
                                         </div>
                                     <?php
+                                    
+                                    $mediaResultCount++;
                                 }
-                                
+                                $checkLimit = $mediaResultCount;
                             }
 
                             if(isset($_POST['publisher'])){
