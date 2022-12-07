@@ -17,8 +17,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             SELECT * 
             FROM USER 
             WHERE (
-                username = '$user_or_email'
-                OR email_address = '$user_or_email'
+                username = '$username'
+                OR email_address = '$email'
             );";
             
         $result = mysqli_query($conn, $query);
