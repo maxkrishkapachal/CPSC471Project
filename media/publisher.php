@@ -86,8 +86,8 @@
                     if ($user_data['user_type']=='ADMIN'){
                         ?>
                         <div class='search-buttons'>
-                            <button class='btn'><a href='../publisher/editPub.php'>Edit Publisher</a></button>
                             <button class='btn'><a href='../publisher/deletePub.php'>Delete Publisher</a></button>
+                            <button class='btn'><a href='../publisher/editPub.php'>Edit Publisher</a></button>
                         </div>
                         <?php
                     }    

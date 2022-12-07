@@ -75,9 +75,12 @@
           <div class = "center">  
               <?php 
                   if ($user_data['user_type']=='ADMIN'){
-                      echo "<button class='btn'><a href='../page/deleteCrew.php'>Delete Crew</a></button>";
-                      echo "&nbsp;&nbsp;&nbsp;";
-                      echo "<button class='btn'><a href='../page/editCrew.php'>Edit Crew</a></button>";
+                      ?>
+                          <div class='search-buttons'>
+                              <button class='btn'><a href='../crew/deleteCrew.php'>Delete crew</a></button>
+                              <button class='btn'><a href='../crew/editCrew.php'>Edit crew</a></button>
+                          </div>
+                      <?php
                   }    
               ?>  
           </div>

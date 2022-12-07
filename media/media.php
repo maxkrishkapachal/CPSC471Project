@@ -9,7 +9,7 @@
   //   $id = $_GET['id'];
   // }  
   $id = $_SESSION['id'];
-  $_SESSION['id'] = $id;
+  //$_SESSION['id'] = $id;
   $_SESSION['element'] = $id;
 
   
@@ -136,8 +136,8 @@
             if ($user_data['user_type']=='ADMIN'){
               ?>
                 <div class='search-buttons'>
-                  <button class='btn'><a href='../page/deleteMedia.php'>Delete media</a></button>
-                  <button class='btn'><a href='../page/editMedia.php'>Edit Media</a></button>
+                  <button class='btn'><a href='deleteMedia.php'>Delete media</a></button>
+                  <button class='btn'><a href='editMedia.php'>Edit Media</a></button>
                 </div>
               <?php
             }    
