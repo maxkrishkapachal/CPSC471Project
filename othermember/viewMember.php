@@ -7,14 +7,17 @@
       //get users
     checkTable($conn, "USER");
 
-    $query = "SELECT * FROM user WHERE id = '$id'";
+    $user_data = getUserData($conn);
+
+    $username = $user_data['username'];
+    $query = "SELECT * FROM user WHERE username <> '$username'" ;
     $result = mysqli_query($conn,$query);
 
     if(!$result){
       echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
       exit;
     }
-    $row = mysqli_fetch_assoc($result);
+
 
     # return/go back
     if(isset($_REQUEST['back-button'])){
@@ -22,45 +25,152 @@
         die;
     }
 
-    # add user as friend
-    if(isset($_REQUEST['add-friend-button'])){
-      SELECT FROM can_interact as i
-      WHERE i.member_username1 = 'username1'
-            AND i.member_username2 = 'username2'
+    if(isset($_REQUEST['friend'])){
+        $member_ID_1 = $username;
+        $member_ID_2 = convertQuotes($_POST['userID'], "SYMBOLS");
+
+        if(!empty($member_ID_2)){
+            checkTable($conn, 'CAN_INTERACT');
+
+            $query = "INSERT INTO CAN_INTERACT VALUES
+                ('$member_ID_1', '$member_ID_2')
+            ";
+            
+            mysqli_query($conn, $query);
+            header("Location: ../othermember/viewMember.php");
+            die;
+        }
     }
 
-    # block user
-    if(isset($_REQUEST['block-button'])){
-      DELETE FROM can_interact as i
-      WHERE i.member_username1 = 'username1'
-            AND i.member_username2 = 'username2'
-    }
+    if(isset($_REQUEST['block'])){
+    $member_ID_1 = $username;
+    $member_ID_2 = convertQuotes($_POST['userID'], "SYMBOLS");
 
-    # report user
-    if(isset($_REQUEST['report-button'])){
-      header("Location: ../log/reportUser.php");
-      die;
-    }
+        if(!empty($member_ID_2)){
+            checkTable($conn, 'CAN_INTERACT');
+
+            $query = "DELETE 
+            FROM CAN_INTERACT
+            WHERE (memberID_1 = '$member_ID_1' AND memberID_2 = '$member_ID_2' 
+            ) or 
+            ( memberID_1 = '$member_ID_2' AND memberID_2 = '$member_ID_1')
+            ";
+            
+            mysqli_query($conn, $query);
+            header("Location: ../othermember/viewMember.php");
+            die;
+        }
+    }    
+
+    if(isset($_REQUEST['ban'])){
+        $ban_user = convertQuotes($_POST['userID'], "SYMBOLS");
+    
+            if(!empty($ban_user)){
+                checkTable($conn, 'USER');
+    
+                
+                $query = "SELECT *
+                FROM USER
+                WHERE username = '$ban_user'
+            ";
+                
+                mysqli_query($conn, $query);
+                $_SESSION['banuser'] = $ban_user;
+                header("Location: ../othermember/deleteMember.php");
+                die;
+            }
+    }    
 
 ?>
-/*
+
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="../gen/main.css" media="screen">
-    <head>
-        <meta charset="utf-8">
-    </head>
+    
+    <title>viewMember</title>
+    <div class='row-of-buttons'>
+      <button class='btn'><a href="../acc/search.php">Go Back</a></button>
+    </div> 
+    <style>
+
+    table.center {
+    width:70%; 
+    margin-left:15%; 
+    margin-right:15%;
+    }
+    a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+    }
+    a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+    }
+
+    a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+    }
+
+   </style>
+    <div class= "media-body">
+</head>
     <body>
-        <form method='post'>
-            <div class='account'>
-                <div class='account-buttons'>
-                    <input class='btn' type='submit' name='back-button' value='Return Home'>
-                    <input class='btn' type='submit' name='add-friend-button' value='Add Friend'>
-                    <input class='btn' type='submit' name='block-member-button' value='Block'>
-                    <input class='btn' type='submit' name='report-member-button' value='Report'>
-                </div>
-            </div>
-        </form>
+    <?php
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    echo '<div class= "center">
+    <table class="center" border="1" cellspacing="2" cellpadding="2"> 
+      <tr> 
+          <td> <font face="Arial" color = red >username</font> </td> 
+      </tr>';
+      
+    while($row = mysqli_fetch_assoc($result)) {
+    $otheruserID = $row['username'];
+
+    $contain = "SELECT * FROM CAN_INTERACT
+    WHERE (memberID_1 = '$username' AND memberID_2 = '$otheruserID' 
+    ) or 
+    ( memberID_1 = '$otheruserID' AND memberID_2 = '$username')";
+        $c_result = mysqli_query($conn,$contain);
+
+        if(!$c_result){
+          echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
+          exit;
+        }
+
+  
+
+      echo "<form action='' method='POST'>";
+      echo '<input hidden name="userID" value='.$otheruserID.'>';
+      echo '<tr> 
+      <td>'. $otheruserID ;
+      echo "<div class='search-buttons'>";
+      if (mysqli_num_rows($c_result)==0){
+        echo '<input name="friend" type="submit" class="btn" value="Add friends">';
+      }else{
+        echo '<input name="block" type="submit" class="btn" value="Block user">';
+      }
+      echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+      if ($user_data['user_type'] == 'ADMIN'){
+      echo '<input name="ban" type="submit" class="btn" value="Remove user">';
+      }
+      echo "</td>"." </tr>"."<br>"."</form>";
+    }
+    }
+    echo "</div>";
+    echo "</div>";
+    echo "</table>";
+?>    
+    </div>
     </body>
 </html>
-*/
