@@ -227,6 +227,9 @@
                   } 
                   echo "</div>";
                 }
+                ?>
+                  <button name='add-tag-button' class='btn'><a href='../tag/addTag.php'>Add Tag</a></button>
+                <?php
                 echo "<br><button class='btn'><a href='related_media.php?id=".$id."'>Related media</a></button>";
               ?>
             </div>

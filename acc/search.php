@@ -44,19 +44,26 @@
                 header("Location: ../othermember/viewMember.php");
                 die;
         }
-        //?id=
     } 
 
+    if(isset($_REQUEST['add-media-button'])){
+        header("Location: ../media/addMedia.php");
+        die;
+    }
 
+    if(isset($_REQUEST['add-pub-button'])){
+        header("Location: ../publisher/addPub.php");
+        die;
+    }
 
+    if(isset($_REQUEST['add-crew-button'])){
+        header("Location: ../crew/addCrew.php");
+        die;
+    }
 
-    // for($check = 0; $check < $i; $check++){
-    //     if(isset($_REQUEST['media-page-button-'.$check])){
-    //         $_SESSION['id'] = $_REQUEST['media-page-button-'.$check];
-    //         header('Location: ../media/media.php');
-    //         die;
-    //     }
-    // }
+    if(isset($_REQUEST['add-tag-button'])){
+        
+    }
 ?>
 
 <!DOCTYPE html>
@@ -91,8 +98,15 @@
                     <input type="checkbox" name="user" id="user" checked>
                     <label for="user" class='search-box'>User</label>
                 </div>
+                <div>
+                    <input type="checkbox" name="tag" id="tag" checked>
+                    <label for="tag" class='search-box'>Tag</label>
+                </div>
             </div>
-            <div class="search-buttons">
+            <div class="mpc-buttons">
+                <input name='add-media-button' type='submit' value='Add Media' class='btn'>
+                <input name='add-pub-button' type='submit' value='Add Publisher' class='btn'>
+                <input name='add-crew-button' type='submit' value='Add Crew' class='btn'>
                 <input name='view-button' type='submit' value='View' class='btn'>
             </div>
             <div class="scroll scroll-search">
@@ -110,6 +124,7 @@
                                     SELECT *
                                     FROM MEDIA
                                     WHERE title LIKE '%$search%'
+                                    OR description LIKE '%$search%'
                                 ";
 
                                 $media_results = mysqli_query($conn, $media_query);
@@ -176,6 +191,7 @@
                                     SELECT *
                                     FROM PUBLISHER
                                     WHERE name LIKE '%$search%'
+                                    OR description LIKE '%$search%'
                                 ";
 
                                 $pub_results = mysqli_query($conn, $pub_query);
@@ -219,6 +235,7 @@
                                     SELECT *
                                     FROM CREW
                                     WHERE name LIKE '%$search%'
+                                    OR description LIKE '%$search%'
                                 ";
 
                                 $crew_results = mysqli_query($conn, $crew_query);

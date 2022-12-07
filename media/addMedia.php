@@ -6,7 +6,7 @@
 
     $user_data = getUserData($conn);
 
-    if($_REQUEST['add']){
+    if(isset($_REQUEST['add'])){
         $id = createID('MED', $user_data['username']);
         $title = convertQuotes($_POST['title'], "SYMBOLS");
         $rd = convertQuotes($_POST['release_date'], "SYMBOLS");
@@ -20,20 +20,24 @@
               WHERE title = '$title'; 
             ";
 
-            $title_result = mysqli_query($conn, $title);
+            $title_result = mysqli_query($conn, $title_check);
 
             if($title_result && mysqli_num_rows($title_result) == 0){
-                $query = "INSERT INTO CREW (ID, release_date, title, description) VALUES
-                    ('$id', '$rd', '$title', $description)";
+                $query = "
+                    INSERT 
+                    INTO MEDIA
+                    (ID, release_date, title, description) VALUES
+                    ('$id', '$rd', '$title', '$desc')
+                ";
                 
                 mysqli_query($conn, $query);
-                header("Location: ../acc/home.php");
+                header("Location: ../acc/search.php");
                 die;
             }
         }
     }    
-    if($_REQUEST['cancel']){
-        header('Location: ../acc/home.php'); 
+    if(isset($_REQUEST['cancel'])){
+        header('Location: ../acc/search.php'); 
         die;
     }
 ?> 

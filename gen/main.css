@@ -223,6 +223,32 @@ input {
   padding: 10px 30px;
 }
 
+/* tags */
+
+table.center {
+  width:70%; 
+  margin-left:15%; 
+  margin-right:15%;
+}
+
+a:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
 /* search page styling */
 
 .rev-search-buttons {
@@ -241,6 +267,7 @@ input {
   justify-content: space-around;
   padding: 5px 450px;
 }
+
 
 .search-header {
   text-align: center;

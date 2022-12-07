@@ -6,7 +6,7 @@
 
     $user_data = getUserData($conn);
 
-    if($_REQUEST['add']){
+    if(isset($_REQUEST['add'])){
         $name = convertQuotes($_POST['name'], "SYMBOLS");
         $desc = convertQuotes($_POST['desc'], "SYMBOLS");
         $id = createID('CRE', $user_data['username']);
@@ -14,16 +14,20 @@
         if(!empty($name)){
             checkTable($conn, 'CREW');
 
-            $query = "INSERT INTO CREW VALUES
-                ('$id', '$name', '$desc')";
+            $query = "
+              INSERT 
+              INTO CREW 
+              VALUES
+              ('$id', '$name', '$desc')
+            ";
             
             mysqli_query($conn, $query);
-            header("Location: ../acc/home.php");
+            header("Location: ../acc/search.php");
             die;
         }
     }    
-    if($_REQUEST['cancel']){
-      header('Location: ../acc/home.php'); 
+    if(isset($_REQUEST['cancel'])){
+      header('Location: ../acc/search.php'); 
       die;
   }
 ?> 

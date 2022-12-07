@@ -33,31 +33,15 @@
   
     <title>related_media</title>
     <style>
-    table.center {
-    width:70%; 
-    margin-left:15%; 
-    margin-right:15%;
-    }
-    a:link {
-    color: white;
-    background-color: transparent;
-    text-decoration: none;
-    }
-    a:visited {
-    color: white;
-    background-color: transparent;
-    text-decoration: none;
-    }
-
-    a:hover {
-    color: red;
-    background-color: transparent;
-    text-decoration: underline;
-    }
+    
     </style>
-    <br>&nbsp;&nbsp;<button class='btn'><a href="#" onclick="history.go(-1)">Go Back</a></button>        
-    <div class="media-title">
-        <?php echo '<br>'."&nbsp;&nbsp;"."Tag: ". $tag.'<br>'; ?>
+    <br>&nbsp;&nbsp;<button class='btn'><a href="../acc/search.php">Go Back</a></button>        
+    <div class='welcome-label-div'>
+      <label class='welcome-label'>
+        <?php 
+          echo "Tag: ".convertQuotes($tag, "QUOTES");
+        ?>
+      </label>
     </div>
 </head>
 
@@ -74,7 +58,7 @@ if ($result->num_rows > 0) {
       </tr>';
       
     while($row = mysqli_fetch_assoc($result)) {
-        $m_query = "SELECT * FROM media WHERE ID = '".$row['mediaID']."'";
+        $m_query = "SELECT * FROM media WHERE ID = '".$row['mediaid']."'";
         $m_result = mysqli_query($conn,$m_query);
             if(!$m_result){
                   echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
@@ -83,7 +67,7 @@ if ($result->num_rows > 0) {
             $m_row = mysqli_fetch_assoc($m_result);
 
             echo '<tr> 
-            <td>'. "<a href='media.php?id=".$m_row['id']."'</a>".$m_row['title'].'</td> 
+            <td>'. "<a href='media.php?id=".$m_row['ID']."'</a>".$m_row['title'].'</td> 
             </tr>'."<br>";
         
         }
