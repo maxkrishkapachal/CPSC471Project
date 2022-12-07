@@ -134,20 +134,22 @@
                         <div class='scr'>
                             <?php  
                                 checkTable($conn, 'LOGS');
+                                checkTable($conn, "MEDIA");
 
                                 $username = $user_data['username'];
                                 
                                 $logs = "
                                     SELECT *
-                                    FROM LOGS
-                                    WHERE username = '$username'
+                                    FROM LOGS AS L, MEDIA AS M
+                                    WHERE L.username = '$username'
+                                    AND L.mediaID = M.ID
                                 ";
 
                                 $logs_result = mysqli_query($conn, $logs);
 
                                 while($row = mysqli_fetch_assoc($logs_result)){
                                     # need to print out media name, rating, remarks, date
-                                    $medianame = convertQuotes($row['medianame'], "QUOTES");
+                                    $medianame = convertQuotes($row['title'], "QUOTES");
                                     $rating = $row['rating'];
                                     $remarks = convertQuotes($row['remarks'], "QUOTES");
                                     $date = $row['date'];

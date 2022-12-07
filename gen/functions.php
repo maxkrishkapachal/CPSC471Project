@@ -134,7 +134,6 @@
                         `rating` INT NULL, 
                         `mediaID` VARCHAR(50) NOT NULL,
                         `username` VARCHAR(50) NOT NULL,
-                        `medianame` VARCHAR(70) NOT NULL,
                         PRIMARY KEY (`logID`(50))
                     ) Engine = InnoDB;";
                     break;
