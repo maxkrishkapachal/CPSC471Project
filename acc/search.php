@@ -43,6 +43,9 @@
             case "U":
                 header("Location: ../othermember/viewMember.php");
                 die;
+            case "T":
+                header("Location: ../media/tags.php?tag=".$selected_values[1]);
+                die;
         }
     } 
 
@@ -61,9 +64,6 @@
         die;
     }
 
-    if(isset($_REQUEST['add-tag-button'])){
-        
-    }
 ?>
 
 <!DOCTYPE html>
@@ -344,6 +344,49 @@
                                                 <?php echo $user_type ?>
                                             </div>
                                             <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='U <?php echo $username ?>'>
+                                        </div>
+                                    <?php
+                                }
+                            }
+
+                            if(isset($_POST['tag'])  && !empty($search)){
+                                checkTable($conn, 'MEDIA_TAG');
+
+                                $tag_query = "
+                                    SELECT DISTINCT tag
+                                    FROM MEDIA_TAG
+                                    WHERE tag LIKE '%$search%'
+                                ";
+
+                                $tag_results = mysqli_query($conn, $tag_query);
+
+                                if($tag_results && mysqli_num_rows($tag_results) > 0){
+                                    ?>
+
+                                    <div class="search-header">
+                                        <label class="search-header-label">TAGS</label>
+                                        <div class="search-header-cats">
+                                            <div class="search-header-in in-publisher">
+                                                Tag
+                                            </div>
+                                            <div class="search-header-in in-button-hidden">
+                                                View
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <?php
+                                }
+
+                                while($row = mysqli_fetch_assoc($tag_results)){
+                                    $tag = $row['tag'];
+
+                                    ?>
+                                        <div class='instance'>
+                                            <div class='instance-block in-publisher'>
+                                                <?php echo $tag ?>
+                                            </div>
+                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='T <?php echo $tag ?>'>
                                         </div>
                                     <?php
                                 }
