@@ -9,6 +9,8 @@
 
     checkTable($conn, 'PUBLISHER');
 
+    $name = convertQuotes($pubID, "QUOTES");
+
     if(isset($_REQUEST['delete'])){
         $pub_delete = "
             DELETE 
@@ -42,7 +44,7 @@
                 <div class="active">
                     <form class="delete-log-form" action="" method="post">
                         <div class='media-title-div'>
-                            <label class='media-title'>Are you sure you want to delete <?php echo $pubID ?>?</label>
+                            <label class='media-title'>Are you sure you want to delete <?php echo $name ?>?</label>
                         </div>
                         
                         <input name="delete" type="submit" class="button" value="Delete">
