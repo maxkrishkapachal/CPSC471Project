@@ -21,7 +21,7 @@
         $crew = mysqli_fetch_assoc($crew_result);
     }
 
-    $name = $crew['name'];
+    $name = convertQuotes($crew['name'], "QUOTES");
     
     if(isset($_REQUEST['delete'])){
         $crew_delete = "
