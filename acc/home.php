@@ -24,12 +24,6 @@
         die;
     }
 
-    # add log
-    if(isset($_REQUEST['add-log-button'])){
-        header("Location: ../log/addLog.php");
-        die;
-    }
-
     # edit log
     if(isset($_REQUEST['log-instance']) && isset($_REQUEST['edit-log-button'])){
         $_SESSION['log-instance'] = $_REQUEST['log-instance'];
@@ -129,7 +123,6 @@
             <div class='main-page-container'>   
                 <div class='log ll-box'> 
                     <div class='mpc-buttons'>
-                        <input class='btn' type='submit' name='add-log-button' value='Add Log'>
                         <input class='btn' type='submit' name='edit-log-button' value='Edit Log'>
                         <input class='btn' type='submit' name='delete-log-button' value='Delete Log'>
                     </div>
