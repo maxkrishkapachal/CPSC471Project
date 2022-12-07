@@ -13,7 +13,6 @@
     $name = $_SESSION['name'];
     $_SESSION['element'] = $name;
 
-
     require "header.php";
 
     // get publisher

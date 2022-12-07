@@ -42,7 +42,8 @@
         }
 
         else if($element_type[1] == "CRE"){
-
+            $return_add = "Location: ../media/crew.php";
+            $_SESSION['crewID'] = $itemID;
         }
 
         header($return_add); 

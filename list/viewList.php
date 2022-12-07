@@ -41,7 +41,8 @@
         }
 
         else if($element_type[0] == "C"){
-
+            $return_add = "Location: ../media/crew.php";
+            $_SESSION['crewID'] = $element_type[1];
         }
 
         header($return_add); 

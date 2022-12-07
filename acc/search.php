@@ -37,6 +37,7 @@
                 header("Location: ../media/publisher.php");
                 die;
             case "C":
+                $_SESSION['crewID'] = $selected_values[1];
                 header("Location: ../media/crew.php");
                 die;
             case "U":
@@ -231,8 +232,8 @@
                                             <div class="search-header-in in-crew-name">
                                                 Name
                                             </div>
-                                            <div class="search-header-in in-crew-role">
-                                                Role
+                                            <div class="search-header-in in-crew-desc">
+                                                Description
                                             </div>
                                             <div class="search-header-in in-button-hidden">
                                                 View
@@ -246,7 +247,7 @@
                                 while($row = mysqli_fetch_assoc($crew_results)){
                                     $crewID = $row['crewID'];
                                     $name = convertQuotes($row['name'], "QUOTES");
-                                    $role = convertQuotes($row['role'], "QUOTES");
+                                    $desc = convertQuotes($row['description'], "QUOTES");
 
                                     ?>
                                         <div class='instance'>
@@ -254,8 +255,8 @@
                                             <div class='instance-block in-crew-name'>
                                                 <?php echo $name ?>
                                             </div>
-                                            <div class='instance-block in-crew-role'>
-                                                <?php echo $role ?>
+                                            <div class='instance-block in-crew-desc'>
+                                                <?php echo $desc ?>
                                             </div>
                                             <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='C <?php echo $crewID ?>'>
                                         </div>
