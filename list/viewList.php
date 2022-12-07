@@ -29,16 +29,32 @@
         die;
     }
 
-    if(isset($_REQUEST['add-to-list-button'])){
-        header('Location: elem/addElem.php'); 
+    if(isset($_REQUEST['view-button']) && isset($_REQUEST['elem-instance'])){
+        $element_type = explode("~~", $_POST['elem-instance']);
+        
+        $return_add = "Location: ../media/publisher.php";
+        $_SESSION['name'] = $element_type[1];
+
+        if($element_type[0] == "M"){
+            $return_add = "Location: ../media/media.php";
+            $_SESSION['id'] = $element_type[1];
+        }
+
+        else if($element_type[0] == "C"){
+
+        }
+
+        header($return_add); 
         die;
     }
 
-    if(isset($_REQUEST['delete-from-list-button'])){
+    if(isset($_REQUEST['delete-from-list-button']) && isset($_REQUEST['elem-instance'])){
+        $element_type = explode("~~", $_POST['elem-instance']);
+
+        $_SESSION['elem-instance'] = $element_type[2];
         header('Location: elem/deleteElem.php'); 
         die;
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +87,7 @@
             <div class='main-page-container'>   
                 <div class='log ll-box'> 
                     <div class='mpc-buttons'>
-                        <input class='btn' type='submit' name='add-to-list-button' value='Add To List'>
+                        <input class='btn' type='submit' name='view-button' value='View'>
                         <input class='btn' type='submit' name='delete-from-list-button' value='Delete From List'>
                     </div>
                     <form class='log mpc-el search-form' id="form" role="search">
@@ -82,25 +98,77 @@
                         <div class='scr'>
                             <?php  
                                 checkTable($conn, 'ELEMENT');
+                                checkTable($conn, "MEDIA");
+                                checkTable($conn, "PUBLISHER");
+                                checkTable($conn, "CREW");
 
                                 $username = $user_data['username'];
                                 
                                 $elem = "
                                     SELECT *
-                                    FROM ELEMENT
-                                    WHERE username = '$username'
+                                    FROM ELEMENT AS E, MEDIA AS M
+                                    WHERE E.mediaID = M.ID
+                                    AND E.listID = '$user_listID'
                                 ";
 
                                 $elem_result = mysqli_query($conn, $elem);
 
                                 while($row = mysqli_fetch_assoc($elem_result)){
                                     # need to print out media name, rating, remarks, date
-                                    $listID = $row['listID'];
-                                    $medianame = convertQuotes($row['media_name'], "QUOTES");
+                                    $medianame = convertQuotes($row['title'], "QUOTES");
                                     
                                     ?>
                                         <div class='instance'>
-                                            <input class='instance-block' name='elem-instance' type='radio' value='<?php echo $listID . $medianame ?>'>
+                                            <input class='instance-block' name='elem-instance' type='radio' value='M~~<?php echo $row['ID'] ?>~~<?php echo $row['elementID'] ?>'>
+                                            <div class='instance-block in-elem-name' name='name'>
+                                                <?php echo $medianame ?>
+                                            </div>  
+                                        </div>
+                                    <?php
+                                }
+
+                                
+                                $elem = "
+                                    SELECT *
+                                    FROM ELEMENT AS E, PUBLISHER AS P
+                                    WHERE E.mediaID = P.name
+                                    AND E.listID = '$user_listID'
+                                ";
+
+                                $elem_result = mysqli_query($conn, $elem);
+
+                                while($row = mysqli_fetch_assoc($elem_result)){
+                                    # need to print out media name, rating, remarks, date
+                                    $name = $row['name'];
+                                    $medianame = convertQuotes($name, "QUOTES");
+                                    
+                                    ?>
+                                        <div class='instance'>
+                                            <input class='instance-block' name='elem-instance' type='radio' value='P~~<?php echo $name ?>~~<?php echo $row['elementID'] ?>'>
+                                            <div class='instance-block in-elem-name' name='name'>
+                                                <?php echo $medianame ?>
+                                            </div>  
+                                        </div>
+                                    <?php
+                                }
+
+                                
+                                $elem = "
+                                    SELECT *
+                                    FROM ELEMENT AS E, CREW AS C
+                                    WHERE E.mediaID = C.crewID
+                                    AND E.listID = '$user_listID'
+                                ";
+
+                                $elem_result = mysqli_query($conn, $elem);
+
+                                while($row = mysqli_fetch_assoc($elem_result)){
+                                    # need to print out media name, rating, remarks, date
+                                    $medianame = convertQuotes($row['name'], "QUOTES");
+                                    
+                                    ?>
+                                        <div class='instance'>
+                                            <input class='instance-block' name='elem-instance' type='radio' value='C~~<?php echo $row['crewID'] ?>~~<?php echo $row['elementID'] ?>'>
                                             <div class='instance-block in-elem-name' name='name'>
                                                 <?php echo $medianame ?>
                                             </div>  

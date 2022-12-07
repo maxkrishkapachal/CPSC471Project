@@ -1,50 +1,53 @@
 <?php
     session_start();
 
-    include("../gen/connect.php");
-    include('../gen/functions.php');
+    include("../../gen/connect.php");
+    include('../../gen/functions.php');
 
-    $user_listID = $_SESSION['list-instance'];
+    $user_elemID = $_SESSION['elem-instance'];
     $user_data = getUserData($conn);
 
     checkTable($conn, 'ELEMENT');
 
     $get_list = "
-        SELECT *
+        SELECT listID
         FROM ELEMENT
-        WHERE logID = '$user_logID'
+        WHERE elementID = '$user_elemID'
     ";
 
-    $log_result = mysqli_query($conn, $get_log);
-
-    if($log_result && mysqli_num_rows($log_result) == 1){
-        $user_log = mysqli_fetch_assoc($log_result);
-
-        $media = convertQuotes($user_log['medianame'], "QUOTES");
+    $list_result = mysqli_query($conn, $get_list);
+    if($list_result && mysqli_num_rows($list_result) == 1){
+        $user_list = mysqli_fetch_assoc($list_result);  
+        $user_listID = $user_list['listID'];  
     }
-
+    
     if(isset($_REQUEST['delete'])){
-        $log_delete = "
+        $elem_delete = "
             DELETE 
-            FROM LOGS
-            WHERE logID = '$user_logID'
+            FROM ELEMENT
+            WHERE elementID = '$user_elemID'
         ";
             
-        mysqli_query($conn, $log_delete);
+        mysqli_query($conn, $elem_delete);
         
-        header("Location: ../acc/home.php");
-        die;
+        returnAddy($user_listID);
     }
 
     if(isset($_REQUEST['cancel'])){
-        header('Location: ../acc/home.php'); 
+        returnAddy($user_listID);
+    }
+
+    function returnAddy($user_listID){
+        $_SESSION['list-instance'] = $user_listID;
+
+        header("Location: ../viewList.php");
         die;
     }
 ?>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <link rel="stylesheet" href="../gen/main.css" media="screen">
+    <link rel="stylesheet" href="../../gen/main.css" media="screen">
     <head>
         <meta charset="utf-8">
         <title></title>
@@ -55,7 +58,7 @@
                 <div class="active">
                     <form class="delete-log-form" action="" method="post">
                         <div class='media-title-div'>
-                            <label class='media-title'>Delete Log for <?php echo $media ?>?</label>
+                            <label class='media-title'>Are you sure you want to delete?</label>
                         </div>
                         
                         <input name="delete" type="submit" class="button" value="Delete">

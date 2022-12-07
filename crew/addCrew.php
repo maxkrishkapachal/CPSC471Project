@@ -8,14 +8,14 @@
 
     if($_REQUEST['add']){
         $name = convertQuotes($_POST['name'], "SYMBOLS");
-        $role = convertQuotes($_POST['role'], "SYMBOLS");
+        $desc = convertQuotes($_POST['desc'], "SYMBOLS");
         $id = createID('CRE', $user_data['username']);
 
-        if(!empty($name) && !empty($role)){
+        if(!empty($name)){
             checkTable($conn, 'CREW');
 
             $query = "INSERT INTO CREW VALUES
-                ('$id', '$name', '$role')";
+                ('$id', '$name', '$desc')";
             
             mysqli_query($conn, $query);
             header("Location: ../acc/home.php");
@@ -43,7 +43,7 @@
           <div class="active">
             <form class="add-crew-form" action="" method="post">
               <input name="name" type="text" class="input" id="name" autocomplete="off" placeholder="Name*">
-              <input name="role" type="text" class="input" id="role" autocomplete="off" placeholder="Role*">
+              <input name="desc" type="text" class="input" id="desc" autocomplete="off" placeholder="Desc">
               
               <input name="add" type="submit" class="button" value="Add Crew">
               <input name="cancel" type="submit" class="button" value="Cancel">

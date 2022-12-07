@@ -26,13 +26,14 @@
     }
 
     if(isset($_REQUEST['selected-search-result']) && isset($_REQUEST['view-button'])){
-        $selected_values = explode(" ", $_REQUEST['selected-search-result']);
-        $_SESSION['id'] = $selected_values[1];
+        $selected_values = explode(" ", $_REQUEST['selected-search-result'], 2);
         switch($selected_values[0]){
             case "M":
+                $_SESSION['id'] = $selected_values[1];
                 header("Location: ../media/media.php");
                 die;
             case "P":
+                $_SESSION['name'] = $selected_values[1];
                 header("Location: ../media/publisher.php");
                 die;
             case "C":
@@ -204,7 +205,7 @@
                                             <div class='instance-block in-publisher'>
                                                 <?php echo $publisher ?>
                                             </div>
-                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='P <?php echo $publisher ?>'>
+                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='P <?php echo $row['name'] ?>'>
                                         </div>
                                     <?php
                                 }                                

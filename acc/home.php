@@ -195,7 +195,7 @@
                     </div>
                     <div class='scroll scroll-home'>
                         <div class='scr'>
-                        <?php  
+                            <?php  
                                 checkTable($conn, 'LIST');
 
                                 $username = $user_data['username'];

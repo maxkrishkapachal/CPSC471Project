@@ -10,6 +10,7 @@
   // }  
   $id = $_SESSION['id'];
   $_SESSION['id'] = $id;
+  $_SESSION['element'] = $id;
 
   
   //get media
@@ -230,7 +231,7 @@
               ?>
             </div>
             <div class='search-buttons'>
-              <button class='btn'><a href='../list/addList.php'>Add List</a></button>
+              <button class='btn'><a href='../list/addToList.php'>Add To List</a></button>
               <button class='btn'><a href='../log/addLog.php'>Add Log</a></button>
             </div>
 

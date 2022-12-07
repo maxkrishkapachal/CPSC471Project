@@ -123,9 +123,7 @@
                     $query = "CREATE TABLE CPSC471.ELEMENT (
                         `elementID` VARCHAR(50) NOT NULL,
                         `listID` VARCHAR(50) NOT NULL,
-                        `mediaID` VARCHAR(50) NOT NULL,
-                        `media_name` TEXT NOT NULL,
-                        `username` VARCHAR(50) NOT NULL
+                        `mediaID` VARCHAR(50) NOT NULL
                     ) Engine = InnoDB;";
                     break;
                 case "LOGS":
@@ -153,6 +151,7 @@
                 case "PUBLISHER":
                     $query = "CREATE TABLE CPSC471.PUBLISHER (
                         `name` VARCHAR(50) NOT NULL,
+                        `description` VARCHAR(100) NULL,
                         PRIMARY KEY (`name`(50))
                     ) Engine = InnoDB;";
                     break;
@@ -160,7 +159,7 @@
                     $query = "CREATE TABLE CPSC471.CREW (
                         `crewID` VARCHAR(50) NOT NULL,
                         `name` TEXT NOT NULL,
-                        `role` TEXT NOT NULL,
+                        `description` VARCHAR(50) NULL,
                         PRIMARY KEY (`crewID`(50))
                     ) Engine = InnoDB;";
                     break;
@@ -179,7 +178,8 @@
                 case "WORKS_ON":
                     $query = "CREATE TABLE CPSC471.WORKS_ON (
                         `mediaID` VARCHAR(50) NOT NULL,
-                        `crewID` VARCHAR(50) NOT NULL
+                        `crewID` VARCHAR(50) NOT NULL,
+                        `role` VARCHAR(50) NULL
                     ) Engine = InnoDB;";
                     break;
                 case "EMPLOYS":
