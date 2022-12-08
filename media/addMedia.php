@@ -12,6 +12,7 @@
         $rd = convertQuotes($_POST['release_date'], "SYMBOLS");
         $desc = convertQuotes($_POST['description'], "SYMBOLS");
         $mtype = convertQuotes($_POST['media_type'], "SYMBOLS");
+        $misc = convertQuotes($_POST['misc'], "SYMBOLS");
 
         if(!empty($title)){
             checkTable($conn, 'MEDIA');
@@ -32,6 +33,38 @@
                 ";
                 
                 mysqli_query($conn, $query);
+                
+                switch($mtype){
+                    case "Book":
+                        checkTable($conn, "BOOK");
+                        $query = "
+                            INSERT
+                            INTO BOOK VALUES
+                            ('$id', '$misc')
+                        ";
+                        mysqli_query($conn, $query);
+                        break;
+                    case "Movie":
+                        checkTable($conn, "MOVIE");
+                        $query = "
+                            INSERT
+                            INTO MOVIE VALUES
+                            ('$id', '$misc')
+                        ";
+                        mysqli_query($conn, $query);
+                        break;
+                    case "Video Game":
+                        checkTable($conn, "VIDEO_GAME");
+                        $query = "
+                            INSERT
+                            INTO VIDEO_GAME VALUES
+                            ('$id', '$misc')
+                        ";
+                        mysqli_query($conn, $query);
+                        break;
+                    default:
+                }
+
                 header("Location: ../acc/search.php");
                 die;
             }
@@ -76,6 +109,8 @@
                 </div>
                 </fieldset>
                 <br>
+
+                <input name="misc" type="text" class="input" autocomplete="off" placeholder="Duration/Chapters/Platform">
                 
                 <input name="add" type="submit" class="button" value="Add Media">
                 <input name="cancel" type="submit" class="button" value="Cancel">

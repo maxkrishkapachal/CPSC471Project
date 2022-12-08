@@ -25,6 +25,42 @@
   }
   $row = mysqli_fetch_assoc($result);
 
+  //get media type stat
+  switch($row['media_type']){
+    case "Book":
+      $query = "
+        SELECT *
+        FROM BOOK
+        WHERE ID = '$id'
+      ";
+      break;
+    case "Movie":
+      $query = "
+        SELECT *
+        FROM MOVIE
+        WHERE ID = '$id'
+      ";
+      break;
+    case "Video Game":
+      $query = "
+        SELECT *
+        FROM VIDEO_GAME
+        WHERE ID = '$id'
+      ";
+      break;
+    default:
+  }
+
+  $misc_result = mysqli_query($conn, $query);
+
+  if(!$misc_result){
+    echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
+    exit;
+  }
+
+  $media_misc = mysqli_fetch_assoc($misc_result);
+
+
   // get publisher
   checkTable($conn, "PUBLISHED");
 
@@ -155,14 +191,13 @@
                 $t = $row['media_type'];
 
                 if ($t == 'Video Game') {
-                  //echo"<br>"."Platform: ".$row['platform']."<br>"."<br>"; 
-                  checkTable($conn, "VIDEO_GAME");
+                  echo"<br>"."Platform: ".$media_misc['platform']."<br>"."<br>";
                 }
                 else if ($t == 'Book') {
-                  echo"<br>"."Chapters: ".$row['chapters']."<br>"."<br>"; 
+                  echo"<br>"."Chapters: ".$media_misc['chapters']."<br>"."<br>"; 
                 }
                 else if ($t == 'Movie') {
-                  echo"<br>"."Duration: 400 years"/*.$row['duration']*/."<br>"."<br>"; 
+                  echo"<br>"."Duration: ".$media_misc['duration']."<br>"."<br>"; 
                 }
               ?>  
             </div>
