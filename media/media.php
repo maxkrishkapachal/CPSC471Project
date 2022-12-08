@@ -28,6 +28,7 @@
   //get media type stat
   switch($row['media_type']){
     case "Book":
+      checkTable($conn, "BOOK");
       $query = "
         SELECT *
         FROM BOOK
@@ -35,6 +36,7 @@
       ";
       break;
     case "Movie":
+      checkTable($conn, "MOVIE");
       $query = "
         SELECT *
         FROM MOVIE
@@ -42,6 +44,7 @@
       ";
       break;
     case "Video Game":
+      checkTable($conn, "VIDEO_GAME");
       $query = "
         SELECT *
         FROM VIDEO_GAME

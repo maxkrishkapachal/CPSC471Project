@@ -110,7 +110,7 @@
                                 }
                                 $med_row = mysqli_fetch_assoc($med_result);
                                 echo "<br>"."Published Media: ".''.$med_row['title'].''."<br>";
-                                echo "<button class='btn'>.<a href='media.php?id=".$med_row['id']."'>GO TO SEE→</a></button>";
+                                echo "<button class='btn'>.<a href='media.php?id=".$med_row['ID']."'>GO TO SEE→</a></button>";
                             }
                         }
 
