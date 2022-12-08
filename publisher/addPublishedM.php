@@ -6,8 +6,7 @@
      
       //get users
     checkTable($conn, "USER");
-
-    $mediaID = $_SESSION['mediaID'];
+    $mediaID = $_SESSION['element'];
 
     $query = "SELECT * FROM publisher" ;
     $result = mysqli_query($conn,$query);
