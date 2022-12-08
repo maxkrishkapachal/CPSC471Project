@@ -203,9 +203,10 @@
                     echo "<br>"."<br>";
                   }
                 }
-
+		
+                echo "<button class='btn'><a href='../crew/addwork_onM.php'>Add Crew</a></button><br>";
                 
-
+		
                 $s_row = mysqli_fetch_assoc($s_result);
                 echo "<br>"."Overall rating: ";
                 if($s_row['rating'] == NULL){
