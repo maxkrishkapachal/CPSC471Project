@@ -11,6 +11,7 @@
         $title = convertQuotes($_POST['title'], "SYMBOLS");
         $rd = convertQuotes($_POST['release_date'], "SYMBOLS");
         $desc = convertQuotes($_POST['description'], "SYMBOLS");
+        $mtype = convertQuotes($_POST['media_type'], "SYMBOLS");
 
         if(!empty($title)){
             checkTable($conn, 'MEDIA');
@@ -26,8 +27,8 @@
                 $query = "
                     INSERT 
                     INTO MEDIA
-                    (ID, release_date, title, description) VALUES
-                    ('$id', '$rd', '$title', '$desc')
+                    (ID, release_date, title, description, media_type) VALUES
+                    ('$id', '$rd', '$title', '$desc','$mtype')
                 ";
                 
                 mysqli_query($conn, $query);
@@ -59,6 +60,22 @@
                 <input name="title" type="text" class="input" id="title" autocomplete="off" placeholder="Title*">
                 <input name="release_date" type="text" class="input" id="release_date" autocomplete="off" placeholder="Release Date">
                 <input name="description" type="text" class="input" id="description" autocomplete="off" placeholder="Description">
+                
+                <fieldset>Media type
+                <div>
+                <input type="radio" id="Book" name="media_type" value="Book" />
+                <label for="Book">Book</label>    
+                </div>
+                <div>
+                <input type="radio" id="Movie" name="media_type" value="Movie" />
+                <label for="Movie">Movie</label>
+                </div>
+                <div>
+                <input type="radio" id="Video Game" name="media_type" value="Video Game" />
+                <label for="Video game">Video Game</label>
+                </div>
+                </fieldset>
+                <br>
                 
                 <input name="add" type="submit" class="button" value="Add Media">
                 <input name="cancel" type="submit" class="button" value="Cancel">
