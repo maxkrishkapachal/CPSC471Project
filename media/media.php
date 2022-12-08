@@ -262,7 +262,9 @@
                       <?php
                     }
                     if ($co_row['username'] == $user_data['username'] || $user_data['user_type'] == 'ADMIN'){
-                      echo "<a href='../comment/deleteComment.php'>DELETE</a>";
+                      ?>
+                        <a href="../comment/deleteComment.php?comment=<?php echo $co_row['commentID'] ?>">DELETE</a>
+                      <?php
                     }
                   }
                 }
