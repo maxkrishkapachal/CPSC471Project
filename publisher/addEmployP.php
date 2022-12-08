@@ -21,6 +21,7 @@
         $cID = convertQuotes($_POST['cID'], "SYMBOLS");
 
         if(!empty($cID)){
+            echo $cID;
             checkTable($conn, 'EMPLOYS');
 
             $query = "INSERT INTO EMPLOYS VALUES
