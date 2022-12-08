@@ -48,9 +48,9 @@
   }
   
   //get statistics
-  checkTable($conn, "STATISTIC");
+  checkTable($conn, "LOGS");
     
-  $s_query = "SELECT * FROM statistic WHERE media_id = '$id'";
+  $s_query = "SELECT AVG(rating) AS rating FROM LOGS WHERE mediaID = '$id'";
   $s_result = mysqli_query($conn,$s_query);
 
   if(!$s_result){
@@ -202,19 +202,20 @@
                   }
                 }
 
-                if (mysqli_num_rows($s_result) == 0){
-                  echo "There are no statistics for this media.";
-                } else {  
-                  while ( $s_row = mysqli_fetch_assoc($s_result))
-                  { 
-                    echo "<br>"."Overall rating:";
-                    for ($i = 0; $i<$s_row['rating']; $i++){
-                      echo "★";
-                    }
-                    echo '('.$s_row['rating'].'/5)';
-                    echo "<br>"."<br>";
-                  }
+                
+
+                $s_row = mysqli_fetch_assoc($s_result);
+                echo "<br>"."Overall rating: ";
+                if($s_row['rating'] == NULL){
+                  echo "No data";
                 }
+                else {
+                  for ($i = 0; $i<$s_row['rating']; $i++){
+                    echo "★";
+                  }
+                  echo '('.$s_row['rating'].'/10)';
+                }
+                echo "<br>"."<br>";
         
                 if (mysqli_num_rows($t_result)==0){
                   echo "<br>"."Tag: Unknown";
