@@ -47,7 +47,7 @@
     
     <title>addPublished</title>
     <div class='row-of-buttons'>
-      <button class='btn'><a href="../acc/search.php">Go Back</a></button>
+      <button class='btn'><a href="../media/media.php">Go Back</a></button>
     </div> 
     <style>
 
