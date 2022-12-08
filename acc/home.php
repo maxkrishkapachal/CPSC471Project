@@ -18,6 +18,12 @@
         die;
     }
 
+    # stats
+    if(isset($_REQUEST['stats-button'])){
+        header("Location: ../media/statistic.php");
+        die;
+    }
+
     # logout
     if(isset($_REQUEST['logout-button'])){
         header("Location: logout.php");

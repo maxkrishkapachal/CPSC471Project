@@ -44,10 +44,27 @@
             echo "Already logged this media";
 
         else {
-            $query = "INSERT INTO LOGS VALUES
-              ('$id', '$date', '$remarks', '$rating', '$mediaID', '$username')";
+            $query = "
+              INSERT 
+              INTO LOGS 
+              VALUES
+              ('$id', '$date', '$remarks', '$rating', '$mediaID', '$username')
+            ";
             
             mysqli_query($conn, $query);
+
+            $query = "
+              UPDATE MEDIA
+              SET ranking = (
+                SELECT AVG(rating) AS rating 
+                FROM LOGS 
+                WHERE mediaID = '$mediaID'
+              )
+              WHERE ID = '$mediaID'
+            ";
+
+            mysqli_query($conn, $query);
+
             header("Location: ../acc/home.php");
             die;
         }

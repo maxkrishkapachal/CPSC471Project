@@ -12,9 +12,10 @@
     checkTable($conn, 'LOGS');
 
     $get_log = "
-        SELECT *
-        FROM LOGS
-        WHERE logID = '$user_logID'
+        SELECT L.mediaID, L.remarks, L.rating, M.title
+        FROM LOGS AS L, MEDIA AS M
+        WHERE L.logID = '$user_logID'
+        AND L.mediaID = M.ID
     ";
 
     $log_result = mysqli_query($conn, $get_log);
@@ -22,9 +23,10 @@
     if($log_result && mysqli_num_rows($log_result) == 1){
         $user_log = mysqli_fetch_assoc($log_result);
 
-        $media = convertQuotes($user_log['medianame'], "QUOTES");
+        $mediaID = $user_log['mediaID'];
         $remarks = convertQuotes($user_log['remarks'], "QUOTES");
         $rating = $user_log['rating'];
+        $title = convertQuotes($user_log['title'], "QUOTES");
     }
 
     if(isset($_REQUEST['save'])){
@@ -39,6 +41,19 @@
             ";
                 
             mysqli_query($conn, $log_edit);
+
+            $query = "
+              UPDATE MEDIA
+              SET ranking = (
+                SELECT AVG(rating) AS rating 
+                FROM LOGS 
+                WHERE mediaID = '$mediaID'
+              )
+              WHERE ID = '$mediaID'
+            ";
+
+            mysqli_query($conn, $query);
+
             
             header("Location: ../acc/home.php");
             die;
@@ -65,7 +80,7 @@
                 <div class="active">
                     <form class="edit-log-form" action="" method="post">
                         <div class='media-title-div'>
-                            <label class='media-title'><?php echo $media ?></label>
+                            <label class='media-title'><?php echo $title ?></label>
                         </div>
                         <input name="remarks" type="text" class="input" id="log_remarks" autocomplete="off" value="<?php echo $remarks ?>">
                         <input name="rating" type="number" class="input" id="log_rating" autocomplete="off" value="<?php echo $rating ?>">
