@@ -174,7 +174,8 @@
                 } else {
                   while ( $p_row = mysqli_fetch_assoc($p_result)) 
                   {
-                    echo "<br>"."Publisher Name: ".''.$p_row['publisher'].''."<br>";
+                    $name = convertQuotes($p_row['publisher'], "QUOTES");
+                    echo "<br>"."Publisher Name: ".''."$name".''."<br>";
                     echo "<button class='btn'>.<a href='publisher.php?name=".$p_row['publisher']."'>GO TO SEE→</a></button>";
                     echo "<br>"."<br>";
                   }
