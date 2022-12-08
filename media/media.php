@@ -140,7 +140,7 @@
                   <button class='btn'><a href='editMedia.php'>Edit Media</a></button>
                 </div>
               <?php
-            }    
+            } 
           ?>
             
         </div>
@@ -179,7 +179,8 @@
                     echo "<br>"."<br>";
                   }
                 }
-
+		 echo "<button class='btn'><a href='../publisher/addPublishedM.php'>Add publisher</a></button><br>";
+		    
                 if (mysqli_num_rows($w_result) == 0){
                   echo "Crew: Unknown<br>";
                 } else {
