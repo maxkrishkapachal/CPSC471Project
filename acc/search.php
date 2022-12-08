@@ -41,6 +41,7 @@
                 header("Location: ../media/crew.php");
                 die;
             case "U":
+                $_SESSION['other-user'] = $selected_values[1];
                 header("Location: ../othermember/viewMember.php");
                 die;
             case "T":

@@ -102,7 +102,7 @@ if ($result->num_rows > 0) {
       echo "<form action='' method='POST'>";
       echo "<input hidden name='pname' value='$pname'>";
       echo '<tr> 
-      <td>'. $pname ;
+      <td>'. convertQuotes($pname, "QUOTES");
       echo "<div class='search-buttons'>";
       if (mysqli_num_rows($c_result)==0){
         echo '<input name="add" type="submit" class="btn" value="Add">';
