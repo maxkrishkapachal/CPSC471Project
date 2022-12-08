@@ -30,7 +30,8 @@
     $mediaID = $user_comment['ID'];
     $title = convertQuotes($user_comment['title'], "QUOTES");
 
-    if(isset($_REQUEST['delete'])){
+    if(isset($_POST['delete'])){
+        $user_commentID = $_REQUEST['comment_ID'];
         $comment_delete = "
             DELETE 
             FROM COMMENT
@@ -38,13 +39,12 @@
         ";
             
         mysqli_query($conn, $comment_delete);
-        
 
-        //header("Location: ../media/media.php");
-        //die;
+        header("Location: ../media/media.php");
+        die;
     }
 
-    if(isset($_REQUEST['cancel'])){
+    if(isset($_POST['cancel'])){
         header('Location: ../media/media.php'); 
         die;
     }
@@ -65,7 +65,7 @@
                         <div class='media-title-div'>
                             <label class='media-title'>Delete Comment on <?php echo $title ?>?</label>
                         </div>
-                        
+                        <input hidden name="comment_ID" value='<?php echo $user_commentID ?>'>
                         <input name="delete" type="submit" class="button" value="Delete">
                         <input name="cancel" type="submit" class="button" value="Cancel">
                     </form>

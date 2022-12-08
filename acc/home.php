@@ -108,6 +108,7 @@
                 <div class='row-of-buttons'>
                     <input class='btn' type='submit' name='edit-account-button' value='Edit Account'>
                     <input class='btn' type='submit' name='search-button' value='Search'>
+                    <input class='btn' type='submit' name='stats-button' value='Statistics'>
                     <input class='btn' type='submit' name='logout-button' value='Logout'>
                 </div>
                 <div class='welcome-label-div'>
