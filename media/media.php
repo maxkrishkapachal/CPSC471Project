@@ -295,7 +295,8 @@
                     echo '--------------------------------------------------------';
                     echo "<br>"."Date:".''.$co_row['date'].''."";
                     //USER PROFILE HAVEN'T CREATED, NEED TO CHANGE IF IT'S DONE
-                    echo "<br>"."Post by ".'<a href="userprofile.php">'.''.$co_row['username'].''."<br>".'</a>';
+                    $_SESSION['other-user'] = $co_row['username'];
+                    echo "<br>"."Post by ".'<a href="../othermember/viewMember.php">'.''.$co_row['username'].''."<br>".'</a>';
                     echo "<br>"."Comment: ".'<br>'.$co_row['content'].''."<br>";
                     echo "<br>"."<br>";
                     if ($co_row['username'] == $user_data['username']){
