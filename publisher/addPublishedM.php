@@ -6,6 +6,7 @@
      
       //get users
     checkTable($conn, "USER");
+
     $mediaID = $_SESSION['element'];
 
     $query = "SELECT * FROM publisher" ;
@@ -20,6 +21,7 @@
         $name = convertQuotes($_POST['pname'], "SYMBOLS");
 
         if(!empty($name)){
+          echo "$name";
             checkTable($conn, 'PUBLISHED');
 
             $query = "INSERT INTO PUBLISHED VALUES
@@ -47,6 +49,31 @@
     <div class='row-of-buttons'>
       <button class='btn'><a href="../acc/search.php">Go Back</a></button>
     </div> 
+    <style>
+
+    table.center {
+    width:70%; 
+    margin-left:15%; 
+    margin-right:15%;
+    }
+    a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+    }
+    a:visited {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+    }
+
+    a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+    }
+
+   </style>
     <div class= "media-body">
 </head>
     <body>
@@ -71,12 +98,11 @@ if ($result->num_rows > 0) {
           exit;
         }
 
-        $pubName = convertQuotes($pname, "QUOTES");
 
       echo "<form action='' method='POST'>";
-      echo '<input hidden name="pname" value='.$pname.'>';
+      echo "<input hidden name='pname' value='$pname'>";
       echo '<tr> 
-      <td>'. $pubName;
+      <td>'. $pname ;
       echo "<div class='search-buttons'>";
       if (mysqli_num_rows($c_result)==0){
         echo '<input name="add" type="submit" class="btn" value="Add">';
