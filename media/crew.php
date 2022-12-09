@@ -101,12 +101,15 @@
                                   exit;
                               }
                               $med_row = mysqli_fetch_assoc($med_result);
-                              echo "<br>"."Worked on: ".''.$med_row['title'].''."<br>";
+                              echo "<br>"."Worked on: ".''.convertQuotes($med_row['title'], "QUOTES").''."<br>";
                               echo "<br>"."Role: ".''.$w_row['role'].''."<br>";
                               echo "<button class='btn'><a href='media.php?id=".$w_row['mediaID']."'>GO TO SEE→</a></button>";
                               echo "<br>"."<br>";
                           }
                       }
+
+                      echo "<br><br><button class='btn'><a href='addWorkOnC.php?crewID=".$crewID."'>Add Media</a></button><br>";
+
 
                       if (mysqli_num_rows($p_result) == 0){
                           echo "Employer: Haven't have any employer stored in media shelf";
