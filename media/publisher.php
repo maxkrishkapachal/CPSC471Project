@@ -98,7 +98,7 @@
             <h3>
                 <div class="media-box">
                     <?php
-                        echo"<br>"."Description: ".$row['description']."<br>"."<br>"; 
+                        echo"<br>"."Description: ".$row['description']."<br>"; 
                         if (mysqli_num_rows($p_result) == 0) {
                             echo "Published Media: Haven't published any media stored in media shelf";
                         } else {
@@ -112,11 +112,13 @@
                                 }
                                 else {
                                     $med_row = mysqli_fetch_assoc($med_result);
-                                    echo "<br>"."Published Media: ".''.$med_row['title'].''."<br>";
+                                    echo "<br><br>"."Published Media: ".''.$med_row['title'].''."<br>";
                                     echo "<button class='btn'><a href='media.php?id=".$med_row['ID']."'>GO TO SEE→</a></button>";
                                 }
                             }
                         }
+
+                        echo "<br><br><button class='btn'><a href='addPublishedP.php?name=".$name."'>Add Media</a></button><br>";
 
                         if (mysqli_num_rows($e_result) == 0){
                             echo "<br><br>Employee: Haven't have any crew stored in media shelf";
@@ -137,7 +139,7 @@
                             }
                         }
 			
-                    echo "<button class='btn'><a href='../publisher/addEmployP.php?name=".$name."'>Add Crew</a></button><br>";
+                        echo "<button class='btn'><a href='../publisher/addEmployP.php?name=".$name."'>Add Crew</a></button><br>";
                     ?>
 
                     <br><br>
