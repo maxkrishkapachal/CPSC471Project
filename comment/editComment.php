@@ -25,11 +25,12 @@
 
     if($comment_result && mysqli_num_rows($comment_result) == 1){
         $user_comment = mysqli_fetch_assoc($comment_result);
-
+        $mediaID = $user_comment['mediaID'];
         $content = convertQuotes($user_comment['content'], "QUOTES");
     }
 
     if(isset($_POST['save'])){
+        $mediaID = $_POST['mediaID'];
         $content = convertQuotes($_POST['content'], "SYMBOLS");
         $user_commentID = $_REQUEST['comment_ID'];
         
@@ -42,13 +43,14 @@
             
             mysqli_query($conn, $comment_edit);
             
-            header("Location: ../media/media.php?id=".$user_comment['mediaID']."");
+            header("Location: ../media/media.php?id=$mediaID");
             die;
         }
     }
 
     if(isset($_POST['cancel'])){
-        header("Location: ../media/media.php?id=".$user_comment['mediaID']."");
+        $mediaID = $_POST['mediaID'];
+        header("Location: ../media/media.php?id=$mediaID");
         die;
     }
     
@@ -69,7 +71,8 @@
             <form class="edit-comment-form" action="" method="post">
               <input hidden name="comment_ID" value='<?php echo $user_commentID ?>'>
               <input name="content" type="text" class="input" id="content" autocomplete="off" value="<?php echo $content ?>">
-    
+              <input hidden name='mediaID' value='<?php echo $mediaID ?>'>
+              
               <input name="save" type="submit" class="button" value="Save Comment">
               <input name="cancel" type="submit" class="button" value="Cancel">
             </form>

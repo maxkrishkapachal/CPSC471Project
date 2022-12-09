@@ -19,17 +19,6 @@
         }
     }
 
-    function filterSearch($search){
-        # so, we'll check if there is :"$" 
-        # if there is, we'll grab the letters before it
-        # and we'll cycle through them and if it's the first one,
-        # we'll say "WHERE" and for all subsequent ones, we'll say "OR"
-        # and depending on the letter, we'll print a different thing, so
-        # we'll use a switch
-        preg_match('/:"(.*?)"/', $search, $matches);
-        return $matches;
-    }
-
     function createID($type, $username){
         return "$username-$type-" .date("Ymd") . "-" . date("His");
     }

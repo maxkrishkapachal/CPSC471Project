@@ -115,20 +115,20 @@
     if(isset($_REQUEST['ban'])){
         $ban_user = convertQuotes($_POST['userID'], "SYMBOLS");
     
-            if(!empty($ban_user)){
-                checkTable($conn, 'USER');
-    
-                
-                $query = "SELECT *
-                FROM USER
-                WHERE username = '$ban_user'
-            ";
-                
-                mysqli_query($conn, $query);
-                $_SESSION['banuser'] = $ban_user;
-                header("Location: ../othermember/deleteMember.php");
-                die;
-            }
+        if(!empty($ban_user)){
+            checkTable($conn, 'USER');
+
+            
+            $query = "SELECT *
+            FROM USER
+            WHERE username = '$ban_user'
+        ";
+            
+            mysqli_query($conn, $query);
+            $_SESSION['banuser'] = $ban_user;
+            header("Location: ../othermember/deleteMember.php");
+            die;
+        }
     }    
 
     # block

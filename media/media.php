@@ -287,11 +287,16 @@
                   {
                     echo "<br>";
                     echo '--------------------------------------------------------';
-                    echo "<br>"."Date:".''.$co_row['date'].''."";
+                    echo "<br>"."Date: ".''.$co_row['date'].''."";
                     //USER PROFILE HAVEN'T CREATED, NEED TO CHANGE IF IT'S DONE
-                    echo "<br>"."Post by ".'<a href="../othermember/viewMember.php?otheruser='.$co_row['username'].'>'.''.$co_row['username'].''."<br>".'</a>';
-                    echo "<br>"."Comment: ".'<br>'.$co_row['content'].''."<br>";
-                    echo "<br>"."<br>";
+                    //echo "<br>"."Post by ".'<a href="../othermember/viewMember.php?otheruser='.$co_row['username'].'>'.''.$co_row['username'].''."<br>".'</a>';
+                    //echo "<br>"."Comment: ".'<br>'.$co_row['content'].''."<br>";
+                    ?>
+                      <br>
+                      Post by: <a href="../othermember/viewMember.php?otheruser=<?php echo $co_row['username'] ?>"><?php echo $co_row['username'] ?></a>
+                      <br>
+                      Comment: <br><?php echo $co_row['content'] ?><br>
+                    <?php
                     if ($co_row['username'] == $user_data['username']){
                       ?>
                         <br><br><a href="../comment/editComment.php?comment=<?php echo $co_row['commentID'] ?>">EDIT</a>

@@ -13,8 +13,6 @@
     
     $user_data = getUserData($conn);
 
-    echo "<label>comment id: $user_commentID</label>";
-
     checkTable($conn, 'COMMENT');
 
     $get_comment = "
@@ -31,6 +29,7 @@
     $title = convertQuotes($user_comment['title'], "QUOTES");
 
     if(isset($_POST['delete'])){
+        $mediaID = $_POST['mediaID'];
         $user_commentID = $_REQUEST['comment_ID'];
         $comment_delete = "
             DELETE 
@@ -45,6 +44,7 @@
     }
 
     if(isset($_POST['cancel'])){
+        $mediaID = $_POST['mediaID'];
         header('Location: ../media/media.php?id='.$mediaID); 
         die;
     }
@@ -65,6 +65,7 @@
                         <div class='media-title-div'>
                             <label class='media-title'>Delete Comment on <?php echo $title ?>?</label>
                         </div>
+                        <input hidden name='mediaID' value='<?php echo $mediaID ?>'>
                         <input hidden name="comment_ID" value='<?php echo $user_commentID ?>'>
                         <input name="delete" type="submit" class="button" value="Delete">
                         <input name="cancel" type="submit" class="button" value="Cancel">
