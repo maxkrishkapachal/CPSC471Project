@@ -59,7 +59,7 @@
                         echo '<tr> 
                         <td>'.$rank.'</td> 
                         <td>'. "<a href='media.php?id=".$row['ID']."'</a>".convertQuotes($row['title'], "QUOTES").'</td> 
-                        <td>'. $row["ranking"]. '</td> 
+                        <td>'. round($row["ranking"], 2). '</td> 
                         </tr>'."<br>";
                         $rank ++;
                     }
@@ -103,7 +103,7 @@
                         echo '<tr> 
                         <td>'.$rank.'</td> 
                         <td>'. "<a href='media.php?id=".$row['ID']."'</a>".convertQuotes($row['title'], "QUOTES").'</td> 
-                        <td>'. $row["ranking"]. '</td> 
+                        <td>'. round($row["ranking"], 2). '</td> 
                         </tr>'."<br>";
                         $rank ++;
                     }
@@ -147,7 +147,7 @@
                         echo '<tr> 
                         <td>'.$rank.'</td> 
                         <td>'. "<a href='media.php?id=".$row['ID']."'</a>".convertQuotes($row['title'], "QUOTES").'</td> 
-                        <td>'. $row["ranking"]. '</td> 
+                        <td>'. round($row["ranking"], 2). '</td> 
                         </tr>'."<br>";
                         $rank ++;
                     }
@@ -191,7 +191,7 @@
                         echo '<tr> 
                         <td>'.$rank.'</td> 
                         <td>'. "<a href='media.php?id=".$row['ID']."'</a>".convertQuotes($row['title'], "QUOTES").'</td> 
-                        <td>'. $row["ranking"]. '</td> 
+                        <td>'. round($row["ranking"], 2). '</td> 
                         </tr>'."<br>";
                         $rank ++;
                     }
