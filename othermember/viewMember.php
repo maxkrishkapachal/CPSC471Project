@@ -173,13 +173,6 @@
             <div class='account'>
                 <div class='row-of-buttons'>
                     <input class='btn btn-input' type='submit' name='home-button' value='Home'>
-                    <input class='btn btn-input' type='submit' name='block-button' value='Block'>
-                    <?php
-                      if($user_data['user_type'] == "ADMIN"){
-                        ?>
-                          <input class='btn btn-input' type='submit' name='ban-button' value='Ban'>
-                        <?php
-                      }
                     ?>
                 </div>
                 <div class='welcome-label-div'>
