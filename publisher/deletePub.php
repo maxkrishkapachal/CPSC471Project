@@ -20,6 +20,30 @@
             
         mysqli_query($conn, $pub_delete);
 
+        $pub_delete = "
+            DELETE 
+            FROM ELEMENT
+            WHERE mediaID = '$pubID'
+        ";
+            
+        mysqli_query($conn, $pub_delete);
+
+        $pub_delete = "
+            DELETE 
+            FROM EMPLOYS
+            WHERE publisher = '$pubID'
+        ";
+            
+        mysqli_query($conn, $pub_delete);
+
+        $pub_delete = "
+            DELETE 
+            FROM PUBLISHED
+            WHERE publisher = '$pubID'
+        ";
+            
+        mysqli_query($conn, $pub_delete);
+
         header("Location: ../acc/search.php");
         die;
     }

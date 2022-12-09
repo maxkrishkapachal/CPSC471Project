@@ -32,6 +32,30 @@
             
         mysqli_query($conn, $crew_delete);
 
+        $crew_delete = "
+            DELETE 
+            FROM ELEMENT
+            WHERE mediaID = '$crewID'
+        ";
+            
+        mysqli_query($conn, $crew_delete);
+
+        $crew_delete = "
+            DELETE 
+            FROM EMPLOYS
+            WHERE crewID = '$crewID'
+        ";
+            
+        mysqli_query($conn, $crew_delete);
+
+        $crew_delete = "
+            DELETE 
+            FROM WORKS_ON
+            WHERE crewID = '$crewID'
+        ";
+            
+        mysqli_query($conn, $crew_delete);
+
         header("Location: ../acc/search.php");
         die;
     }

@@ -29,7 +29,87 @@
             FROM MEDIA
             WHERE ID = '$mediaID'
         ";
-            
+
+        mysqli_query($conn, $media_delete);
+
+        $media_delete = "
+            DELETE 
+            FROM BOOK
+            WHERE ID = '$mediaID'
+        ";
+
+        mysqli_query($conn, $media_delete);
+
+        
+        $media_delete = "
+            DELETE 
+            FROM COMMENT
+            WHERE mediaID = '$mediaID'
+        ";
+
+        mysqli_query($conn, $media_delete);
+
+        
+        $media_delete = "
+            DELETE 
+            FROM ELEMENT
+            WHERE mediaID = '$mediaID'
+        ";
+
+        mysqli_query($conn, $media_delete);
+
+        
+        $media_delete = "
+            DELETE 
+            FROM LOG
+            WHERE mediaID = '$mediaID'
+        ";
+
+        mysqli_query($conn, $media_delete);
+
+        
+        $media_delete = "
+            DELETE 
+            FROM MEDIA_TAG
+            WHERE mediaid = '$mediaID'
+        ";
+
+        mysqli_query($conn, $media_delete);
+
+        
+        $media_delete = "
+            DELETE 
+            FROM MOVIE
+            WHERE ID = '$mediaID'
+        ";
+
+        mysqli_query($conn, $media_delete);
+
+        
+        $media_delete = "
+            DELETE 
+            FROM PUBLISHED
+            WHERE mediaID = '$mediaID'
+        ";
+
+        mysqli_query($conn, $media_delete);
+
+        
+        $media_delete = "
+            DELETE 
+            FROM VIDEO_GAME
+            WHERE ID = '$mediaID'
+        ";
+
+        mysqli_query($conn, $media_delete);
+
+        
+        $media_delete = "
+            DELETE 
+            FROM WORKS_ON
+            WHERE mediaID = '$mediaID'
+        ";
+
         mysqli_query($conn, $media_delete);
 
         header("Location: ../acc/search.php");

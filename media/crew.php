@@ -112,7 +112,7 @@
                       } else {
                           while ( $p_row = mysqli_fetch_assoc($p_result))
                           {
-                              echo "<br>"."Employer: ".''.$p_row['publisher'].''."<br>";
+                              echo "<br><br>"."Employer: ".''.convertQuotes($p_row['publisher'], "QUOTES").''."<br>";
                               echo "<button class='btn'><a href='publisher.php?name=".$p_row['publisher']."'>GO TO SEE→</a></button>";
                               echo "<br>"."<br>";
                           }
