@@ -151,8 +151,8 @@
                         PRIMARY KEY (`crewID`(50))
                     ) Engine = InnoDB;";
                     break;
-                case "CAN_INTERACT":
-                    $query = "CREATE TABLE CPSC471.CAN_INTERACT (
+                case "CANT_INTERACT":
+                    $query = "CREATE TABLE CPSC471.CANT_INTERACT (
                         `memberID_1` VARCHAR(50) NOT NULL,
                         `memberID_2` VARCHAR(50) NOT NULL
                     ) Engine = InnoDB;";
