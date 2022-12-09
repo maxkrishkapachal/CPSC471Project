@@ -7,7 +7,10 @@
       //get users
     checkTable($conn, "USER");
 
-    $mediaID = $_SESSION['element'];
+    $mediaID = NULL;
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+      $mediaID = $_GET['id'];
+    }
 
     $query = "SELECT * FROM crew" ;
     $result = mysqli_query($conn,$query);
@@ -18,6 +21,7 @@
  
 
     if(isset($_REQUEST['add'])){
+        $mediaID = $_POST['mediaID'];
         $cID = convertQuotes($_POST['cID'], "SYMBOLS");
         $role = convertQuotes($_POST['role'], "SYMBOLS");
 
@@ -29,7 +33,7 @@
             ";
             
             mysqli_query($conn, $query);
-            header("Location: addwork_onM.php");
+            header("Location: ../media/media.php?id=$mediaID");
             die;
         }
     }  
@@ -47,7 +51,7 @@
     
     <title>addWorks_on</title>
     <div class='row-of-buttons'>
-      <button class='btn'><a href="../acc/search.php">Go Back</a></button>
+      <button class='btn'><a href="../media/media.php?id=<?php echo $mediaID ?>">Go Back</a></button>
     </div> 
     <style>
 
@@ -105,11 +109,12 @@ if ($result->num_rows > 0) {
       <td>'. $cname ;
       echo "<div class='search-buttons'>";
       echo "<form action='' method='POST'>";
+      echo "<input hidden name='mediaID' value='$mediaID'>";
       echo "<input hidden name='cID' value='$cID'>";
       if (mysqli_num_rows($c_result)==0)
       {
         echo '<input name="role" type="text" class="input" id="role" autocomplete="off" placeholder="role">';
-        echo '<input name="add" type="submit" class="btn" value="Add">';
+        echo '<input name="add" type="submit" class="btn btn-input" value="Add">';
       }else{
         echo '★Crew';
       }

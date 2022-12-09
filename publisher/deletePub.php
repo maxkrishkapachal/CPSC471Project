@@ -4,7 +4,12 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
-    $pubID = $_SESSION['name'];
+    $pubID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $pubID = $_GET['name'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'PUBLISHER');
@@ -12,6 +17,7 @@
     $name = convertQuotes($pubID, "QUOTES");
 
     if(isset($_REQUEST['delete'])){
+        $pubID = $_POST['name'];
         $pub_delete = "
             DELETE 
             FROM PUBLISHER
@@ -49,8 +55,8 @@
     }
 
     if(isset($_REQUEST['cancel'])){
-        $_SESSION['name'] = $pubID;
-        header("Location: ../media/publisher.php");
+        $pubID = $_POST['name'];
+        header("Location: ../media/publisher.php?name=$pubID");
         die;
     }
 ?>
@@ -61,7 +67,7 @@
     <head>
         <meta charset="utf-8">
         <title></title>
-    </head>
+    </head> 
     <body>
         <div class="form-wrap">
             <div class="tabs-content">
@@ -70,6 +76,8 @@
                         <div class='media-title-div'>
                             <label class='media-title'>Are you sure you want to delete <?php echo $name ?>?</label>
                         </div>
+                        <input hidden name='name' value='<?php echo $pubID ?>'>
+                        
                         
                         <input name="delete" type="submit" class="button" value="Delete">
                         <input name="cancel" type="submit" class="button" value="Cancel">

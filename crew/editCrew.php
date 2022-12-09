@@ -3,8 +3,13 @@
 
     include("../gen/connect.php");
     include('../gen/functions.php');
+    
+    $crewID = NULL;
 
-    $crewID = $_SESSION['crewID'];
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $crewID = $_GET['crewID'];
+    }
+    
     $user_data = getUserData($conn);
 
     checkTable($conn, 'CREW');
@@ -26,6 +31,7 @@
 
 
     if(isset($_REQUEST['save'])){
+        $crewID = $_POST['crewID'];
         $name = convertQuotes($_POST['name'], "SYMBOLS");
         $desc = convertQuotes($_POST['desc'], "SYMBOLS");
 
@@ -43,12 +49,12 @@
     }
 
     if(isset($_REQUEST['cancel'])){
+        $crewID = $_POST['crewID'];
         returnAddy($crewID);
     }
 
     function returnAddy($crewID){
-        $_SESSION['crew'] = $crewID;
-        header("Location: ../media/crew.php");
+        header("Location: ../media/crew.php?crewID=$crewID");
         die;
     }
     
@@ -66,6 +72,8 @@
             <div class="tabs-content">
                 <div class="active">
                     <form class="edit-crew-form" action="" method="post">
+                        <input hidden name='crewID' value='<?php echo $crewID ?>'>
+                        
                         <input name="name" type="text" class="input" autocomplete="off" placeholder="Name*" value="<?php echo $name ?>">
                         <input name="desc" type="text" class="input" autocomplete="off" placeholder="Desc" value="<?php echo $desc ?>">
               

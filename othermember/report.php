@@ -20,7 +20,7 @@
         <form method='post'>
             <div class='account'>
                 <div class='account-buttons'>
-                    <input class='btn' type='submit' name='back-button' value='Return Home'>
+                    <input class='btn btn-input' type='submit' name='back-button' value='Return Home'>
                 </div>
             </div>
         </form>

@@ -10,7 +10,6 @@
     }  
 
 
-    require "header.php";
 
     // get tag
     $query = "SELECT * FROM media_tag WHERE tag = '$tag' ";

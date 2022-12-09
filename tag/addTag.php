@@ -5,9 +5,14 @@
     include('../gen/functions.php');
 
     $user_data = getUserData($conn);
-    $mediaID = $_SESSION['id'];
+    $mediaID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $mediaID = $_GET['id'];
+    }
 
     if(isset($_REQUEST['add'])){
+        $mediaID = $_POST['mediaID'];
         $tag = convertQuotes($_POST['tag'], "SYMBOLS");
 
         if(!empty($tag)){
@@ -37,12 +42,12 @@
         }
     }    
     if(isset($_REQUEST['cancel'])){
+        $mediaID = $_POST['mediaID'];
         returnAddy($mediaID);
     }
 
     function returnAddy($mediaID){
-        $_SESSION['id'] = $mediaID;
-        header("Location: ../media/media.php");
+        header("Location: ../media/media.php?id=$mediaID");
         die;
     }
 ?> 
@@ -62,7 +67,8 @@
             <div class="active">
                 <form class="add-tag-form" action="" method="post">
                     <input name="tag" type="text" class="input" id="tag" autocomplete="off" placeholder="Tag*">
-                    
+                    <input hidden name='mediaID' value='<?php echo $mediaID ?>'>
+                        
                     <input name="add" type="submit" class="button" value="Add Tag">
                     <input name="cancel" type="submit" class="button" value="Cancel">
                 </form>

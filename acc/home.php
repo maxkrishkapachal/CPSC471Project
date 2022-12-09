@@ -32,15 +32,13 @@
 
     # edit log
     if(isset($_REQUEST['log-instance']) && isset($_REQUEST['edit-log-button'])){
-        $_SESSION['log-instance'] = $_REQUEST['log-instance'];
-        header("Location: ../log/editLog.php");
+        header("Location: ../log/editLog.php?loginst=".$_REQUEST['log-instance']);
         die;
     } 
 
     # delete log
     if(isset($_REQUEST['log-instance']) && isset($_REQUEST['delete-log-button'])){
-        $_SESSION['log-instance'] = $_REQUEST['log-instance'];
-        header("Location: ../log/deleteLog.php");
+        header("Location: ../log/deleteLog.php?loginst=".$_REQUEST['log-instance']);
         die;
     }
 
@@ -54,22 +52,19 @@
 
     # edit list
     if(isset($_REQUEST['list-instance']) && isset($_REQUEST['edit-list-button'])){
-        $_SESSION['list-instance'] = $_REQUEST['list-instance'];
-        header("Location: ../list/editList.php");
+        header("Location: ../list/editList.php?listinst=".$_REQUEST['list-instance']);
         die;
     } 
 
     # delete list
     if(isset($_REQUEST['list-instance']) && isset($_REQUEST['delete-list-button'])){
-        $_SESSION['list-instance'] = $_REQUEST['list-instance'];
-        header("Location: ../list/deleteList.php");
+        header("Location: ../list/deleteList.php?listinst=".$_REQUEST['list-instance']);
         die;
     }
 
     # view list
     if(isset($_REQUEST['list-instance']) && isset($_REQUEST['view-list-button'])){
-        $_SESSION['list-instance'] = $_REQUEST['list-instance'];
-        header("Location: ../list/viewList.php");
+        header("Location: ../list/viewList.php?listinst=".$_REQUEST['list-instance']);
         die;
     }
 
@@ -112,10 +107,10 @@
         <form method='post'>
             <div class='account'>
                 <div class='row-of-buttons'>
-                    <input class='btn' type='submit' name='edit-account-button' value='Edit Account'>
-                    <input class='btn' type='submit' name='search-button' value='Search'>
-                    <input class='btn' type='submit' name='stats-button' value='Statistics'>
-                    <input class='btn' type='submit' name='logout-button' value='Logout'>
+                    <input class='btn btn-input' type='submit' name='edit-account-button' value='Edit Account'>
+                    <input class='btn btn-input' type='submit' name='search-button' value='Search'>
+                    <input class='btn btn-input' type='submit' name='stats-button' value='Statistics'>
+                    <input class='btn btn-input' type='submit' name='logout-button' value='Logout'>
                 </div>
                 <div class='welcome-label-div'>
                     <label class='welcome-label'>
@@ -130,12 +125,12 @@
             <div class='main-page-container'>   
                 <div class='log ll-box'> 
                     <div class='mpc-buttons'>
-                        <input class='btn' type='submit' name='edit-log-button' value='Edit Log'>
-                        <input class='btn' type='submit' name='delete-log-button' value='Delete Log'>
+                        <input class='btn btn-input' type='submit' name='edit-log-button' value='Edit Log'>
+                        <input class='btn btn-input' type='submit' name='delete-log-button' value='Delete Log'>
                     </div>
                     <div class='mpc-buttons'>
                         <input class='log mpc-el search-bar' type="text" id="query" name="log-search"  placeholder="Search Logs...">
-                        <input class='log mpc-el btn' type='submit' name='log-search-button' value='Search'>
+                        <input class='log mpc-el btn btn-input' type='submit' name='log-search-button' value='Search'>
                     </div>
                     <div class='scroll scroll-home'>
                         <div class='scr'>
@@ -186,14 +181,14 @@
                 </div>
                 <div class='list ll-box'>
                     <div class='mpc-buttons'>
-                        <input class='btn' type='submit' name='add-list-button' value='Add List'>
-                        <input class='btn' type='submit' name='edit-list-button' value='Edit List'>
-                        <input class='btn' type='submit' name='delete-list-button' value='Delete List'>
-                        <input class='btn' type='submit' name='view-list-button' value='View List'>
+                        <input class='btn btn-input' type='submit' name='add-list-button' value='Add List'>
+                        <input class='btn btn-input' type='submit' name='edit-list-button' value='Edit List'>
+                        <input class='btn btn-input' type='submit' name='delete-list-button' value='Delete List'>
+                        <input class='btn btn-input' type='submit' name='view-list-button' value='View List'>
                     </div>
                     <div class='mpc-buttons'>
                         <input class='list mpc-el search-bar' type="text" id="query" name="list-search"  placeholder="Search Lists...">
-                        <input class='list mpc-el btn' type='submit' name='list-search-button' value='Search'>
+                        <input class='list mpc-el btn btn-input' type='submit' name='list-search-button' value='Search'>
                     </div>
                     <div class='scroll scroll-home'>
                         <div class='scr'>

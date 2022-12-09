@@ -10,10 +10,12 @@
     //     $name = $_GET['name'];
     // }  
     
-    $name = $_SESSION['name'];
-    $_SESSION['element'] = $name;
+    $name = NULL;
 
-    require "header.php";
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $name = $_GET['name'];
+    }
+
 
     // get publisher
     checkTable($conn, "PUBLISHER");
@@ -86,8 +88,8 @@
                     if ($user_data['user_type']=='ADMIN'){
                         ?>
                         <div class='search-buttons'>
-                            <button class='btn'><a href='../publisher/deletePub.php'>Delete Publisher</a></button>
-                            <button class='btn'><a href='../publisher/editPub.php'>Edit Publisher</a></button>
+                            <button class='btn'><a href='../publisher/deletePub.php?name=<?php echo $name ?>'>Delete Publisher</a></button>
+                            <button class='btn'><a href='../publisher/editPub.php?name=<?php echo $name ?>'>Edit Publisher</a></button>
                         </div>
                         <?php
                     }    
@@ -111,7 +113,7 @@
                                 else {
                                     $med_row = mysqli_fetch_assoc($med_result);
                                     echo "<br>"."Published Media: ".''.$med_row['title'].''."<br>";
-                                    echo "<button class='btn'>.<a href='media.php?id=".$med_row['ID']."'>GO TO SEE→</a></button>";
+                                    echo "<button class='btn'><a href='media.php?id=".$med_row['ID']."'>GO TO SEE→</a></button>";
                                 }
                             }
                         }
@@ -135,12 +137,12 @@
                             }
                         }
 			
-                    echo "<button class='btn'><a href='../publisher/addEmployP.php'>Add Crew</a></button><br>";
+                    echo "<button class='btn'><a href='../publisher/addEmployP.php?name=".$name."'>Add Crew</a></button><br>";
                     ?>
 
                     <br><br>
                     <div class='mpc-buttons'>
-                        <button class='btn'><a href='../list/addToList.php'>Add To List</a></button>
+                        <button class='btn'><a href='../list/addToList.php?element=<?php echo $name ?>'>Add To List</a></button>
                     </div>
                 </div>
             </h3>

@@ -29,20 +29,16 @@
         $selected_values = explode(" ", $_REQUEST['selected-search-result'], 2);
         switch($selected_values[0]){
             case "M":
-                $_SESSION['id'] = $selected_values[1];
-                header("Location: ../media/media.php");
+                header("Location: ../media/media.php?id=".$selected_values[1]);
                 die;
             case "P":
-                $_SESSION['name'] = $selected_values[1];
-                header("Location: ../media/publisher.php");
+                header("Location: ../media/publisher.php?name=".$selected_values[1]);
                 die;
             case "C":
-                $_SESSION['crewID'] = $selected_values[1];
-                header("Location: ../media/crew.php");
+                header("Location: ../media/crew.php?crewID=".$selected_values[1]);
                 die;
             case "U":
-                $_SESSION['other-user'] = $selected_values[1];
-                header("Location: ../othermember/viewMember.php");
+                header("Location: ../othermember/viewMember.php?otheruser=".$selected_values[1]);
                 die;
             case "T":
                 header("Location: ../media/tags.php?tag=".$selected_values[1]);
@@ -78,9 +74,9 @@
         <form class="search-form" action="" method="post">
             <div class="row-of-buttons rev-search-buttons">
                 <!-- back button, search bar, search button -->
-                <input class="btn" type="submit" name="search-button" value="Search">
+                <input class="btn btn-input" type="submit" name="search-button" value="Search">
                 <input class="search-bar" type="text" name="search-bar" placeholder="What are you looking for...?">
-                <input class="btn" type="submit" name="home-button" value="Home">
+                <input class="btn btn-input" type="submit" name="home-button" value="Home">
             </div>
             <div class="search-buttons">
                 <div>
@@ -105,10 +101,10 @@
                 </div>
             </div>
             <div class="mpc-buttons">
-                <input name='add-media-button' type='submit' value='Add Media' class='btn'>
-                <input name='add-pub-button' type='submit' value='Add Publisher' class='btn'>
-                <input name='add-crew-button' type='submit' value='Add Crew' class='btn'>
-                <input name='view-button' type='submit' value='View' class='btn'>
+                <input name='add-media-button' type='submit' value='Add Media' class='btn btn-input'>
+                <input name='add-pub-button' type='submit' value='Add Publisher' class='btn btn-input'>
+                <input name='add-crew-button' type='submit' value='Add Crew' class='btn btn-input'>
+                <input name='view-button' type='submit' value='View' class='btn btn-input'>
             </div>
             <div class="scroll scroll-search">
                 <div class="scr">
@@ -179,7 +175,7 @@
                                             <div class='instance-block in-media-date'>
                                                 <?php echo $date ?>
                                             </div>
-                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='M <?php echo $mediaID ?>'>
+                                            <input class="btn btn-input" name='selected-search-result' id='searchPage' type="radio" value='M <?php echo $mediaID ?>'>
                                         </div>
                                     <?php
                                 }
@@ -223,7 +219,7 @@
                                             <div class='instance-block in-publisher'>
                                                 <?php echo $publisher ?>
                                             </div>
-                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='P <?php echo $row['name'] ?>'>
+                                            <input class="btn btn-input" name='selected-search-result' id='searchPage' type="radio" value='P <?php echo $row['name'] ?>'>
                                         </div>
                                     <?php
                                 }                                
@@ -276,7 +272,7 @@
                                             <div class='instance-block in-crew-desc'>
                                                 <?php echo $desc ?>
                                             </div>
-                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='C <?php echo $crewID ?>'>
+                                            <input class="btn btn-input" name='selected-search-result' id='searchPage' type="radio" value='C <?php echo $crewID ?>'>
                                         </div>
                                     <?php
                                 }
@@ -344,7 +340,7 @@
                                             <div class='instance-block in-user-type'>
                                                 <?php echo $user_type ?>
                                             </div>
-                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='U <?php echo $username ?>'>
+                                            <input class="btn btn-input" name='selected-search-result' id='searchPage' type="radio" value='U <?php echo $username ?>'>
                                         </div>
                                     <?php
                                 }
@@ -387,7 +383,7 @@
                                             <div class='instance-block in-publisher'>
                                                 <?php echo $tag ?>
                                             </div>
-                                            <input class="btn" name='selected-search-result' id='searchPage' type="radio" value='T <?php echo $tag ?>'>
+                                            <input class="btn btn-input" name='selected-search-result' id='searchPage' type="radio" value='T <?php echo $tag ?>'>
                                         </div>
                                     <?php
                                 }

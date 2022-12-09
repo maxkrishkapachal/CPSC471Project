@@ -4,7 +4,12 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
-    $crewID = $_SESSION['crewID'];
+    $crewID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $crewID = $_GET['crewID'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'CREW');
@@ -24,6 +29,8 @@
     $name = convertQuotes($crew['name'], "QUOTES");
     
     if(isset($_REQUEST['delete'])){
+        $crewID = $_POST['crewID'];
+
         $crew_delete = "
             DELETE 
             FROM CREW
@@ -61,8 +68,9 @@
     }
 
     if(isset($_REQUEST['cancel'])){
-        $_SESSION['crewID'] = $crewID;
-        header("Location: ../media/crew.php");
+        $crewID = $_POST['crewID'];
+
+        header("Location: ../media/crew.php?crewID=$crewID");
         die;
     }
 ?>
@@ -82,6 +90,8 @@
                         <div class='media-title-div'>
                             <label class='media-title'>Are you sure you want to delete <?php echo $name ?>?</label>
                         </div>
+                        <input hidden name='crewID' value='<?php echo $crewID ?>'>
+                        
                         
                         <input name="delete" type="submit" class="button" value="Delete">
                         <input name="cancel" type="submit" class="button" value="Cancel">

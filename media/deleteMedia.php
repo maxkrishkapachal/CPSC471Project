@@ -4,7 +4,12 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
-    $mediaID = $_SESSION['id'];
+    $mediaID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $mediaID = $_GET['id'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'MEDIA');
@@ -24,6 +29,7 @@
     $title = $media['title'];
     
     if(isset($_REQUEST['delete'])){
+        $mediaID = $_POST['mediaID'];
         $media_delete = "
             DELETE 
             FROM MEDIA
@@ -117,8 +123,8 @@
     }
 
     if(isset($_REQUEST['cancel'])){
-        $_SESSION['id'] = $mediaID;
-        header("Location: ../media/media.php");
+        $mediaID = $_POST['mediaID'];
+        header("Location: ../media/media.php?id=$mediaID");
         die;
     }
 ?>
@@ -138,6 +144,7 @@
                         <div class='media-title-div'>
                             <label class='media-title'>Are you sure you want to delete <?php echo $title ?>?</label>
                         </div>
+                        <input hidden name='mediaID' value='<?php echo $mediaID ?>'>
                         
                         <input name="delete" type="submit" class="button" value="Delete">
                         <input name="cancel" type="submit" class="button" value="Cancel">

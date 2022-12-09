@@ -4,7 +4,11 @@
     include("../gen/functions.php");
     include("../gen/connect.php");
 
-    $username = $_SESSION['other-user'];
+    $username = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $username = $_GET['otheruser'];
+    }
 
     $user_data = getUserData($conn);
 
@@ -22,8 +26,7 @@
     
     # view list
     if(isset($_REQUEST['list-instance']) && isset($_REQUEST['view-list-button'])){
-        $_SESSION['list-instance'] = $_REQUEST['list-instance'];
-        header("Location: ../list/viewList.php");
+        header("Location: ../list/viewList.php?listinst=".$_REQUEST['list-instance']);
         die;
     }
 
@@ -45,7 +48,7 @@
           ";
           
           mysqli_query($conn, $query);
-          header("Location: ../othermember/viewMember.php");
+          header("Location: ../othermember/viewMember.php?otheruser=".$username);
           die;
       }
 
@@ -64,7 +67,7 @@
             ";
             
             mysqli_query($conn, $query);
-            header("Location: ../othermember/viewMember.php");
+            header("Location: ../othermember/viewMember.php?otheruser=".$username);
             die;
         }
     }    
@@ -83,7 +86,7 @@
                 
                 mysqli_query($conn, $query);
                 $_SESSION['banuser'] = $ban_user;
-                header("Location: ../othermember/deleteMember.php");
+                header("Location: ../othermember/deleteMember.php?otheruser=".$username);
                 die;
             }
     }    
@@ -104,7 +107,7 @@
             ";
             
             mysqli_query($conn, $query);
-            header("Location: ../othermember/viewMember.php");
+            header("Location: ../othermember/viewMember.php?otheruser=".$username);
             die;
         }
     }    
@@ -169,12 +172,12 @@
         <form method='post'>
             <div class='account'>
                 <div class='row-of-buttons'>
-                    <input class='btn' type='submit' name='home-button' value='Home'>
-                    <input class='btn' type='submit' name='block-button' value='Block'>
+                    <input class='btn btn-input' type='submit' name='home-button' value='Home'>
+                    <input class='btn btn-input' type='submit' name='block-button' value='Block'>
                     <?php
                       if($user_data['user_type'] == "ADMIN"){
                         ?>
-                          <input class='btn' type='submit' name='ban-button' value='Ban'>
+                          <input class='btn btn-input' type='submit' name='ban-button' value='Ban'>
                         <?php
                       }
                     ?>

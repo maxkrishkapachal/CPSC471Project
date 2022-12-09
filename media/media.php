@@ -5,13 +5,10 @@
 
   $user_data = getUserData($conn);
 
-  // if($_SERVER['REQUEST_METHOD'] == 'GET'){
-  //   $id = $_GET['id'];
-  // }  
-  $id = $_SESSION['id'];
+  if($_SERVER['REQUEST_METHOD'] == 'GET'){
+    $id = $_GET['id'];
+  }  
   //$_SESSION['id'] = $id;
-  $_SESSION['element'] = $id;
-
   
   //get media
   checkTable($conn, "MEDIA");
@@ -100,7 +97,7 @@
   //get comment
   checkTable($conn, "COMMENT");
   
-  $co_query = "SELECT * FROM comment WHERE mediaid = '$id'";
+  $co_query = "SELECT * FROM comment WHERE mediaID = '$id'";
   $co_result = mysqli_query($conn,$co_query);
 
   if(!$co_result){
@@ -117,15 +114,6 @@
     exit;
   }
 
-
-  if(isset($_REQUEST['add-comment-button'])){
-    $_SESSION['mediaID'] = $id;
-    header("Location: ../comment/addComment.php");
-    die;
-  }
-
-
-  require "header.php";
 ?>
 
 
@@ -175,8 +163,8 @@
             if ($user_data['user_type']=='ADMIN'){
               ?>
                 <div class='search-buttons'>
-                  <button class='btn'><a href='deleteMedia.php'>Delete media</a></button>
-                  <button class='btn'><a href='editMedia.php'>Edit Media</a></button>
+                  <button class='btn'><a href='deleteMedia.php?id=<?php echo $id ?>'>Delete media</a></button>
+                  <button class='btn'><a href="editMedia.php?id=<?php echo $id ?>">Edit Media</a></button>
                 </div>
               <?php
             } 
@@ -214,12 +202,16 @@
                   {
                     $name = convertQuotes($p_row['publisher'], "QUOTES");
                     echo "<br>"."Publisher Name: ".''."$name".''."<br>";
-                    echo "<button class='btn'>.<a href='publisher.php?name=".$p_row['publisher']."'>GO TO SEE→</a></button>";
+                    ?>
+                    <button class='btn'><a href="publisher.php?name=<?php echo $p_row['publisher'] ?>">GO TO SEE→</a></button>
+                    <?php
                     echo "<br>"."<br>";
                   }
                 }
-		 echo "<button class='btn'><a href='../publisher/addPublishedM.php'>Add publisher</a></button><br>";
-		    
+                ?>
+                  <button class='btn'><a href="../publisher/addPublishedM.php?id=<?php echo $id ?>">Add Publisher</a></button><br>
+                <?php
+
                 if (mysqli_num_rows($w_result) == 0){
                   echo "Crew: Unknown<br>";
                 } else {
@@ -235,14 +227,16 @@
                     }
                     $cre_row = mysqli_fetch_assoc($cre_result);
 
-                    echo "<br>"."Crew name: ".''.$cre_row['name'].'';
+                    echo "<br>"."Crew name: ".$cre_row['name'];
                     echo "<br>"."Role: ".''.$w_row['role'].''."<br>";
-                    echo "<button class='btn'><a href='crew.php?crewID=".$w_row['crewID']."'>GO TO SEE→</a></button>";
+                    ?>
+                    <button class='btn'><a href="crew.php?crewID=<?php echo $w_row['crewID'] ?>">GO TO SEE→</a></button>
+                    <?php
                     echo "<br>"."<br>";
                   }
                 }
 		
-                echo "<button class='btn'><a href='../crew/addwork_onM.php'>Add Crew</a></button><br>";
+                echo "<button class='btn'><a href='../crew/addwork_onM.php?id=".$id."'>Add Crew</a></button><br>";
                 
 		
                 $s_row = mysqli_fetch_assoc($s_result);
@@ -270,18 +264,18 @@
                   echo "</div>";
                 }
                 ?>
-                  <button name='add-tag-button' class='btn'><a href='../tag/addTag.php'>Add Tag</a></button>
+                  <button name='add-tag-button' class='btn'><a href='../tag/addTag.php?id=<?php echo $id?>'>Add Tag</a></button>
                 <?php
                 echo "<br><button class='btn'><a href='related_media.php?id=".$id."'>Related media</a></button>";
               ?>
             </div>
             <div class='search-buttons'>
-              <button class='btn'><a href='../list/addToList.php'>Add To List</a></button>
-              <button class='btn'><a href='../log/addLog.php'>Add Log</a></button>
+              <button class='btn'><a href='../list/addToList.php?element=<?php echo $id ?>'>Add To List</a></button>
+              <button class='btn'><a href='../log/addLog.php?id=<?php echo $id ?>'>Add Log</a></button>
             </div>
 
             <br><br>
-            <input class='btn' type='submit' name='add-comment-button' value='Create Comment'>
+            <button class='btn'><a href='../comment/addComment.php?id=<?php echo $id ?>'>Create Comment</a></button>
             <!-- <button class='btn'><a href='../comment/addComment.php'>Create comment</a></button> -->
             
             <div class = 'comment-body'>
@@ -295,13 +289,12 @@
                     echo '--------------------------------------------------------';
                     echo "<br>"."Date:".''.$co_row['date'].''."";
                     //USER PROFILE HAVEN'T CREATED, NEED TO CHANGE IF IT'S DONE
-                    $_SESSION['other-user'] = $co_row['username'];
-                    echo "<br>"."Post by ".'<a href="../othermember/viewMember.php">'.''.$co_row['username'].''."<br>".'</a>';
+                    echo "<br>"."Post by ".'<a href="../othermember/viewMember.php?otheruser='.$co_row['username'].'>'.''.$co_row['username'].''."<br>".'</a>';
                     echo "<br>"."Comment: ".'<br>'.$co_row['content'].''."<br>";
                     echo "<br>"."<br>";
                     if ($co_row['username'] == $user_data['username']){
                       ?>
-                        <a href="../comment/editComment.php?comment=<?php echo $co_row['commentID'] ?>">EDIT</a>
+                        <br><br><a href="../comment/editComment.php?comment=<?php echo $co_row['commentID'] ?>">EDIT</a>
                       <?php
                     }
                     if ($co_row['username'] == $user_data['username'] || $user_data['user_type'] == 'ADMIN'){

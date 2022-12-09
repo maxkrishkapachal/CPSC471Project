@@ -5,7 +5,6 @@
 
     $user_data = getUserData($conn);
 
-    require "header.php";
 
     # we'll look for the top five rated medias
 

@@ -4,7 +4,12 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
-    $user_logID = $_SESSION['log-instance'];
+    $user_logID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $user_logID = $_GET['loginst'];
+    }
+
     $user_data = getUserData($conn);
 
     # the plan here is that we have the user_data, and the mediaID
@@ -30,6 +35,8 @@
     }
 
     if(isset($_REQUEST['save'])){
+        $user_logID = $_POST['userLog'];
+        $mediaID = $_POST['mediaID'];
         $remarks = convertQuotes($_POST['remarks'], "SYMBOLS");
         $rating = $_POST['rating'];
 
@@ -82,6 +89,9 @@
                         <div class='media-title-div'>
                             <label class='media-title'><?php echo $title ?></label>
                         </div>
+                        <input hidden name='userLog' value='<?php echo $user_logID ?>'>
+                        <input hidden name='mediaID' value='<?php echo $mediaID ?>'>
+              
                         <input name="remarks" type="text" class="input" id="log_remarks" autocomplete="off" value="<?php echo $remarks ?>">
                         <input name="rating" type="number" class="input" id="log_rating" autocomplete="off" value="<?php echo $rating ?>">
                 

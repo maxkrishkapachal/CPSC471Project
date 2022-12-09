@@ -5,15 +5,21 @@
     include("../gen/connect.php");
 
     $user_data = getUserData($conn);
-    $itemID = $_SESSION['element'];
+    $itemID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $itemID = $_GET['element'];
+    }
 
     if(isset($_REQUEST['back-button'])){
+        $itemID = $_POST['itemID'];
         returnAddy($itemID);
     }
 
     if(isset($_REQUEST['add-to-list-button']) && isset($_REQUEST['list-instance'])){
         # for list elements, we need username, mediaID, listID, and we need to generate
         # an elementID
+        $itemID = $_POST['itemID'];
         $listID = $_POST['list-instance'];
         $username = $user_data['username'];
         $elementID = createID("ELE", $username);
@@ -33,17 +39,14 @@
 
     function returnAddy($itemID){
         $element_type = explode("-", $itemID);
-        $return_add = "Location: ../media/publisher.php";
-        $_SESSION['name'] = $itemID;
+        $return_add = "Location: ../media/publisher.php?name=$itemID";
 
         if($element_type[1] == "MED"){
-            $return_add = "Location: ../media/media.php";
-            $_SESSION['id'] = $itemID;
+            $return_add = "Location: ../media/media.php?id=$itemID";
         }
 
         else if($element_type[1] == "CRE"){
-            $return_add = "Location: ../media/crew.php";
-            $_SESSION['crewID'] = $itemID;
+            $return_add = "Location: ../media/crew.php?crewID=$itemID";
         }
 
         header($return_add); 
@@ -61,7 +64,7 @@
         <form method='post'>
             <div class='account'>
                 <div class='row-of-buttons'>
-                    <input class='btn' type='submit' name='back-button' value='Cancel'>
+                    <input class='btn btn-input' type='submit' name='back-button' value='Cancel'>
                 </div>
                 <div class='welcome-label-div'>
                     <label class='welcome-label'>Choose A List</label>
@@ -70,7 +73,7 @@
             <div class='main-page-container'>   
                 <div class='log ll-box'> 
                     <div class='mpc-buttons'>
-                        <input class='btn' type='submit' name='add-to-list-button' value='Add To List'>
+                        <input class='btn btn-input' type='submit' name='add-to-list-button' value='Add To List'>
                     </div>
                     <div class='scroll scroll-elem'>
                         <div class='scr'>
@@ -95,6 +98,7 @@
 
                                     ?>
                                         <div class='instance'>
+                                            <input hidden name='itemID' value='<?php echo $itemID ?>'>
                                             <input class='instance-block' name='list-instance' type='radio' value='<?php echo $listID ?>'>
                                             <div class='instance-block in-name' name='name'>
                                                 <?php echo $name?>

@@ -35,12 +35,15 @@ body {
 }
 
 .btn {
-  padding: 10px;
   background-color: var(--red);
   border: none;
   cursor: pointer;
   text-transform: uppercase; 
   color: var(--white);
+}
+
+.btn-input {
+  padding: 10px;
 }
 
 input[type='radio'] {
@@ -57,6 +60,8 @@ input[type='radio']#searchPage {
 a {
   text-decoration: none; 
   color: var(--white);
+  display: block;
+  padding: 10px;
 }
 
 .header {

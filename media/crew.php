@@ -6,10 +6,11 @@
 
     $user_data = getUserData($conn);
 
-    $crewID = $_SESSION['crewID'];    
-    $_SESSION['element'] = $crewID;
-
-    require "header.php";
+    $crewID = NULL;
+    
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $crewID = $_GET['crewID'];
+    }
 
       // get crew
     $query = "SELECT * FROM crew WHERE crewID = '$crewID'";
@@ -77,8 +78,8 @@
                   if ($user_data['user_type']=='ADMIN'){
                       ?>
                           <div class='search-buttons'>
-                              <button class='btn'><a href='../crew/deleteCrew.php'>Delete crew</a></button>
-                              <button class='btn'><a href='../crew/editCrew.php'>Edit crew</a></button>
+                              <button class='btn'><a href='../crew/deleteCrew.php?crewID=<?php echo $crewID ?>'>Delete crew</a></button>
+                              <button class='btn'><a href='../crew/editCrew.php?crewID=<?php echo $crewID ?>'>Edit crew</a></button>
                           </div>
                       <?php
                   }    
@@ -101,8 +102,8 @@
                               }
                               $med_row = mysqli_fetch_assoc($med_result);
                               echo "<br>"."Worked on: ".''.$med_row['title'].''."<br>";
-                              echo "<button class='btn'>.<a href='media.php?id=".$w_row['mediaID']."'>GO TO SEE→</a></button>";
                               echo "<br>"."Role: ".''.$w_row['role'].''."<br>";
+                              echo "<button class='btn'><a href='media.php?id=".$w_row['mediaID']."'>GO TO SEE→</a></button>";
                               echo "<br>"."<br>";
                           }
                       }
@@ -121,7 +122,7 @@
 
                   <br><br>
                   <div class='mpc-buttons'>
-                      <button class='btn'><a href='../list/addToList.php'>Add To List</a></button>
+                      <button class='btn'><a href='../list/addToList.php?element=<?php echo $crewID ?>'>Add To List</a></button>
                   </div>
               </div>
           </h3>      

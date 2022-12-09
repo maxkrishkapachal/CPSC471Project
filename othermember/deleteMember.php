@@ -59,12 +59,12 @@
             
         mysqli_query($conn, $element_delete);
         
-        header("Location: viewMember.php");
+        header("Location: viewMember.php?otheruser=".$ban_user);
         die;
     }
 
     if(isset($_REQUEST['cancel'])){
-        header('Location: viewMember.php'); 
+        header('Location: viewMember.php?otheruser='.$ban_user); 
         die;
     }
 ?>

@@ -6,7 +6,11 @@
 
     $user_data = getUserData($conn);
 
-    $mediaID = $_SESSION['id'];
+    $mediaID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+      $mediaID = $_GET['id'];
+    }
 
     checkTable($conn, 'MEDIA');
     $media_query = "
@@ -23,6 +27,7 @@
     }
 
     if(isset($_REQUEST['add'])){
+        $mediaID = $_POST['mediaID'];
         $id = createID('LOG', $user_data['username']);
         $date = getDateTime();
         $remarks = convertQuotes($_POST['remarks'], "SYMBOLS");
@@ -70,6 +75,7 @@
         }
     }
     if(isset($_REQUEST['cancel'])){
+       $mediaID = $_POST['mediaID'];
         header('Location: ../acc/home.php'); 
         die;
     }    
@@ -92,7 +98,8 @@
               <div class='media-title-div'>
                 <label class='media-title'>Add <?php echo $title ?>?</label>
               </div>
-              
+              <input hidden name='mediaID' value='<?php echo $mediaID ?>'>
+                        
               <input name="remarks" type="text" class="input" id="log_remarks" autocomplete="off" placeholder="What did you think?">
               <input name="rating" type="number" class="input" id="log_rating" autocomplete="off" placeholder="?/10*">
     

@@ -4,7 +4,10 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
-    $mediaID = $_SESSION['id'];
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $mediaID = $_GET['id'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'MEDIA');
@@ -28,6 +31,7 @@
 
 
     if(isset($_REQUEST['save'])){
+        $mediaID = $_POST['mediaID'];
         $title = convertQuotes($_POST['title'], "SYMBOLS");
         $rd = $_POST['release_date'];
         $desc = convertQuotes($_POST['description'], "SYMBOLS");
@@ -46,12 +50,12 @@
     }
 
     if(isset($_REQUEST['cancel'])){
+        $mediaID = $_POST['mediaID'];
         returnAddy($mediaID);
     }
 
     function returnAddy($mediaID){
-        $_SESSION['id'] = $mediaID;
-        header("Location: media.php");
+        header("Location: media.php?id=".$mediaID);
         die;
     }
     
@@ -69,6 +73,7 @@
             <div class="tabs-content">
                 <div class="active">
                     <form class="edit-media-form" action="" method="post">
+                        <input hidden name='mediaID' value='<?php echo $mediaID ?>'>
                         <input name="title" type="text" class="input" autocomplete="off" placeholder="Title*" value="<?php echo $title ?>">
                         <input name="release_date" type="text" class="input" autocomplete="off" placeholder="Release Date" value="<?php echo $rd ?>">
                         <input name="description" type="text" class="input" autocomplete="off" placeholder="Description" value="<?php echo $desc ?>">

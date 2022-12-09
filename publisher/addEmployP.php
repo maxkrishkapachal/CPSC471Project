@@ -7,7 +7,11 @@
       //get users
     checkTable($conn, "USER");
 
-    $pname = $_SESSION['element'];
+    $pname = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+      $pname = $_GET['name'];
+    }
 
     $query = "SELECT * FROM crew" ;
     $result = mysqli_query($conn,$query);
@@ -18,6 +22,7 @@
  
 
     if(isset($_REQUEST['add'])){
+        $pname = $_POST['pname'];
         $cID = convertQuotes($_POST['cID'], "SYMBOLS");
 
         if(!empty($cID)){
@@ -29,7 +34,7 @@
             ";
             
             mysqli_query($conn, $query);
-            header("Location: addEmployP.php");
+            header("Location: addEmployP.php?name=$pname");
             die;
         }
     }  
@@ -47,7 +52,7 @@
     
     <title>addEmployP</title>
     <div class='row-of-buttons'>
-      <button class='btn'><a href="../media/media.php">Go Back</a></button>
+      <button class='btn'><a href="../media/publisher.php?name=<?php echo $pname ?>">Go Back</a></button>
     </div> 
     <style>
 
@@ -101,12 +106,14 @@ if ($result->num_rows > 0) {
 
 
       echo "<form action='' method='POST'>";
+      echo "<input hidden name='pname' value='$pname'>";
+                         
       echo "<input hidden name='cID' value='$cID'>";
       echo '<tr> 
       <td>'. $cname ;
       echo "<div class='search-buttons'>";
       if (mysqli_num_rows($c_result)==0){
-        echo '<input name="add" type="submit" class="btn" value="Add">';
+        echo '<input name="add" type="submit" class="btn btn-input" value="Add">';
       }else{
         echo '★Crew';
       }

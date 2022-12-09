@@ -5,7 +5,11 @@
     include('../gen/functions.php');
 
     $user_data = getUserData($conn);
-    $mediaID = $_SESSION['mediaID'];
+    $mediaID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+      $mediaID = $_GET['id'];
+    }
 
     if(isset($_REQUEST['add'])){
         # content, commentID, mediaID, username, date
@@ -13,6 +17,7 @@
         $commentID = createID('COM', $user_data['username']);
         $username = $user_data['username'];
         $date = getDateTime();
+        $mediaID = $_POST['mediaID'];
 
         if(!empty($content)){
             checkTable($conn, 'COMMENT');
@@ -25,14 +30,13 @@
             
             # here, we would actually want to go back to the media page, haven't made those yet
             # for now, we'll just have it go back to the main page
-            $_SESSION['id'] = $mediaID;
-            header("Location: ../media/media.php");
+            header("Location: ../media/media.php?id=$mediaID");
             die;
         }
     }
     if(isset($_REQUEST['cancel'])){
-        $_SESSION['id'] = $mediaID;
-        header("Location: ../media/media.php");
+        $mediaID = $_POST['mediaID'];
+        header("Location: ../media/media.php?id=$mediaID");
         die;
     }    
 ?> 
@@ -52,7 +56,8 @@
           <div class="active">
             <form class="add-comment-form" action="" method="post">
               <input name="content" type="text" class="input" id="content" autocomplete="off" placeholder="What would you like to say?*">
-    
+              <input hidden name='mediaID' value='<?php echo $mediaID ?>'>
+              
               <input name="add" type="submit" class="button" value="Add Comment">
               <input name="cancel" type="submit" class="button" value="Cancel">
             </form>

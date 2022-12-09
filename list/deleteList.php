@@ -4,7 +4,12 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
-    $user_listID = $_SESSION['list-instance'];
+    $user_listID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $user_listID = $_GET['listinst'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'LOGS');
@@ -24,6 +29,7 @@
     }
 
     if(isset($_REQUEST['delete'])){
+        $user_listID = $_POST['listID'];
         $list_delete = "
             DELETE 
             FROM LIST
@@ -57,7 +63,8 @@
                         <div class='media-title-div'>
                             <label class='media-title'>Delete List <?php echo $list_name ?>?</label>
                         </div>
-                        
+                        <input hidden name='listID' value='<?php echo $user_listID ?>'>
+                         
                         <input name="delete" type="submit" class="button" value="Delete">
                         <input name="cancel" type="submit" class="button" value="Cancel">
                     </form>

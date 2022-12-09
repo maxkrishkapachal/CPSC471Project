@@ -7,7 +7,11 @@
       //get users
     checkTable($conn, "USER");
 
-    $mediaID = $_SESSION['element'];
+    $mediaID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+      $mediaID = $_GET['id'];
+    }
 
     $query = "SELECT * FROM publisher" ;
     $result = mysqli_query($conn,$query);
@@ -19,6 +23,7 @@
 
     if(isset($_REQUEST['add'])){
         $name = convertQuotes($_POST['pname'], "SYMBOLS");
+        $mediaID = $_POST['mediaID'];
 
         if(!empty($name)){
           echo "$name";
@@ -29,7 +34,7 @@
             ";
             
             mysqli_query($conn, $query);
-            header("Location: addPublishedM.php");
+            header("Location: addPublishedM.php?id=$mediaID");
             die;
         }
     }  
@@ -47,7 +52,7 @@
     
     <title>addPublished</title>
     <div class='row-of-buttons'>
-      <button class='btn'><a href="../media/media.php">Go Back</a></button>
+      <button class='btn'><a href="../media/media.php?id=<?php echo $mediaID ?>">Go Back</a></button>
     </div> 
     <style>
 
@@ -77,6 +82,7 @@
     <div class= "media-body">
 </head>
     <body>
+                        
     <?php
 
 if ($result->num_rows > 0) {
@@ -100,12 +106,13 @@ if ($result->num_rows > 0) {
 
 
       echo "<form action='' method='POST'>";
+      echo "<input hidden name='mediaID' value='$mediaID'>";
       echo "<input hidden name='pname' value='$pname'>";
       echo '<tr> 
       <td>'. convertQuotes($pname, "QUOTES");
       echo "<div class='search-buttons'>";
       if (mysqli_num_rows($c_result)==0){
-        echo '<input name="add" type="submit" class="btn" value="Add">';
+        echo '<input name="add" type="submit" class="btn btn-input" value="Add">';
       }else{
         echo '★Publisher';
       }

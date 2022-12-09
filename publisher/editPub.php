@@ -4,7 +4,12 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
-    $pubID = $_SESSION['name'];
+    $pubID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $pubID = $_GET['name'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'PUBLISHER');
@@ -19,35 +24,34 @@
 
     if($pub_result && mysqli_num_rows($pub_result) == 1){
         $pub = mysqli_fetch_assoc($pub_result);
+        $name = convertQuotes($pub['name'], "QUOTES");
+        $desc = convertQuotes($pub['description'], "QUOTES");
+
     }
 
-    $name = convertQuotes($pub['name'], "QUOTES");
-    $desc = convertQuotes($pub['description'], "QUOTES");
-
+    
 
     if(isset($_REQUEST['save'])){
+        $pubID = $_POST['pubID'];
         $desc = convertQuotes($_POST['desc'], "SYMBOLS");
-    
-        if(!empty($name)){
-            $pub_edit = "
-                UPDATE PUBLISHER
-                SET description = '$desc'
-                WHERE name = '$pubID'
-            ";
-                
-            mysqli_query($conn, $pub_edit);
+        $pub_edit = "
+            UPDATE PUBLISHER
+            SET description = '$desc'
+            WHERE name = '$pubID'
+        ";
             
-            returnAddy($pubID);
-        }
+        mysqli_query($conn, $pub_edit);
+        
+        returnAddy($pubID);
     }
 
     if(isset($_REQUEST['cancel'])){
+        $pubID = $_POST['pubID'];
         returnAddy($pubID);
     }
 
     function returnAddy($pubID){
-        $_SESSION['name'] = $pubID;
-        header("Location: ../media/publisher.php");
+        header("Location: ../media/publisher.php?name=$pubID");
         die;
     }
     
@@ -67,7 +71,9 @@
                     <form class="edit-pub-form" action="" method="post">
                         <div class='media-title-div'>
                             <label class='media-title'><?php echo $name ?></label>
-                        </div>    
+                        </div>   
+                        <input hidden name='pubID' value='<?php echo $pubID ?>'>
+                         
                         <input name="desc" type="text" class="input" autocomplete="off" placeholder="Description" value="<?php echo $desc ?>">
                     
                         <input name="save" type="submit" class="button" value="Save Publisher">

@@ -4,13 +4,18 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
-    $user_logID = $_SESSION['log-instance'];
+    $user_logID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $user_logID = $_GET['loginst'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'LOGS');
 
     $get_log = "
-        SELECT M.title
+        SELECT M.title, M.ID
         FROM LOGS AS L, MEDIA AS M
         WHERE L.logID = '$user_logID'
         AND L.mediaID = M.ID
@@ -22,9 +27,13 @@
         $user_log = mysqli_fetch_assoc($log_result);
 
         $title = convertQuotes($user_log['title'], "QUOTES");
+        $mediaID = $user_log['ID'];
     }
 
     if(isset($_REQUEST['delete'])){
+        $mediaID = $_POST['mediaID'];
+        $user_logID = $_POST['userLog'];
+
         $log_delete = "
             DELETE 
             FROM LOGS
@@ -32,6 +41,19 @@
         ";
             
         mysqli_query($conn, $log_delete);
+
+        
+        $query = "
+            UPDATE MEDIA
+            SET ranking = (
+            SELECT AVG(rating) AS rating 
+            FROM LOGS 
+            WHERE mediaID = '$mediaID'
+            )
+            WHERE ID = '$mediaID'
+        ";
+
+        mysqli_query($conn, $query);
         
         header("Location: ../acc/home.php");
         die;
@@ -58,7 +80,9 @@
                         <div class='media-title-div'>
                             <label class='media-title'>Delete Log for <?php echo $title ?>?</label>
                         </div>
-                        
+                        <input hidden name='userLog' value='<?php echo $user_logID ?>'>
+                        <input hidden name='mediaID' value='<?php echo $mediaID ?>'>
+              
                         <input name="delete" type="submit" class="button" value="Delete">
                         <input name="cancel" type="submit" class="button" value="Cancel">
                     </form>

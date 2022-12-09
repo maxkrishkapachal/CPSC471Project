@@ -4,7 +4,12 @@
     include("../gen/functions.php");
     include("../gen/connect.php");
 
-    $user_listID = $_SESSION['list-instance'];
+    $user_listID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $user_listID = $_GET['listinst'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'LIST');
@@ -32,17 +37,14 @@
     if(isset($_REQUEST['view-button']) && isset($_REQUEST['elem-instance'])){
         $element_type = explode("~~", $_POST['elem-instance']);
         
-        $return_add = "Location: ../media/publisher.php";
-        $_SESSION['name'] = $element_type[1];
+        $return_add = "Location: ../media/publisher.php?name=".$element_type[1];
 
         if($element_type[0] == "M"){
-            $return_add = "Location: ../media/media.php";
-            $_SESSION['id'] = $element_type[1];
+            $return_add = "Location: ../media/media.php?id=".$element_type[1];
         }
 
         else if($element_type[0] == "C"){
-            $return_add = "Location: ../media/crew.php";
-            $_SESSION['crewID'] = $element_type[1];
+            $return_add = "Location: ../media/crew.php?crewID=".$element_type[1];
         }
 
         header($return_add); 
@@ -52,8 +54,7 @@
     if(isset($_REQUEST['delete-from-list-button']) && isset($_REQUEST['elem-instance'])){
         $element_type = explode("~~", $_POST['elem-instance']);
 
-        $_SESSION['elem-instance'] = $element_type[2];
-        header('Location: elem/deleteElem.php'); 
+        header('Location: elem/deleteElem.php?eleminst='.$element_type[2]); 
         die;
     }
 ?>
@@ -68,7 +69,7 @@
         <form method='post'>
             <div class='account'>
                 <div class='row-of-buttons'>
-                    <input class='btn' type='submit' name='back-button' value='Home'>
+                    <input class='btn btn-input' type='submit' name='back-button' value='Home'>
                 </div>
                 <div class='welcome-label-div'>
                     <label class='welcome-label'>
@@ -88,12 +89,12 @@
             <div class='main-page-container'>   
                 <div class='log ll-box'> 
                     <div class='mpc-buttons'>
-                        <input class='btn' type='submit' name='view-button' value='View'>
-                        <input class='btn' type='submit' name='delete-from-list-button' value='Delete From List'>
+                        <input class='btn btn-input' type='submit' name='view-button' value='View'>
+                        <input class='btn btn-input' type='submit' name='delete-from-list-button' value='Delete From List'>
                     </div>
                     <form class='log mpc-el search-form' id="form" role="search">
                         <input class='log mpc-el' type="search" id="query" name="elem-search"  placeholder="Search List Elements...">
-                        <button class='log mpc-el btn'>Search</button>
+                        <button class='log mpc-el btn btn-input'>Search</button>
                     </form> 
                     <div class='scroll scroll-elem'>
                         <div class='scr'>

@@ -4,7 +4,12 @@
     include("../../gen/connect.php");
     include('../../gen/functions.php');
 
-    $user_elemID = $_SESSION['elem-instance'];
+    $user_elemID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $user_elemID = $_GET['eleminst'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'ELEMENT');
@@ -22,6 +27,8 @@
     }
     
     if(isset($_REQUEST['delete'])){
+        $user_listID = $_POST['listID'];
+        $user_elemID = $_POST['elementID'];
         $elem_delete = "
             DELETE 
             FROM ELEMENT
@@ -34,13 +41,12 @@
     }
 
     if(isset($_REQUEST['cancel'])){
+        $user_listID = $_POST['listID'];
         returnAddy($user_listID);
     }
 
     function returnAddy($user_listID){
-        $_SESSION['list-instance'] = $user_listID;
-
-        header("Location: ../viewList.php");
+        header("Location: ../viewList.php?listinst=$user_listID");
         die;
     }
 ?>
@@ -60,6 +66,9 @@
                         <div class='media-title-div'>
                             <label class='media-title'>Are you sure you want to delete?</label>
                         </div>
+                        <input hidden name='elementID' value='<?php echo $user_elemID ?>'>
+                        <input hidden name='listID' value='<?php echo $user_listID ?>'>
+                         
                         
                         <input name="delete" type="submit" class="button" value="Delete">
                         <input name="cancel" type="submit" class="button" value="Cancel">

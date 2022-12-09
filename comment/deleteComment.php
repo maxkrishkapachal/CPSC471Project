@@ -40,12 +40,12 @@
             
         mysqli_query($conn, $comment_delete);
 
-        header("Location: ../media/media.php");
+        header("Location: ../media/media.php?id=$mediaID");
         die;
     }
 
     if(isset($_POST['cancel'])){
-        header('Location: ../media/media.php'); 
+        header('Location: ../media/media.php?id='.$mediaID); 
         die;
     }
 ?>

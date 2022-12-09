@@ -4,7 +4,12 @@
     include("../gen/connect.php");
     include('../gen/functions.php');
 
-    $user_listID = $_SESSION['list-instance'];
+    $user_listID = NULL;
+
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        $user_listID = $_GET['listinst'];
+    }
+
     $user_data = getUserData($conn);
 
     checkTable($conn, 'LIST');
@@ -25,6 +30,7 @@
     }
 
     if(isset($_REQUEST['save'])){
+        $user_listID = $_POST['listID'];
         $list_name = convertQuotes($_POST['list_name'], "SYMBOLS");
         $desc = convertQuotes($_POST['desc'], "SYMBOLS");
 
@@ -61,6 +67,8 @@
             <div class="tabs-content">
                 <div class="active">
                     <form class="edit-list-form" action="" method="post">
+                        <input hidden name='listID' value='<?php echo $user_listID ?>'>
+                        
                         <input name="list_name" type="text" class="input" id="list_name" autocomplete="off" value="<?php echo $list_name ?>">
                         <input name="desc" type="text" class="input" id="desc" autocomplete="off" value="<?php echo $desc ?>">
                         

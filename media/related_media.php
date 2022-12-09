@@ -4,13 +4,14 @@
     include("../gen/functions.php");
 
     $user_data = getUserData($conn);
+
+    $mediaID = NULL;
     
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
         $mediaID = $_GET['id'];
     }  
 
 
-    require "header.php";
 
     // get tag
     $query = "SELECT * FROM media_tag WHERE mediaID = '$mediaID' ";
@@ -63,9 +64,13 @@
     text-decoration: underline;
     }
     </style>
-    <br>&nbsp;&nbsp;<button class='btn'><a href="#" onclick="history.go(-1)">Go Back</a></button>        
-    <div class="media-title">
-        <?php echo '<br>'."&nbsp;&nbsp;"."Media related to ". $m_row['title'].'<br>'; ?>
+    <br>&nbsp;&nbsp;<button class='btn'><a href="../media/media.php?id=<?php echo $mediaID ?>">Go Back</a></button>       
+    <div class='welcome-label-div'>
+      <label class='welcome-label'>
+        <?php 
+          echo "Media Related to ".convertQuotes($m_row['title'], "QUOTES");
+        ?>
+      </label>
     </div>
 </head>
 
@@ -91,7 +96,7 @@ if ($result->num_rows > 0) {
         }
 
         while ($related_row = mysqli_fetch_assoc($related_result)){
-            $rm_query = "SELECT * FROM media WHERE ID = '".$related_row['mediaID']."'"."AND ID <> '$mediaID' ";
+            $rm_query = "SELECT * FROM media WHERE ID = '".$related_row['mediaid']."'"."AND ID <> '$mediaID' ";
             $rm_result = mysqli_query($conn,$rm_query);
             if(!$rm_result){
                   echo "SORRY CAN'T FIND THIS:(" . mysqli_error($conn);
@@ -100,7 +105,7 @@ if ($result->num_rows > 0) {
             $rm_row = mysqli_fetch_assoc($rm_result);
 
             echo '<tr> 
-            <td>'. "<a href='media.php?id=".$rm_row['id']."'</a>".$rm_row['title'].'</td> 
+            <td>'. "<a href='media.php?id=".$rm_row['ID']."'</a>".$rm_row['title'].'</td> 
             <td>'. $related_row['tag']. '</td> 
             </tr>'."<br>";
         
