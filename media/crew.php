@@ -121,6 +121,9 @@
                               echo "<br>"."<br>";
                           }
                       }
+
+                      echo "<br><br><button class='btn'><a href='../crew/addEmploysC.php?crewID=".$crewID."'>Add Publisher</a></button><br>";
+
                   ?>
 
                   <br><br>
